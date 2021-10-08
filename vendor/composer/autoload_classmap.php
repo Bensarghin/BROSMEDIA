@@ -20,6 +20,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Models\\Acte' => $baseDir . '/app/Models/Acte.php',
+    'App\\Models\\Etat_rdv' => $baseDir . '/app/Models/Etat_rdv.php',
     'App\\Models\\Medecin' => $baseDir . '/app/Models/Medecin.php',
     'App\\Models\\Patient' => $baseDir . '/app/Models/Patient.php',
     'App\\Models\\Rdv' => $baseDir . '/app/Models/Rdv.php',

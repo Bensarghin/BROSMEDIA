@@ -25,7 +25,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Acceuil</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Rendey-vous</a>
+                    <a class="nav-link" href="#">Planni</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">Patient</a>

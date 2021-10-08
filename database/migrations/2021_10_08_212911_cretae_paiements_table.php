@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEtatrdvsTable extends Migration
+class CretaePaiementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateEtatrdvsTable extends Migration
      */
     public function up()
     {
-        Schema::create('etat_rdvs', function (Blueprint $table) {
+        Schema::create('paiements', function (Blueprint $table) {
             $table->id();
-            $table->date('date_consu');
-            $table->string('duree');
-            $table->integer('rdv_id')->references('id')->on('rdvs');
-            $table->integer('med_id')->references('id')->on('medecins');
+            $table->float('montant');
+            $table->date('date_pay');
+            $table->foreignId('pat_id')->references('id')->on('patients');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateEtatrdvsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('etat_rdvs');
+        Schema::dropIfExists('paiements');
     }
 }
