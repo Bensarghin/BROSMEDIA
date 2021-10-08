@@ -25,17 +25,16 @@
                     <a class="nav-link active" aria-current="page" href="#">Acceuil</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Planni</a>
+                    <a class="nav-link" href="#">Rendey-vous</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Patient</a>
+                    <a class="nav-link" href="#">Patients</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Medecin</a>
+                    <a class="nav-link" href="#">Medecins</a>
                   </li>
-                  
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Medecin</a>
+                    <a class="nav-link" href="#">Actes</a>
                   </li>
                   <li class="nav-item dropdown d-flex">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
