@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
-
-Route::get('/test', function () {
-    return view('test');
+Route::prefix('patient')->group(function () {
+    Route::get('manage', [patientController::class,"index"])->name('patient.manage');
+    
 });
-
-Route::get('/pt', [patientController::class,"index"]);
