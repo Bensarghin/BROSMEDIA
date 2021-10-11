@@ -8,7 +8,7 @@ use App\Models\Patient;
 class patientController extends Controller
 {
     public function index(){
-        $patients = DB::table('patients')->find(1);
-        return view('dataget',['data'=>$patients]);
+        $patients = DB::table('patients')->get();
+        return view('admin_pages.patient.manage',['data'=>$patients]);
     }
 }
