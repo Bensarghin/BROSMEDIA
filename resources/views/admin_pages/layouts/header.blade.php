@@ -27,7 +27,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Acceuil</a>
+          <a class="nav-link active" aria-current="page" href="{{route('home.index')}}">Acceuil</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Rendey-vous</a>
@@ -64,7 +64,7 @@
     </div>
     <div class="offcanvas-body">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="#">Accueil</a></li>
+        <li class="list-group-item"><a href="{{route('home.index')}}">Accueil</a></li>
         <li class="list-group-item"><a href="#">A propos de nous</a></li>
         <li class="list-group-item"><a href="#">Contact</a></li>
         <div class="list-unstyled">
@@ -83,4 +83,5 @@
   </div>
 
   <div class="page-content">
+
   {{-- content of pages --}}

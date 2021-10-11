@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\patientController;
+use App\Http\Controllers\acceuilController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [acceuilController::class,"index"])->name('home.index');
+
 Route::prefix('patient')->group(function () {
     Route::get('manage', [patientController::class,"index"])->name('patient.manage');
     

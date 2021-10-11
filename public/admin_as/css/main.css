@@ -1,12 +1,27 @@
+/* ######## Global style ######## */
 .cal-div{
     height: 200px;
 }
-/* ########  title of content ########  */
+
+/* header of content */
+.content-header{
+    margin: 20px auto;
+}
 .content-title{
     margin: 15px 35px;
     width: 250px;
     text-transform: uppercase;
     font-weight: bold;
+}
+.ajoute-btn{
+    float: right;
+    margin: 15px 35px;
+    width: 250px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.content-title, .ajoute-btn{
+    display: inline-block;
 }
 .content-title span{
     display: block;
@@ -14,6 +29,19 @@
     width: 100px;
     background-color: rgba(0,0,0,.125);
 }
+
+/* filter */
+.filter{
+
+}
+.filter .input-group select{
+    margin: 0px 10px;
+}
+.filter .input-group .input-group-prepend span{
+    padding: 10px;
+}
+
+
 /* ######## content of pages ######## */
 /* home view */
 .page-content{
@@ -23,6 +51,8 @@
     margin: 5px;
     width: 265px;
 }
+
+
 /* ######## hidden left navbar ######## */
 /* body */
 .offcanvas-body  ul {
@@ -43,6 +73,7 @@
     border: 1px solid rgba(0,0,0,.125);
     padding: 5px;
 }
+
 /* footer */
 .offcanvas-footer{
     margin: 0px 35px;
@@ -59,3 +90,10 @@
     text-align: center;
 }
 
+
+/* ######## patient page style ######## */
+.table-dark a{
+    color: #878787e0;
+    margin: 15px;
+    text-decoration: none;
+}
