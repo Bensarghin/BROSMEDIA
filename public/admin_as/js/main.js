@@ -1,4 +1,6 @@
 $(function(){
-      $("#calendar").simpleCalendar();
+  new Calendar({
+    id: '#color-calendar',
+})
     });
     
