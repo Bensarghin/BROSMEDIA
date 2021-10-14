@@ -102,23 +102,34 @@
             <img src="{{asset('login_p/tooth.png')}}">
         </header>
         <div class="inputs">
-            <input id="email" type="email" placeholder="Email Ou nom" @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            <input id="email" type="email" placeholder="Email ..." @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
     
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-            <input id="password" type="password" placeholder="Entrer Le MotDePass" @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+            <input id="password" type="password" placeholder="Mot de pass ..." @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
             @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
-        </div>
+        </div> 
     </div>
 
     <footer>
+        <div class="form-group row">
+            <div class="col-md-6 offset-md-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                    <label class="form-check-label" for="remember">
+                        {{ __('Remember Me') }}
+                    </label>
+                </div>
+            </div>
+        </div>
         <button type="submit">Login</button>
     </footer>
     </form>

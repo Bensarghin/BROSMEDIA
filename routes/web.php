@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\patientController;
+use App\Http\Controllers\RendeyVousController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,9 +22,22 @@ Route::get('/', function () {
 Route::get('/test', function () {
     return view('test2');
 });
+
 Route::prefix('patient')->group(function () {
     Route::get('manage', [patientController::class,"index"])->name('patient.manage');
     Route::post('add', [patientController::class,"insert"])->name('patient.add');
+    Route::get('update/{id}', [patientController::class,"update"])->name('patient.update');
+    Route::post('update/{id}', [patientController::class,"update"])->name('patient.update');
+    Route::get('delete/{id}', [patientController::class,"delete"])->name('patient.delete');
+    
+});
+
+Route::prefix('rendy-vous')->group(function () {
+    Route::get('manage', [RendeyVousController::class,"index"])->name('rdv.manage');
+    Route::post('add', [RendeyVousController::class,"insert"])->name('rdv.add');
+    Route::get('update/{id}', [RendeyVousController::class,"update"])->name('rdv.update');
+    Route::post('update/{id}', [RendeyVousController::class,"update"])->name('rdv.update');
+    Route::get('delete/{id}', [RendeyVousController::class,"delete"])->name('rdv.delete');
     
 });
 

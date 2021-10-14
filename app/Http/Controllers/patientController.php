@@ -32,4 +32,35 @@ class patientController extends Controller
             return redirect()->route('patient.manage');
         }
     }
+
+    public function update(Request $request,$id)
+    {
+        
+        if($request->isMethod('GET') && isset($id)){
+        
+            $patients = DB::table('patients')
+            ->where('id', '=', $id)
+            ->get();
+            return view('admin_pages.patient.manage#staticBackdrop',['data'=>$patients]);
+        }
+        if($request->isMethod('POST')){
+            $affected = DB::table('patients')
+              ->where('id', $id)
+              ->update(['cin' => $request->input('cin'),
+                        'nom' => $request->input('nom'),
+                        'prenom' => $request->input('prenom'),
+                        'sexe' => $request->input('sexe'),
+                        'date_nais' => $request->input('date_nais'),
+                        'tele' => $request->input('tele'),
+                        'adresse' => $request->input('adresse')]);
+            return redirect()->route('patient.manage');
+              
+        }
+    }
+
+    public function delete($id)
+    {
+        DB::table('patients')->where('id', '=', $id)->delete();
+        return redirect()->route('patient.manage');
+    }
 }
