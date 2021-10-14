@@ -2,15 +2,14 @@
 @section('content')
 
 {{-- card for statistics --}}
-<div class="card">Aujourd'hui : 15 / 08 / 2021 </div>
+<div class="today">Aujourd'hui : 15 / 08 / 2021 </div>
 <div class="col-md-12 col-lg-12">
     <div class="row">
         <div class="col-md">
             <div class="card bg-gradient-info overflow-hidden text-white" style="height: 179px;">
                 {{-- Rendy vous --}}
                 <div class="card-body pb-0">
-                    <p class=" mb-1 ">Rendey vous<img src="./assets/images/pro.svg"
-                            style="width:40px;float: right;" alt="" srcset=""></p>
+                    <p class=" mb-1 ">Rendey vous</p>
                     <h2 class="mb-1 font-weight-bold fs-30">
                             10
                     </h2>
@@ -39,8 +38,7 @@
             {{-- Patients --}}
             <div class="card bg-gradient-danger overflow-hidden text-white" style="height: 179px;">
                 <div class="card-body pb-0">
-                    <p class=" mb-1 ">Patients <img src="./assets/images/Patientt.svg"
-                            style="width:40px;float: right;" alt="" srcset=""></p>
+                    <p class=" mb-1 ">Patients</p>
                     <h2 class="mb-1 font-weight-bold fs-30">
                         66
                     </h2>
@@ -69,8 +67,7 @@
             <div class="card bg-gradient-info overflow-hidden text-white" style="height: 179px;">
                 {{-- Gains --}}
                 <div class="card-body pb-0">
-                    <p class=" mb-1 ">Gains <img src="./assets/images/four.svg"
-                            style="width:70px;float: right;" alt="" srcset=""></p>
+                    <p class=" mb-1 ">Gains </p>
                     <h2 class="mb-1 font-weight-bold fs-30">
                         60.4545 DH
                     </h2>
@@ -99,8 +96,7 @@
             <div class="card bg-gradient-danger overflow-hidden text-white" style="height: 179px;">
                 {{-- Traitement --}}
                 <div class="card-body pb-0">
-                    <p class=" mb-1 ">Traitements<img src="./assets/images/pro.svg"
-                            style="width:40px;float: right;" alt="" srcset=""></p>
+                    <p class=" mb-1 ">Traitements</p>
                     <h2 class="mb-1 font-weight-bold fs-30">
                         5
                     </h2>
@@ -129,4 +125,24 @@
     </div>
 
 </div>
+<div id="app">
+
+</div>
+<div id="vueApps">
+    <p v-text="nom +' '+ prenom"></p>
+</div>
+
+
+
+
+<script src="{{asset('js/app.js')}}"></script>
+<script>
+    var vm = new Vue({
+        el:'#vueApps',
+        data:{
+            nom:'hamid',
+            prenom: 'bensarghin'
+        },
+    })
+</script>
 @endsection

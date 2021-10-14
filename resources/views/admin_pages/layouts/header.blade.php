@@ -126,19 +126,24 @@
                     <div class="app-header header">
                         <div class="container-fluid">
                             <div class="d-flex">
-                                <a class="header-brand" href="index.php"> <img src="{{asset('sheet/assets/images/icoon.png')}}"
-                                        class="header-brand-img desktop-lgo" alt="DentaireBros"> <img
-                                        src="{{asset('sheet/assets/images/icoon.png')}}" class="header-brand-img dark-logo"
-                                        alt="DentaireBros"> <img src="{{asset('sheet/assets/images/icoon.png')}}"
+                                <a class="header-brand" href="index.php"> 
+                                    <img src="{{asset('sheet/assets/images/icoon.png')}}"
+                                        class="header-brand-img desktop-lgo" alt="DentaireBros"> 
+                                    <img src="{{asset('sheet/assets/images/icoon.png')}}" class="header-brand-img dark-logo"
+                                        alt="DentaireBros"> 
+                                    <img src="{{asset('sheet/assets/images/icoon.png')}}"
                                         style="width:40px;height: 40px;" class="header-brand-img mobile-logo"
-                                        alt="DentaireBros"> <img src="{{asset('sheet/assets/images/Gestion de Stock.png')}}"
-                                        class="header-brand-img darkmobile-logo" alt="DentaireBros"> </a>
-                                <div class="app-sidebar__toggle" data-toggle="sidebar"> <a class="open-toggle" href="#">
+                                        alt="DentaireBros">  
+                                </a>
+                                <div class="app-sidebar__toggle" data-toggle="sidebar"> 
+                                    <a class="open-toggle" href="#">
                                         <svg class="header-icon mt-1" xmlns="http://www.w3.org/2000/svg" height="24"
                                             viewBox="0 0 24 24" width="24">
                                             <path d="M0 0h24v24H0V0z" fill="none"></path>
                                             <path d="M21 11.01L3 11v2h18zM3 16h12v2H3zM21 6H3v2.01L21 8z"></path>
-                                        </svg> </a> </div>
+                                        </svg>
+                                    </a> 
+                                </div>
                                 <div class="mt-1">
 
                                 </div><!-- SEARCH -->
@@ -187,7 +192,7 @@
                                     <div class="dropdown profile-dropdown"> <a href="#"
                                             class="nav-link pr-0 pl-2 leading-none" data-toggle="dropdown">
                                             <span class="avatar brround"
-                                                style="background-image: url(../assets/images/User.svg)"> <span
+                                                style="background-image: url(sheet/assets/images/User.svg)"> <span
                                                     class="avatar-status bg-green"></span> </span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated p-0">
