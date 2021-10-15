@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\patientController;
 use App\Http\Controllers\RendeyVousController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,9 +20,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('home');
 })->middleware('auth');
-Route::get('/test', function () {
-    return view('test2');
-});
+Route::get('/getdata', [HomeController::class,'getdata']);
 
 Route::prefix('patient')->group(function () {
     Route::get('manage', [patientController::class,"index"])->name('patient.manage');

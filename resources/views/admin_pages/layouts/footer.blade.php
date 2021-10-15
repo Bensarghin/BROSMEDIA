@@ -61,6 +61,10 @@
                                             });
                                         </script>
 
+
+
+
+    <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('sheet/assets/plugins/bootstrap/popper.min.js')}}"></script>
     <script src="{{asset('sheet/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('sheet/assets/plugins/othercharts/jquery.sparkline.min.js')}}"></script>

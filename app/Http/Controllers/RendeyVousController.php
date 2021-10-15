@@ -18,7 +18,7 @@ class RendeyVousController extends Controller
         ->join('patients', 'patients.id', '=', 'rdvs.pat_id')
         ->join('etat_rdvs', 'rdvs.id', '=', 'etat_rdvs.rdv_id')
         ->join('actes', 'actes.id', '=', 'rdvs.act_id')
-        ->select('rdvs.*', 'patients.nom', 'patients.prenom','actes.nom_acte')
+        ->select('rdvs.*', 'patients.nom', 'patients.prenom','actes.nom_acte','etat_rdvs.date_consu')
         ->get();
         return view('admin_pages.rendey-vous.manage',['data'=>$rdvs]);
     }

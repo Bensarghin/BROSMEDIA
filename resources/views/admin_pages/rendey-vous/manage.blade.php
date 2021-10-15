@@ -16,15 +16,19 @@
         <div class="table-responsive">
             <table class='table table-light table-hover'>
                 <tr>
-                    <td>DATE PREND RDV</td>
+                    
                     <td>PATIENT</td>
+                    <td>DATE PREND RDV</td>
+                    <td>DATE CONSULTATION</td>
                     <td>ACTE</td>
                     <td>MAJ</td>
                 </tr>
                 @foreach ($data as $rdv)
                 <tr>
-                    <td>{{$rdv->date_prend_rdv}}</td>
+                    
                     <td>{{$rdv->nom}} {{$rdv->prenom}} </td>
+                    <td>{{$rdv->date_prend_rdv}}</td>
+                    <td>{{$rdv->date_consu}}</td>
                     <td>{{$rdv->nom_acte}}</td>
                     <td> 
                         <a href="{{route('rdv.update',['id'=>$rdv->id])}}" data-bs-toggle="modal" data-bs-target="{{route('rdv.update',['id'=>$rdv->id])}}#staticBackdrop"><img src="{{asset('sheet/assets/images/details.svg')}}" style="height:25px"></a> | 
