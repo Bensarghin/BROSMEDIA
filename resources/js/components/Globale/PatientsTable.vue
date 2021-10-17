@@ -1,8 +1,8 @@
 <template>
     <div>
     <filter-component @table-filtrer="refresh"></filter-component>
-        <table class="table table-light bg-light">
-            <thead class="table-light">
+        <table class="table table-striped table-light bg-light">
+            <thead>
                 <tr>
                     <td>cin</td>
                     <td>nom</td>
@@ -19,10 +19,12 @@
                 <td>{{patient.prenom}}</td>
                 <td>{{patient.sexe}}</td>
                 <td>12 : 00</td>
-                <td>Différé | <a>Modifier</a></td>
                 <td>
-                    <a href="#">Contact</a>
-                    <a href="#">Contact</a>
+                    <span class="text-warning">Différé</span> | <a class="text-info"><i class="fas fa-edit"></i> Modifier</a>
+                </td>
+                <td>
+                    <a href="#" class="text-primary"><i class="fas fa-info"></i> Contact</a> | 
+                    <a href="#" class="text-success"><i class="fas fa-info"></i> Traitements</a>
                 </td>
             </tr>
         </table>    
@@ -40,7 +42,7 @@
         
         created () {
             axios
-            .get('/getdata')
+            .get('/patient/getJson')
             .then(response => (this.data = response.data))
         },
         methods:{

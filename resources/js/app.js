@@ -18,10 +18,18 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+//Globale component
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('patients-table', require('./components/patient/PatientsTable.vue').default);
-Vue.component('add-patient', require('./components/patient/AddPatient.vue').default);
-Vue.component('filter-component', require('./components/globalCompenent/FilterComponent.vue').default);
+Vue.component('patients-table', require('./components/Globale/PatientsTable.vue').default);
+Vue.component('add-patient', require('./components/Globale/AddPatient.vue').default);
+Vue.component('filter-component', require('./components/Globale/FilterComponent.vue').default);
+
+// acte components
+Vue.component('acte-search-component', require('./components/acte/searchComponent.vue').default);
+Vue.component('acte-list-component', require('./components/acte/listComponent.vue').default);
+
+// patient components
+Vue.component('patient-search-component', require('./components/patient/searchComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

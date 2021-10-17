@@ -64,7 +64,8 @@
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                </svg> <span class="side-menu__label">Acceuil</span> </a>
+                                </svg> <span class="side-menu__label">Acceuil</span> 
+                            </a>
                         </li>
                         <li class="slide">
                             <a class="side-menu__item" href="{{route('rdv.manage')}}"> <span class="shape1"></span>
@@ -89,7 +90,7 @@
                                 <span class="side-menu__label">Patients</span> </a>
                         </li>
                         <li class="slide">
-                            <a class="side-menu__item" href="{{route('patient.manage')}}"> <span class="shape1"></span>
+                            <a class="side-menu__item" href="{{route('acte.manage')}}"> <span class="shape1"></span>
                                 <span class="shape2"></span>
                                 <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor">

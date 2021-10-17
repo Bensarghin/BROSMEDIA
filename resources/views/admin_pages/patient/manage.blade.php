@@ -7,14 +7,16 @@
     <div class="card-header">
         <div class="card-title" style="font-family:Titillium Web;margin-bottom: -30px;color: #84a9d9;font-size:30px">Liste de Patient</div> 
             <a type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-              <i class="mdi mdi-account-multiple-plus" data-toggle="tooltip" title=""
-                data-original-title="mdi-account-multiple-plus"></i>Ajouter un Patient
+              Ajouter un Patient  <i class="fas fa-folder-plus"></i>
             </a>
-            @include('admin_pages.layouts.modal')
+            @include('admin_pages.patient.modal')
+    </div>
+    <div id="app">
+        <patient-search-component></patient-search-component>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table id='exampleee' class='table table-light'>
+            <table id='exampleee' class='table table-bordered table-light bg-light'>
                 <tr>
                     <td>CIN</td>
                     <td>NOM</td>

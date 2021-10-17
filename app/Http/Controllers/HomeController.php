@@ -35,8 +35,17 @@ class HomeController extends Controller
 
     public function filtrer(Request $request)
     {
+        $nomPrenom='%';
+        $sexe='%';
+        if(isset($request->nomPrenom)){
+            $nomPrenom=$request->nomPrenom;
+        }
+        if(isset($request->sexe)){
+            $sexe=$request->sexe;
+        }
         $data = DB::table('patients')
-                ->where('sexe', '=', $request->sexe)
+                ->where('sexe', 'LIKE', $sexe)
+                ->where(DB::raw("CONCAT(nom,' ',prenom)"), 'LIKE', '%'.$nomPrenom.'%')
                 ->get();
         return response()->json($data);
         
