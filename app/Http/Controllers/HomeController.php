@@ -33,4 +33,13 @@ class HomeController extends Controller
         return response()->json($data);
     }
 
+    public function filtrer(Request $request)
+    {
+        $data = DB::table('patients')
+                ->where('sexe', '=', $request->sexe)
+                ->get();
+        return response()->json($data);
+        
+    }
+
 }

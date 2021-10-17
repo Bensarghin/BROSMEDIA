@@ -21,6 +21,7 @@ Route::get('/', function () {
     return view('home');
 })->middleware('auth');
 Route::get('/getdata', [HomeController::class,'getdata']);
+Route::post('/getdata', [HomeController::class,'filtrer']);
 
 Route::prefix('patient')->group(function () {
     Route::get('manage', [patientController::class,"index"])->name('patient.manage');

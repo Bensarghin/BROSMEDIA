@@ -123,39 +123,6 @@
         </div>
 
     </div>
-
-</div>
-<div id="filter">
-    <div class="row">
-        <div class="input-group col-sm-4">
-            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-              <option selected>Choose...</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button">Button</button>
-            </div>
-          </div>
-        <div class="input-group col-sm-4">
-            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-              <option selected>Choose...</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button">Button</button>
-            </div>
-          </div>
-          <div class="input-group col-sm-4">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span>
-            </div>
-          </div>
-    </div>
 </div>
 <div id="app">
     <patients-table></patients-table>
