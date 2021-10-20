@@ -10,13 +10,10 @@
         <a type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             AJOUTER UN ACTE <i class="fas fa-folder-plus"></i> 
         </a>
-        @include('admin_pages.acte.modal')
     </div>
     <div id="app" class="container-fluid">
         <div class="card-body">
             <acte-list-component></acte-list-component>
         </div>
     </div>
-        <script src="{{asset('js/app.js')}}"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @endsection

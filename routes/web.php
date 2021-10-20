@@ -17,10 +17,13 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// acceuil routes
 Route::get('/', function () {
     return view('home');
 })->middleware('auth');
+Route::get('/patient/getJson',[HomeController::class,'filtrer']);
+Route::post('/patient/getJson',[HomeController::class,'filtrer']);
+
 
 // patient routes
 Route::prefix('patient')->group(function () {
@@ -31,8 +34,7 @@ Route::prefix('patient')->group(function () {
     Route::get('delete/{id}', [patientController::class,"delete"])->name('patient.delete');
 
     //Json http
-    Route::get('/getJson', [HomeController::class,'getdata']);
-    Route::post('/getJson', [HomeController::class,'filtrer']);
+    Route::post('/search', [patientController::class,'search'])->name('patient.search');
     
 });
 
@@ -49,14 +51,12 @@ Route::prefix('rendy-vous')->group(function () {
 // Actes routes
 Route::prefix('acte')->group(function () {
     Route::get('manage', [ActeController::class,"index"])->name('acte.manage');
-    Route::post('add', [ActeController::class,"insert"])->name('acte.add');
-    Route::get('update/{id}', [ActeController::class,"update"])->name('acte.update');
-    Route::post('update/{id}', [ActeController::class,"update"])->name('acte.update');
-    Route::get('delete/{id}', [ActeController::class,"delete"])->name('acte.delete');
 
     //Json http
     Route::get('/getJson', [ActeController::class,'show']);
     Route::post('/getJson', [ActeController::class,'search']);
+    Route::post('/sendJson', [ActeController::class,'store']);
+    Route::post('/delete', [ActeController::class,'destroy']);
     
 });
 

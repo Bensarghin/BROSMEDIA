@@ -15,8 +15,7 @@ class ActeController extends Controller
      */
     public function index()
     {
-        $data=DB::table('actes')->get();
-        return view('admin_pages.acte.manage',['actes'=>$data]);
+        return view('admin_pages.acte.manage');
     }
 
     /**
@@ -37,7 +36,19 @@ class ActeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nomActe = $request->nomActe;
+        $prix = $request->prix;
+        $description = $request->description;
+
+         DB::table('actes')->insert([
+            'nom_acte'=> $nomActe,
+            'prix'=>$prix,
+            'description'=>$description
+        ]);
+        $actes = DB::table('actes')
+        ->orderBy('id', 'desc')
+        ->get();
+        return response()->json($actes);
     }
 
     /**
@@ -48,7 +59,9 @@ class ActeController extends Controller
      */
     public function show()
     {
-        $data=DB::table('actes')->get();
+        $data=DB::table('actes')
+        ->orderBy('id', 'desc')
+        ->get();
         return response()->json($data);
     }
 
@@ -57,6 +70,7 @@ class ActeController extends Controller
         isset($request->nomActe)? $nomActe=$request->nomActe : $nomActe='%';
         $data=DB::table('actes')
         ->where('nom_acte','LIKE','%'.$nomActe.'%')
+        ->orderBy('id', 'desc')
         ->get();
         return response()->json($data);
     }
@@ -90,8 +104,13 @@ class ActeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id=$request->id;
+        DB::table('actes')->where('id', '=', $id)->delete();
+        $data=DB::table('actes')
+        ->orderBy('id', 'desc')
+        ->get();
+        return response()->json($data);
     }
 }

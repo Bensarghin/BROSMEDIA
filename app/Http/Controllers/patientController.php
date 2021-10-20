@@ -12,7 +12,8 @@ class patientController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        $patients = DB::table('patients')->get();
+        $patients = DB::table('patients')
+        ->paginate(10);
         return view('admin_pages.patient.manage',['data'=>$patients]);
     }
     public function insert(Request $request)
@@ -38,10 +39,13 @@ class patientController extends Controller
         
         if($request->isMethod('GET') && isset($id)){
         
-            $patients = DB::table('patients')
+            $data = DB::table('patients')
             ->where('id', '=', $id)
-            ->get();
-            return view('admin_pages.patient.manage#staticBackdrop',['data'=>$patients]);
+            ->first();
+            return view('admin_pages.patient.modifier')->with([
+                'success'=>'votre patient a été bien ajouter',
+                'data'=>$data
+            ]);
         }
         if($request->isMethod('POST')){
             $affected = DB::table('patients')
@@ -56,6 +60,17 @@ class patientController extends Controller
             return redirect()->route('patient.manage');
               
         }
+    }
+
+    public function search(Request $request)
+    {
+        $nomPrenom = $request->input('nomPrenom');
+        isset($nomPrenom)? $nomPrenom=$nomPrenom : $nomPrenom='%';
+        $data = DB::table('patients')
+        ->where(DB::raw("CONCAT(nom,' ',prenom)"), 'LIKE', '%'.$nomPrenom.'%')
+        ->orderBy('id', 'desc')
+        ->paginate(10);
+        return view('admin_pages.patient.manage')->with(['data'=>$data]);
     }
 
     public function delete($id)

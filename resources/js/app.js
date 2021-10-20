@@ -27,6 +27,9 @@ Vue.component('filter-component', require('./components/Globale/FilterComponent.
 // acte components
 Vue.component('acte-search-component', require('./components/acte/searchComponent.vue').default);
 Vue.component('acte-list-component', require('./components/acte/listComponent.vue').default);
+Vue.component('acte-modal-component', require('./components/acte/modalComponent.vue').default);
+Vue.component('acte-delete-component', require('./components/acte/deleteActe.vue').default);
+
 
 // patient components
 Vue.component('patient-search-component', require('./components/patient/searchComponent.vue').default);

@@ -1,9 +1,10 @@
 <template>
     
-<div id="filter" class="mb-3">
+<div id="filter">
     <div class="row">
         <div class="input-group col-sm-4">
             <select class="custom-select"  v-model="periode" id="inputGroupSelect04" aria-label="Example select with button addon">
+              <option value="" disabled> Délai ...</option>
               <option :value="currentDateTime()" :selected="true">Aujourd'huit ...</option>
               <option value="12/08/2020">Ce semaine</option>
               <option value="12/08/2002">Ce mois</option>
@@ -12,7 +13,7 @@
           </div>
         <div class="input-group col-sm-4">
             <select class="custom-select" v-model="sexe" id="inputGroupSelect04">
-              <option value="" selected>Sexe ...</option>
+              <option value="" selected disabled>Sexe ...</option>
               <option value="M">Masculins</option>
               <option value="F">Feminins</option>
               <option value="%">Tous</option>

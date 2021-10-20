@@ -2,7 +2,7 @@
 @section('content')
 
 {{-- card for statistics --}}
-<div class="today">Aujourd'hui : 15 / 08 / 2021 </div>
+<div class="today"></div>
 <div class="col-md-12 col-lg-12">
     <div class="row">
         <div class="col-md">
@@ -127,5 +127,4 @@
 <div id="app">
     <patients-table></patients-table>
 </div>
-
 @endsection

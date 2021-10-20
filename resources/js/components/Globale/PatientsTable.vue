@@ -1,6 +1,9 @@
 <template>
-    <div>
-    <filter-component @table-filtrer="refresh"></filter-component>
+<div class="card mb-4">
+    <div class="card-header">
+        <filter-component @table-filtrer="refresh"></filter-component>
+    </div>
+    <div class="card-body">
         <table class="table table-striped table-light bg-light">
             <thead>
                 <tr>
@@ -29,6 +32,7 @@
             </tr>
         </table>    
     </div>
+</div>
 </template>
 
 <script>
