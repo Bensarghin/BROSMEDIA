@@ -4,33 +4,52 @@
         <filter-component @table-filtrer="refresh"></filter-component>
     </div>
     <div class="card-body">
-        <table class="table table-striped table-light bg-light">
-            <thead>
-                <tr>
-                    <td>cin</td>
-                    <td>nom</td>
-                    <td>prenom</td>
-                    <td>sexe</td>
-                    <td>Heure RDV</td>
-                    <td>Status RDV</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tr v-for="patient in data" :key="patient.id">
-                <td>{{patient.cin}}</td>
-                <td>{{patient.nom}}</td>
-                <td>{{patient.prenom}}</td>
-                <td>{{patient.sexe}}</td>
-                <td>12 : 00</td>
-                <td>
-                    <span class="text-warning">Différé</span> | <a class="text-info"><i class="fas fa-edit"></i> Modifier</a>
-                </td>
-                <td>
-                    <a href="#" class="text-primary"><i class="fas fa-info"></i> Contact</a> | 
-                    <a href="#" class="text-success"><i class="fas fa-info"></i> Traitements</a>
-                </td>
-            </tr>
-        </table>    
+        <div class="row">
+            <div class="col-sm-8">
+                <table class="table table-bordered bg-default text-dark">
+                    <tr>
+                        <td>cin</td>
+                        <td>nom</td>
+                        <td>prenom</td>
+                        <td>Heure RDV</td>
+                        <td>Status RDV</td>
+                        <td></td>
+                    </tr>
+                    <tr v-for="jointure in data" :key="jointure.id">
+                        <td>{{jointure.cin}}</td>
+                        <td>{{jointure.nom}}</td>
+                        <td>{{jointure.prenom}}</td>
+                        <td>12 : 00</td>
+                        <td>
+                            <span class="text-info">{{jointure.status}}</span> | <a class="text-info" @click="modStatus(jointure)"><i class="fas fa-edit"></i> Mod</a>
+                        </td>
+                        <td @click="fillCards(jointure)">
+                            <a><i class="fas fa-hand-pointer"></i> Select</a>
+                        </td>
+                    </tr>
+                </table> 
+            </div>
+            <div class="col-sm-4">
+                <div class="card text-dark bg-default mb-2">
+                    <div class="card-header bg-light"><i class="fas fa-id-badge"></i> Contact</div>
+                    <div class="card-body">
+                        <p v-html="adresse"></p>
+                        <p v-html="tele"></p>
+                    </div>
+                </div>
+                <div class="card text-dark bg-default mb-2">
+                    <div class="card-header bg-light">
+                        <i class="fas fa-teeth-open"></i>
+                        <span v-text="motif"></span>
+                    </div>
+                    <div class="card-body" v-text="detail"></div>
+                </div>
+                <div class="card text-dark bg-default mb-2">
+                    <div class="card-header bg-light">Paiement</div>
+                    <div class="card-body">Statistiques</div>
+                </div>
+            </div>
+        </div>   
     </div>
 </div>
 </template>
@@ -40,18 +59,56 @@
      export default {
          data () {
             return {
-            data: {}
+            data: {},
+            motif:'Consultaion',
+            detail:'selectionner un patient',
+            adresse: 'selectionner un patient',
+            tele:'',
+            status:''
+
             }
         },
         
         created () {
-            axios
-            .get('/patient/getJson')
-            .then(response => (this.data = response.data))
+            this.getData();
         },
         methods:{
+            getData(){
+                axios
+                .get('/home/JsonData')
+                .then(response => (this.data = response.data))
+            },
             refresh (response){
                 this.data = response.data
+            },
+            fillCards(jointure){
+                this.adresse = '<i class="fas fa-map-marker-alt"></i>'+' '+jointure.adresse,
+                this.tele = '<i class="fas fa-phone-square-alt"></i> '+' '+jointure.tele,
+                this.motif = jointure.motif,
+                this.detail = jointure.detail
+            },
+            modStatus(jointure){
+                
+                if(jointure.status=='Différé'){
+                this.status='Encore'
+                }
+                else{
+                    if(jointure.status=='Encore'){
+                        this.status='Annuler'
+                    }
+                    else{
+                        this.status='Différé'
+                    }
+                }
+                axios
+                .post('/home/status',{
+                    status:this.status,
+                    etat_id:jointure.etat_rdvs_id
+                })
+                .then(response => (this.data = response.data))
+                .then(data=>{
+                    this.getData();
+                })
             }
         }
     }

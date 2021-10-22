@@ -131,8 +131,7 @@
             </div>
         </div>
         <button type="submit">Login</button>
-    </footer>
-    </form>
+    </footer></form>
 
 
 </div>

@@ -9,9 +9,9 @@
             <div class="card bg-gradient-info overflow-hidden text-white" style="height: 179px;">
                 {{-- Rendy vous --}}
                 <div class="card-body pb-0">
-                    <p class=" mb-1 ">Rendey vous</p>
+                    <p class=" mb-1 ">Total Rendez-vous</p>
                     <h2 class="mb-1 font-weight-bold fs-30">
-                            10
+                        {{$total_rdv}}
                     </h2>
                 </div>
                 <div class="chart-wrapper overflow-hidden">
@@ -38,9 +38,9 @@
             {{-- Patients --}}
             <div class="card bg-gradient-danger overflow-hidden text-white" style="height: 179px;">
                 <div class="card-body pb-0">
-                    <p class=" mb-1 ">Patients</p>
+                    <p class=" mb-1 ">Total Patients</p>
                     <h2 class="mb-1 font-weight-bold fs-30">
-                        66
+                        {{$total_pat}}
                     </h2>
                 </div>
                 <div class="chart-wrapper overflow-hidden">
@@ -67,7 +67,7 @@
             <div class="card bg-gradient-info overflow-hidden text-white" style="height: 179px;">
                 {{-- Gains --}}
                 <div class="card-body pb-0">
-                    <p class=" mb-1 ">Gains </p>
+                    <p class=" mb-1 ">Total Gains </p>
                     <h2 class="mb-1 font-weight-bold fs-30">
                         60.4545 DH
                     </h2>
@@ -96,9 +96,9 @@
             <div class="card bg-gradient-danger overflow-hidden text-white" style="height: 179px;">
                 {{-- Traitement --}}
                 <div class="card-body pb-0">
-                    <p class=" mb-1 ">Traitements</p>
+                    <p class=" mb-1 ">Total Traitements</p>
                     <h2 class="mb-1 font-weight-bold fs-30">
-                        5
+                        {{$total_trait}}
                     </h2>
                 </div>
                 <div class="chart-wrapper overflow-hidden">

@@ -21,6 +21,9 @@
                 <span class="input-group-text" id="basic-addon2"><i class="fas fa-search" style="padding:3px"></i></span>
             </button>
         </form>
+        <div>
+            {{$data->links()}}
+        </div>
         <div class="table-responsive">
             <table id='exampleee' class='table table-striped table-light bg-light'>
                 <tr>                      
@@ -28,6 +31,8 @@
                     <td>NOM</td>
                     <td>PRENOM</td>
                     <td>SEXE</td>
+                    <td>DATE NAIS</td>
+                    <td>TELE</td>
                     <td>MAJ</td>
         
                 </tr>
@@ -37,10 +42,11 @@
                     <td>{{$patient->nom}}</td>
                     <td>{{$patient->prenom}}</td>
                     <td>{{$patient->sexe}}</td>
-                    <td> 
-                        <a href="{{route('patient.update',['id'=>$patient->id])}}"><img src="{{asset('sheet/assets/images/details.svg')}}" style="height:25px"></a> | 
-                        <a href="{{route('patient.update',['id'=>$patient->id])}}"><img src="{{asset('sheet/assets/images/Edit.svg')}}" style="height:25px"></a> | 
-                        <a onclick="return confirm('Vous étes vraiment à supprimer ce enregistrement')" href="{{route('patient.delete',['id'=>$patient->id])}}"><img src="{{asset('sheet/assets/images/trash.svg')}}" style="height:25px"></a>
+                    <td>{{$patient->date_nais}}</td>
+                    <td>{{$patient->tele}}</td>
+                    <td>
+                        <a href="{{route('patient.update',['id'=>$patient->id])}}"><img src="{{asset('sheet/assets/images/Edit.svg')}}" style="height:25px"> Mod</a> | 
+                        <a onclick="return confirm('Vous étes vraiment à supprimer ce enregistrement')" href="{{route('patient.delete',['id'=>$patient->id])}}"><img src="{{asset('sheet/assets/images/trash.svg')}}" style="height:25px"> Supp</a>
                     </td>
                     
                 </tr>
@@ -49,7 +55,7 @@
         </div>
     </div>
     <div class="card-footer">
-        {{$data->links()}}
+        
     </div>
         <script>
         </script>

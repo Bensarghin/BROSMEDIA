@@ -93,9 +93,13 @@ class ActeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $affected = DB::table('actes')
+              ->where('id', $request->id)
+              ->update(['nom_acte' => $request->nomActe,
+                        'prix' => $request->prix,
+                        'description' => $request->description]);
     }
 
     /**

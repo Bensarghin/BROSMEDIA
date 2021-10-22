@@ -18,11 +18,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 // acceuil routes
-Route::get('/', function () {
-    return view('home');
-})->middleware('auth');
-Route::get('/patient/getJson',[HomeController::class,'filtrer']);
-Route::post('/patient/getJson',[HomeController::class,'filtrer']);
+Route::get('/',[HomeController::class,'index'])->middleware('auth');
+Route::get('/home',[HomeController::class,'index'])->middleware('auth');
+Route::get('home/JsonData',[HomeController::class,'getdata']);
+Route::get('/home/getJson',[HomeController::class,'filtrer']);
+Route::post('/home/getJson',[HomeController::class,'filtrer']);
+Route::post('/home/status',[HomeController::class,'updateStatus']);
 
 
 // patient routes
@@ -56,6 +57,7 @@ Route::prefix('acte')->group(function () {
     Route::get('/getJson', [ActeController::class,'show']);
     Route::post('/getJson', [ActeController::class,'search']);
     Route::post('/sendJson', [ActeController::class,'store']);
+    Route::post('/updateJson', [ActeController::class,'update']);
     Route::post('/delete', [ActeController::class,'destroy']);
     
 });

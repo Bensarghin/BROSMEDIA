@@ -12,10 +12,11 @@
             </select>
           </div>
         <div class="input-group col-sm-4">
-            <select class="custom-select" v-model="sexe" id="inputGroupSelect04">
-              <option value="" selected disabled>Sexe ...</option>
-              <option value="M">Masculins</option>
-              <option value="F">Feminins</option>
+            <select class="custom-select" v-model="status" id="inputGroupSelect04">
+              <option value="" selected disabled>Status ...</option>
+              <option value="Différé">Différé</option>
+              <option value="Annuler">Annuler</option>
+              <option value="Encore">Encore</option>
               <option value="%">Tous</option>
             </select>
             <div class="input-group-append">
@@ -36,7 +37,7 @@
 export default {
   data(){
     return {
-      sexe:'',
+      status:'',
       periode:'',
       nomPrenom:''
 
@@ -45,9 +46,9 @@ export default {
   methods: {
       filtrer(){
         axios
-        .post('/patient/getJson',
+        .post('/home/getJson',
         {
-          sexe:this.sexe,
+          status:this.status,
           periode:this.periode,
           // nomPrenom:this.nomPrenom
         })
@@ -56,7 +57,7 @@ export default {
       },
       search(){
         axios
-        .post('/patient/getJson',
+        .post('/home/getJson',
         {
           nomPrenom:this.nomPrenom
         })
