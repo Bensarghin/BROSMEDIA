@@ -19,7 +19,7 @@
                         <td>{{jointure.cin}}</td>
                         <td>{{jointure.nom}}</td>
                         <td>{{jointure.prenom}}</td>
-                        <td>12 : 00</td>
+                        <td>{{jointure.heure_rdv}}</td>
                         <td>
                             <span class="text-info">{{jointure.status}}</span> | <a class="text-info" @click="modStatus(jointure)"><i class="fas fa-edit"></i> Mod</a>
                         </td>

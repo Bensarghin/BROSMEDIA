@@ -17,6 +17,7 @@ class CretaePaiementsTable extends Migration
             $table->id();
             $table->float('montant');
             $table->date('date_pay');
+            $table->text('detail');
             $table->foreignId('pat_id')->references('id')->on('patients');
             $table->timestamps();
         });

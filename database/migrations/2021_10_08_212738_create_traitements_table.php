@@ -19,6 +19,7 @@ class CreateTraitementsTable extends Migration
             $table->string('typeTrait');
             $table->text('description');
             $table->string('status');
+            $table->foreignId('erdv_id')->references('id')->on('etat_rdvs');
             $table->foreignId('cons_id')->references('id')->on('consultations');
             $table->timestamps();
         });

@@ -39184,7 +39184,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(jointure.prenom))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("12 : 00")]),
+                  _c("td", [_vm._v(_vm._s(jointure.heure_rdv))]),
                   _vm._v(" "),
                   _c("td", [
                     _c("span", { staticClass: "text-info" }, [

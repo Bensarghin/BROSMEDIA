@@ -16,7 +16,7 @@ class CreateEtatrdvsTable extends Migration
         Schema::create('etat_rdvs', function (Blueprint $table) {
             $table->id();
             $table->date('date_consu');
-            $table->string('duree');
+            $table->time('heure_rdv');
             $table->string('status');
             $table->foreignId('rdv_id')->references('id')->on('rdvs');
             $table->foreignId('med_id')->references('id')->on('medecins');
