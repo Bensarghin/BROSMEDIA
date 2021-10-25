@@ -42,10 +42,11 @@ Route::prefix('patient')->group(function () {
 // Rendey-vous routes
 Route::prefix('rendy-vous')->group(function () {
     Route::get('manage', [RendeyVousController::class,"index"])->name('rdv.manage');
-    Route::get('insert', [RendeyVousController::class,"insert"])->name('rdv.insert');
+    Route::get('insert/{id}', [RendeyVousController::class,"insert"])->name('rdv.insert');
     Route::get('update/{id}', [RendeyVousController::class,"update"])->name('rdv.update');
     Route::post('update/{id}', [RendeyVousController::class,"update"])->name('rdv.update');
     Route::get('delete/{id}', [RendeyVousController::class,"delete"])->name('rdv.delete');
+    Route::get('filter/{id}', [RendeyVousController::class,"filtrer"])->name('rdv.filter');
     
 });
 

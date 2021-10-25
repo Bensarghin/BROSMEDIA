@@ -12,15 +12,38 @@ class RendeyVousController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index()
     {
-        $rdvs = DB::table('rdvs')
-        ->join('patients', 'patients.id', '=', 'rdvs.pat_id')
-        ->join('etat_rdvs', 'rdvs.id', '=', 'etat_rdvs.rdv_id')
-        ->join('actes', 'actes.id', '=', 'rdvs.act_id')
-        ->select('rdvs.*', 'patients.nom', 'patients.prenom','actes.nom_acte','etat_rdvs.date_consu')
+        // get all pat_id from rdvs 
+        $objectData = DB::table('rdvs')
+        ->select('rdvs.pat_id')
         ->get();
-        return view('admin_pages.rendey-vous.manage',['data'=>$rdvs]);
+        // convert get result to array
+        $arrayData = array_map(function($item) {
+            return (array)$item; 
+        }, $objectData->toArray());
+            $patients = DB::table('patients')
+            ->select('patients.id','patients.nom','patients.prenom')
+            ->whereNotIn('id', $arrayData)
+            ->get();
+            return view('admin_pages.rendey-vous.manage',[
+                'data'=>$patients]);
+    }
+
+    public function filtrer($id)
+    {
+        $rdvs='';
+        if(isset($id) && $id==1){
+            $rdvs = DB::table('rdvs')
+            ->join('patients', 'patients.id', '=', 'rdvs.pat_id')
+            ->join('etat_rdvs', 'rdvs.id', '=', 'etat_rdvs.rdv_id')
+            ->join('actes', 'actes.id', '=', 'rdvs.act_id')
+            ->select('rdvs.*', 'patients.nom', 'patients.prenom','actes.nom_acte','etat_rdvs.*')
+            ->get();
+        }
+        return view('admin_pages.rendey-vous.manage',[
+            'data'=>$rdvs]);
     }
 
     public function update(Request $request, $id)
@@ -77,15 +100,17 @@ class RendeyVousController extends Controller
         }
     }
     
-    public function insert(Request $request)
+    public function insert($id)
     {
-        if($request->isMethod('GET')){
             $actes = DB::table('actes')->get();
             $medecins = DB::table('medecins')->get();
+            $patients = DB::table('patients')
+            ->where('id',$id)
+            ->first();
             return view('admin_pages.rendey-vous.ajouter')->with([
                 'actes'=>$actes,
-                'medecins'=>$medecins
+                'medecins'=>$medecins,
+                'patients'=>$patients
             ]);
-        }
     }
 }

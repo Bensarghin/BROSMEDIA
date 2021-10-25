@@ -9,10 +9,13 @@
             <div class="card-header">
                 <div class="card-title" style="font-family:Titillium Web;margin-bottom: -30px;color: #84a9d9;font-size:30px">
                     Ajouter un Rendez-vous
-                </div> 
+                </div>
+                <div class="card-subtitle mt-2 text-muted">   
+                    {{$patients->nom}} {{$patients->prenom}}
+                </div>
             </div>
             <div class="card-body">
-                <form action="{{route('rdv.insert')}}" method="POST">
+                <form action="" method="POST">
                     @csrf
                     <div class="text-center border-bottom mb-5">
                         <h5>Rendez-vous</h5>
@@ -27,8 +30,9 @@
                     <label class="pure-material-textfield-outlined">
                         <span>Nom acte :</span>
                         <select name="acte_id" id="acte_id" class="form-control">
+                            <option disabled selected>nom acte ...</option>
                             @foreach ($actes as $acte)
-                                <option value="{{$acte->id}}">{{$acte->nom_acte}}</option>
+                            <option value="{{$acte->id}}">{{$acte->nom_acte}}</option>
                             @endforeach
                         </select>
                     </label>
@@ -41,7 +45,7 @@
                     <label class="pure-material-textfield-outlined">
                         <span>Nom medecin :</span>
                         <select name="med_id" id="" class="form-control">
-                            <option disabled>nom medecins ...</option>
+                            <option disabled selected>nom medecins ...</option>
                             @foreach ($medecins as $medecin)
                                 <option value="{{$medecin->id}}">{{$medecin->nom}} {{$medecin->prenom}}</option>
                             @endforeach

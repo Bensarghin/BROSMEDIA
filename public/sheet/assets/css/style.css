@@ -37363,6 +37363,22 @@ width: 200px;
         text-align: center;
     }
     .message{
-color: #0042bf;
+        color: #0042bf;
     }
+
+/* rd patient */
+    
+.rdv-patient{
+    margin: auto;
+}
+.rdv-patient > a {
+    display: inline-block;
+    padding: 23px;
+    background: #42a2a7c7;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+}
     
