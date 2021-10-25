@@ -111,10 +111,13 @@ class ActeController extends Controller
     public function destroy(Request $request)
     {
         $id=$request->id;
-        DB::table('actes')->where('id', '=', $id)->delete();
+        $qr=DB::table('actes')->where('id', '=', $id)->delete();
         $data=DB::table('actes')
         ->orderBy('id', 'desc')
         ->get();
+        if($qr){
+            
         return response()->json($data);
+        }
     }
 }

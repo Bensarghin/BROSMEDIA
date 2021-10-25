@@ -12,30 +12,59 @@ class RendeyVousController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index()
     {
-        $rdvs = DB::table('rdvs')
-        ->join('patients', 'patients.id', '=', 'rdvs.pat_id')
-        ->join('etat_rdvs', 'rdvs.id', '=', 'etat_rdvs.rdv_id')
-        ->join('actes', 'actes.id', '=', 'rdvs.act_id')
-        ->select('rdvs.*', 'patients.nom', 'patients.prenom','actes.nom_acte','etat_rdvs.date_consu')
-        ->get();
-        return view('admin_pages.rendey-vous.manage',['data'=>$rdvs]);
+        // convert get result to array
+        $arrayData = array_map(function($item) {
+            return (array)$item; 
+        }, DB::table('rdvs')
+        ->select('rdvs.pat_id')
+        ->get()->toArray());
+
+            $patients = DB::table('patients')
+            ->select('patients.id','patients.nom','patients.prenom')
+            ->whereNotIn('id', $arrayData)
+            ->orderBy('id','DESC')
+            ->paginate(6);
+            return view('admin_pages.rendey-vous.manage',[
+                'data'=>$patients]);
+    }
+
+    public function filtrer($id)
+    {
+        $rdvs='';
+        if(isset($id) && $id==1) {
+            $rdvs = DB::table('rdvs')
+            ->join('patients', 'patients.id', '=', 'rdvs.pat_id')
+            ->join('etat_rdvs', 'rdvs.id', '=', 'etat_rdvs.rdv_id')
+            ->join('actes', 'actes.id', '=', 'rdvs.act_id')
+            ->select('rdvs.*', 'patients.nom', 'patients.prenom','actes.nom_acte','etat_rdvs.*')
+            ->orderBy('rdvs.id','DESC')
+            ->unique('nom_acte')
+            ->paginate(6);
+        }
+        return view('admin_pages.rendey-vous.manage',[
+            'data'=>$rdvs]);
     }
 
     public function update(Request $request, $id)
     {
         if($request->isMethod('GET')){
+
             $data = DB::table('rdvs')
             ->join('patients', 'patients.id', '=', 'rdvs.pat_id')
             ->join('etat_rdvs', 'rdvs.id', '=', 'etat_rdvs.rdv_id')
             ->join('actes', 'actes.id', '=', 'rdvs.act_id')
-            ->select('rdvs.*', 'rdvs.id as rdv_id','patients.id', 'patients.nom', 'patients.prenom',
+            ->select('rdvs.*', 'rdvs.id as rdv_id','patients.id', 'patients.nom as nom', 'patients.prenom as prenom',
                     'actes.id','actes.nom_acte','etat_rdvs.*','etat_rdvs.id as etat_id')
             ->where('rdvs.id','=',$id)
             ->first();
+
             $actes = DB::table('actes')->get();
+
             $medecins = DB::table('medecins')->get();
+
             return view('admin_pages.rendey-vous.modifier')
             ->with([
                 'data'=>$data,
@@ -71,21 +100,85 @@ class RendeyVousController extends Controller
 
             ]);
 
-            return redirect()->route('rdv.manage');
+            return redirect()->route('rdv.filter',1);
 
           
         }
     }
     
-    public function insert(Request $request)
+    public function insert($id)
     {
-        if($request->isMethod('GET')){
             $actes = DB::table('actes')->get();
             $medecins = DB::table('medecins')->get();
+            $patients = DB::table('patients')
+            ->where('id',$id)
+            ->first();
             return view('admin_pages.rendey-vous.ajouter')->with([
                 'actes'=>$actes,
-                'medecins'=>$medecins
+                'medecins'=>$medecins,
+                'patients'=>$patients
             ]);
+    }
+    public function ajouter(Request $request)
+    {
+            //insert into rdv
+            $date_prend_rdv=$request->date_prend_rdv;
+            $acte_id=$request->acte_id;
+            $pat_id=$request->pat_id;
+
+            $rdv_id = DB::table('rdvs')
+            ->insertGetId( [
+                'date_prend_rdv' => $date_prend_rdv,
+                'act_id' => $acte_id,
+                'pat_id' => $pat_id
+            ]);
+
+            // insert into etat_rdv
+            $date_consu=$request->date_consu;
+            $status=$request->status;
+            $heure_rdv=$request->heure_rdv;
+            $med_id=$request->med_id;
+
+            DB::table('etat_rdvs')
+            ->insert([
+                'date_consu'=>$date_consu,
+                'status'=>$status,
+                'heure_rdv'=>$heure_rdv,
+                'med_id'=>$med_id,
+                'rdv_id'=> $rdv_id
+
+            ]);
+
+            return redirect()->route('rdv.filter',1);
+    }
+    public function delete($id){
+        DB::table('rdvs')
+        ->where('id',$id)
+        ->delete();
+
+        return redirect()->route('rdv.filter',1);
+    }
+    public function search(Request $request)
+    {
+        $rdvs = DB::table('rdvs')
+        ->join('patients', 'patients.id', '=', 'rdvs.pat_id')
+        ->join('etat_rdvs', 'rdvs.id', '=', 'etat_rdvs.rdv_id')
+        ->join('actes', 'actes.id', '=', 'rdvs.act_id')
+        ->select('rdvs.*', 'patients.nom', 'patients.prenom','actes.nom_acte','etat_rdvs.*')
+        ->where(DB::raw("CONCAT(nom,' ',prenom)"),'LIKE',$request->nomPrenom)
+        ->get();
+        
+        if ($rdvs->count()>0) {
+            return view('admin_pages.rendey-vous.manage',[
+                'data'=>$rdvs]);
+        } 
+        else {
+            $nomPrenom = '%';
+            isset($request->nomPrenom)? $nomPrenom= $request->nomPrenom : $nomPrenom='%';
+            $data = DB::table('patients')
+            ->where(DB::raw("CONCAT(nom,' ',prenom)"), 'LIKE', '%'.$nomPrenom.'%')
+            ->get();
+            return view('admin_pages.rendey-vous.manage')->with(['data'=>$data]);
         }
     }
 }

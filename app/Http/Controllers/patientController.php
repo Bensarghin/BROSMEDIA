@@ -14,7 +14,7 @@ class patientController extends Controller
     public function index(){
         $patients = DB::table('patients')
         ->orderBy('id','DESC')
-        ->paginate(10);
+        ->paginate(6);
         return view('admin_pages.patient.manage',['data'=>$patients]);
     }
     public function insert(Request $request)

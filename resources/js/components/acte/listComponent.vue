@@ -102,7 +102,9 @@ export default {
                     alert("votre enregistrement est bien supprimer");
                     this.fetchData();
                 })
-                .catch(error=>console.log(error))
+                .catch(error=>{
+                    alert('ce acte est relié par un rdv!')
+                })
             },
             //edit method to fetch data to modal before updated
             getActe(acte){

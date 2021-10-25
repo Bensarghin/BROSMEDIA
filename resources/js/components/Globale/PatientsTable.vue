@@ -21,7 +21,7 @@
                         <td>{{jointure.prenom}}</td>
                         <td>{{jointure.heure_rdv}}</td>
                         <td>
-                            <span class="text-info">{{jointure.status}}</span> | <a class="text-info" @click="modStatus(jointure)"><i class="fas fa-edit"></i> Mod</a>
+                           <a class="text-primary" @click="modStatus(jointure)"> <span class="text-info">{{jointure.status}}</span> | <i class="fas fa-hourglass-start"></i></a>
                         </td>
                         <td @click="fillCards(jointure)">
                             <a><i class="fas fa-hand-pointer"></i> Select</a>
