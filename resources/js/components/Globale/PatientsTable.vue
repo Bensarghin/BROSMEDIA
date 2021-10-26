@@ -6,7 +6,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-8">
-                <table class="table table-bordered bg-default text-dark">
+                <table class="table table-bordered bg-default text-dark">sdhkjsh
                     <tr>
                         <td>cin</td>
                         <td>nom</td>
