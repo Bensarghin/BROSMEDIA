@@ -45,8 +45,8 @@
                     <td>{{$patient->date_nais}}</td>
                     <td>{{$patient->tele}}</td>
                     <td>
-                        <a href="{{route('patient.update',['id'=>$patient->id])}}"><img src="{{asset('sheet/assets/images/Edit.svg')}}" style="height:25px"> Mod</a> | 
-                        <a onclick="return confirm('Vous étes vraiment à supprimer ce enregistrement')" href="{{route('patient.delete',['id'=>$patient->id])}}"><img src="{{asset('sheet/assets/images/trash.svg')}}" style="height:25px"> Supp</a>
+                        <a href="{{route('patient.update',['id'=>$patient->id])}}" class="text-info"><i class="fas fa-edit"></i> Mod</a> | 
+                        <a onclick="return confirm('Vous étes vraiment à supprimer ce enregistrement')" class="text-danger" href="{{route('patient.delete',['id'=>$patient->id])}}"><i class="fas fa-trash"></i> Supp</a>
                     </td>
                     
                 </tr>

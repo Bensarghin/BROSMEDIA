@@ -2511,7 +2511,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.fetchData();
       })["catch"](function (error) {
-        return console.log(error);
+        alert('ce acte est relié par un rdv!');
       });
     },
     //edit method to fetch data to modal before updated
@@ -39187,21 +39187,23 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(jointure.heure_rdv))]),
                   _vm._v(" "),
                   _c("td", [
-                    _c("span", { staticClass: "text-info" }, [
-                      _vm._v(_vm._s(jointure.status))
-                    ]),
-                    _vm._v(" | "),
                     _c(
                       "a",
                       {
-                        staticClass: "text-info",
+                        staticClass: "text-primary",
                         on: {
                           click: function($event) {
                             return _vm.modStatus(jointure)
                           }
                         }
                       },
-                      [_c("i", { staticClass: "fas fa-edit" }), _vm._v(" Mod")]
+                      [
+                        _c("span", { staticClass: "text-info" }, [
+                          _vm._v(_vm._s(jointure.status))
+                        ]),
+                        _vm._v(" | "),
+                        _c("i", { staticClass: "fas fa-hourglass-start" })
+                      ]
                     )
                   ]),
                   _vm._v(" "),

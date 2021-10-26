@@ -1,7 +1,8 @@
 /* global css */
 #exampleee a{
     text-decoration: none;
-    color: rgb(206, 180, 180);
+    color: rgb(82 82 82 / 84%);
+    font-weight: bold;
 }
 
 
@@ -37367,18 +37368,16 @@ width: 200px;
     }
 
 /* rd patient */
-    
-.rdv-patient{
-    margin: auto;
-}
 .rdv-patient > a {
     display: inline-block;
-    padding: 23px;
-    background: #42a2a7c7;
-    color: #fff;
-    border-radius: 5px;
+    padding: 10px;
+    color: #00000059;
+    border-radius: 3px;
     text-decoration: none;
     font-weight: bold;
     text-transform: uppercase;
+}
+.rdv-patient > a:hover {
+    color: #000;
 }
     

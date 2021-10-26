@@ -15,8 +15,9 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="" method="POST">
+                <form action="{{route('rdv.ajouter')}}" method="POST">
                     @csrf
+                    <input type="hidden" name="pat_id" value="{{$patients->id}}">
                     <div class="text-center border-bottom mb-5">
                         <h5>Rendez-vous</h5>
                     </div>
