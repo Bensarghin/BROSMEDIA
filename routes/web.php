@@ -3,6 +3,8 @@
 use App\Http\Controllers\patientController;
 use App\Http\Controllers\RendeyVousController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TraitementController;
+use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\ActeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +51,6 @@ Route::prefix('rendy-vous')->group(function () {
     Route::get('insert/{id}', [RendeyVousController::class,"insert"])->name('rdv.insert');
     Route::post('ajouter', [RendeyVousController::class,"ajouter"])->name('rdv.ajouter');
     Route::get('delete/{id}', [RendeyVousController::class,"delete"])->name('rdv.delete');
-    Route::get('filter/{id}', [RendeyVousController::class,"filtrer"])->name('rdv.filter');
     
 });
 
@@ -63,6 +64,34 @@ Route::prefix('acte')->group(function () {
     Route::post('/sendJson', [ActeController::class,'store']);
     Route::post('/updateJson', [ActeController::class,'update']);
     Route::post('/delete', [ActeController::class,'destroy']);
+    
+});
+
+// traitements routes
+Route::prefix('traitement')->group(function () {
+    Route::get('manage', [traitementController::class,"index"])->name('traitement.manage');
+    Route::get('filter/{id}', [traitementController::class,"filtrer"])->name('traitement.filter');
+    Route::post('search', [traitementController::class,"search"])->name('traitement.search');
+    Route::get('update/{id}', [traitementController::class,"update"])->name('traitement.update');
+    Route::post('update/{id}', [traitementController::class,"update"])->name('traitement.update');
+    Route::get('insert/{id}', [traitementController::class,"insert"])->name('traitement.insert');
+    Route::post('ajouter', [traitementController::class,"ajouter"])->name('traitement.ajouter');
+    Route::get('delete/{id}', [traitementController::class,"delete"])->name('traitement.delete');
+    Route::get('filter/{id}', [traitementController::class,"filtrer"])->name('traitement.filter');
+    
+});
+
+// consulations routes 
+Route::prefix('consultation')->group(function () {
+    Route::get('manage', [ConsultationController::class,"index"])->name('consultation');
+    Route::get('filter/{id}', [ConsultationController::class,"filtrer"])->name('Consultation.filter');
+    Route::post('search', [ConsultationController::class,"search"])->name('Consultation.search');
+    Route::get('update/{id}', [ConsultationController::class,"update"])->name('Consultation.update');
+    Route::post('update/{id}', [ConsultationController::class,"update"])->name('Consultation.update');
+    Route::get('insert/{id}', [ConsultationController::class,"insert"])->name('Consultation.insert');
+    Route::post('ajouter', [ConsultationController::class,"ajouter"])->name('Consultation.ajouter');
+    Route::get('delete/{id}', [ConsultationController::class,"delete"])->name('Consultation.delete');
+    Route::get('filter/{id}', [ConsultationController::class,"filtrer"])->name('Consultation.filter');
     
 });
 

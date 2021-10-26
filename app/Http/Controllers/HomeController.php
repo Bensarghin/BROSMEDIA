@@ -43,8 +43,10 @@ class HomeController extends Controller
         $data= DB::table('rdvs')
         ->join('patients','rdvs.pat_id','=','patients.id')
         ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
-        ->join('consultations','consultations.erdv_id','=','etat_rdvs.id')
-        ->select('patients.*','etat_rdvs.*','etat_rdvs.id as etat_rdvs_id','consultations.*')
+        ->join('actes','actes.id','=','rdvs.act_id')
+        ->select('rdvs.*','patients.*','etat_rdvs.*','etat_rdvs.id as etat_rdvs_id','actes.*')
+        ->where('etat_rdvs.date_consu','=',today())
+        ->where('status','LIKE','Encore')
         ->get();
         return response()->json($data);
     }
@@ -53,19 +55,24 @@ class HomeController extends Controller
     {
         $nomPrenom='%';
         $status='%';
+        $date_con=today();
         if(isset($request->nomPrenom)){
             $nomPrenom=$request->nomPrenom;
         }
         if(isset($request->status)){
             $status=$request->status;
         }
+        if(isset($request->date_cons)){
+            $date_con=$request->date_cons;
+        }
         $data= DB::table('rdvs')
                 ->join('patients','rdvs.pat_id','=','patients.id')
                 ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
-                ->join('consultations','consultations.erdv_id','=','etat_rdvs.id')
-                ->select('patients.*','etat_rdvs.*','consultations.*')
+                ->join('actes','actes.id','=','rdvs.act_id')
+                ->select('patients.*','etat_rdvs.*','etat_rdvs.id as etat_rdvs_id','actes.*')
                 ->where('etat_rdvs.status','LIKE',$status)
                 ->where(DB::raw("CONCAT(nom,' ',prenom)"), 'LIKE', '%'.$nomPrenom.'%')
+                ->where('etat_rdvs.date_consu','=',$date_con)
                 ->get();
         return response()->json($data);
         

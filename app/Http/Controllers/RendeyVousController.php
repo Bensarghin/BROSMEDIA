@@ -41,7 +41,6 @@ class RendeyVousController extends Controller
             ->join('actes', 'actes.id', '=', 'rdvs.act_id')
             ->select('rdvs.*', 'patients.nom', 'patients.prenom','actes.nom_acte','etat_rdvs.*')
             ->orderBy('rdvs.id','DESC')
-            ->unique('nom_acte')
             ->paginate(6);
         }
         return view('admin_pages.rendey-vous.manage',[

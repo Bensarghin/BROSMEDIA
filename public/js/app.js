@@ -2221,21 +2221,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       status: '',
-      periode: '',
       nomPrenom: ''
     };
   },
@@ -2244,9 +2233,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post('/home/getJson', {
-        status: this.status,
-        periode: this.periode // nomPrenom:this.nomPrenom
-
+        status: this.status
       }).then(function (response) {
         return _this.$emit('table-filtrer', response);
       })["catch"](function (error) {
@@ -2343,6 +2330,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2350,8 +2340,10 @@ __webpack_require__.r(__webpack_exports__);
       motif: 'Consultaion',
       detail: 'selectionner un patient',
       adresse: 'selectionner un patient',
+      date_prend_rdv: '',
       tele: '',
-      status: ''
+      status: '',
+      passe: 'Passé'
     };
   },
   created: function created() {
@@ -2369,29 +2361,32 @@ __webpack_require__.r(__webpack_exports__);
       this.data = response.data;
     },
     fillCards: function fillCards(jointure) {
-      this.adresse = '<i class="fas fa-map-marker-alt"></i>' + ' ' + jointure.adresse, this.tele = '<i class="fas fa-phone-square-alt"></i> ' + ' ' + jointure.tele, this.motif = jointure.motif, this.detail = jointure.detail;
+      this.adresse = '<i class="fas fa-map-marker-alt"></i>' + ' ' + jointure.adresse, this.tele = '<i class="fas fa-phone-square-alt"></i> ' + ' ' + jointure.tele, this.date_prend_rdv = '<i class="fas fa-history"></i> Date prend RDV:' + ' ' + jointure.date_prend_rdv, this.motif = jointure.nom_acte, this.detail = jointure.description;
     },
-    modStatus: function modStatus(jointure) {
+    passPat: function passPat(jointure) {
       var _this2 = this;
 
-      if (jointure.status == 'Différé') {
-        this.status = 'Encore';
+      if (jointure.status == 'Passé') {
+        this.passe = 'Encore';
       } else {
-        if (jointure.status == 'Encore') {
-          this.status = 'Annuler';
-        } else {
-          this.status = 'Différé';
-        }
+        this.passe = 'Passé';
       }
 
       axios.post('/home/status', {
-        status: this.status,
+        status: this.passe,
         etat_id: jointure.etat_rdvs_id
       }).then(function (response) {
         return _this2.data = response.data;
       }).then(function (data) {
         _this2.getData();
       });
+    },
+    currentDateTime: function currentDateTime() {
+      var current = new Date();
+      var date = current.getFullYear() + '-' + (current.getMonth() + 1) + '-' + current.getDate();
+      var time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+      var dateTime = date + ' ' + time;
+      return dateTime;
     }
   }
 });
@@ -38971,60 +38966,35 @@ var render = function() {
   return _c("div", { attrs: { id: "filter" } }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "input-group col-sm-4" }, [
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.periode,
-                expression: "periode"
-              }
-            ],
-            staticClass: "custom-select",
-            attrs: {
-              id: "inputGroupSelect04",
-              "aria-label": "Example select with button addon"
-            },
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.periode = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              }
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.nomPrenom,
+              expression: "nomPrenom"
             }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            placeholder: "Nom et prenom ...",
+            "aria-label": "Recipient's username",
+            "aria-describedby": "basic-addon2"
           },
-          [
-            _c("option", { attrs: { value: "", disabled: "" } }, [
-              _vm._v(" Délai ...")
-            ]),
-            _vm._v(" "),
-            _c(
-              "option",
-              { domProps: { value: _vm.currentDateTime(), selected: true } },
-              [_vm._v("Aujourd'huit ...")]
-            ),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "12/08/2020" } }, [
-              _vm._v("Ce semaine")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "12/08/2002" } }, [
-              _vm._v("Ce mois")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "%" } }, [_vm._v("Tous")])
-          ]
-        )
+          domProps: { value: _vm.nomPrenom },
+          on: {
+            keyup: _vm.search,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.nomPrenom = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm._m(0)
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "input-group col-sm-4" }, [
@@ -39062,11 +39032,9 @@ var render = function() {
               _vm._v("Status ...")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Différé" } }, [_vm._v("Différé")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Annuler" } }, [_vm._v("Annuler")]),
-            _vm._v(" "),
             _c("option", { attrs: { value: "Encore" } }, [_vm._v("Encore")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Passé" } }, [_vm._v("Passé")]),
             _vm._v(" "),
             _c("option", { attrs: { value: "%" } }, [_vm._v("Tous")])
           ]
@@ -39083,38 +39051,6 @@ var render = function() {
             [_vm._v("Filter")]
           )
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "input-group col-sm-4" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.nomPrenom,
-              expression: "nomPrenom"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            placeholder: "Nom et prenom ...",
-            "aria-label": "Recipient's username",
-            "aria-describedby": "basic-addon2"
-          },
-          domProps: { value: _vm.nomPrenom },
-          on: {
-            keyup: _vm.search,
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.nomPrenom = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm._m(0)
       ])
     ])
   ])
@@ -39163,7 +39099,19 @@ var render = function() {
     _c(
       "div",
       { staticClass: "card-header" },
-      [_c("filter-component", { on: { "table-filtrer": _vm.refresh } })],
+      [
+        _c("h4", { staticClass: "s-attend mb-3 mt-3" }, [
+          _vm._v("\r\n                Salle d'attend "),
+          _c("i", { staticClass: "fas fa-couch" }),
+          _vm._v(" :\r\n                "),
+          _c("span", {
+            staticClass: "ml-4",
+            domProps: { textContent: _vm._s(_vm.currentDateTime()) }
+          })
+        ]),
+        _vm._v(" "),
+        _c("filter-component", { on: { "table-filtrer": _vm.refresh } })
+      ],
       1
     ),
     _vm._v(" "),
@@ -39186,26 +39134,25 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(jointure.heure_rdv))]),
                   _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "text-primary",
-                        on: {
-                          click: function($event) {
-                            return _vm.modStatus(jointure)
-                          }
+                  _c(
+                    "td",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.passPat(jointure)
                         }
-                      },
-                      [
-                        _c("span", { staticClass: "text-info" }, [
-                          _vm._v(_vm._s(jointure.status))
-                        ]),
-                        _vm._v(" | "),
-                        _c("i", { staticClass: "fas fa-hourglass-start" })
-                      ]
-                    )
-                  ]),
+                      }
+                    },
+                    [
+                      jointure.status == "Passé"
+                        ? _c("a", { staticClass: "btn btn-success btn-sm" }, [
+                            _c("i", { staticClass: "fas fa-toggle-on" })
+                          ])
+                        : _c("a", { staticClass: "btn btn-danger btn-sm" }, [
+                            _c("i", { staticClass: "fas fa-toggle-off" })
+                          ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "td",
@@ -39230,6 +39177,8 @@ var render = function() {
             _vm._m(2),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
+              _c("p", { domProps: { innerHTML: _vm._s(_vm.date_prend_rdv) } }),
+              _vm._v(" "),
               _c("p", { domProps: { innerHTML: _vm._s(_vm.adresse) } }),
               _vm._v(" "),
               _c("p", { domProps: { innerHTML: _vm._s(_vm.tele) } })
@@ -39247,9 +39196,7 @@ var render = function() {
               staticClass: "card-body",
               domProps: { textContent: _vm._s(_vm.detail) }
             })
-          ]),
-          _vm._v(" "),
-          _vm._m(3)
+          ])
         ])
       ])
     ])
@@ -39269,7 +39216,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("td", [_vm._v("Heure RDV")]),
       _vm._v(" "),
-      _c("td", [_vm._v("Status RDV")]),
+      _c("td", [_vm._v("Passé")]),
       _vm._v(" "),
       _c("td")
     ])
@@ -39290,16 +39237,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header bg-light" }, [
       _c("i", { staticClass: "fas fa-id-badge" }),
       _vm._v(" Contact")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card text-dark bg-default mb-2" }, [
-      _c("div", { staticClass: "card-header bg-light" }, [_vm._v("Paiement")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [_vm._v("Statistiques")])
     ])
   }
 ]

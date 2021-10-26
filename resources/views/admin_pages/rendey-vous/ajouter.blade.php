@@ -59,25 +59,12 @@
                     </label>
                     {{-- status --}}
                     <label class="pure-material-textfield-outlined">
-                        <span>Status :</span>
                         <div class="form-check">
-                            <input class="form-check-input" value="Différé" type="radio" name="status" id="status1" >
-                            <label class="form-check-label" for="status1">
-                              Différé
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" value="Annuler" name="status" id="status2" >
-                            <label class="form-check-label" for="status2">
-                              Annuler
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" value="Encore" name="status" id="status3" >
-                            <label class="form-check-label" for="status3">
-                              Encore
-                            </label>
-                          </div>
+                        <input class="form-check-input" type="radio" checked value="Encore" name="status" id="status3" >
+                        <label class="form-check-label" for="status3">
+                            Encore
+                        </label>
+                        </div>
                     </label>
                     {{-- duree--}}
                     <label class="pure-material-textfield-outlined">

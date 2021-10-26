@@ -58,47 +58,39 @@
                     </div>
                     <ul class="side-menu">
                         <li class="slide">
-                            <a class="side-menu__item" href="{{url('/')}}"> <span class="shape1"></span>
-                                <span class="shape2"></span>
-                                <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="26"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                </svg> <span class="side-menu__label">Acceuil</span> 
+                            <a class="side-menu__item" href="{{url('/')}}">
+                                <i class="fas fa-home"></i>
+                                <span class="ml-4 side-menu__label">Acceuil</span> 
+                            </a>
+                        </li>
+                        <li class="slide">
+                            <a class="side-menu__item" href="{{route('patient.manage')}}"> <span class="shape1"></span>
+                                <i class="fas fa-procedures"></i>
+                                <span class="ml-4 side-menu__label">Patients</span> 
                             </a>
                         </li>
                         <li class="slide">
                             <a class="side-menu__item" href="{{route('rdv.manage')}}"> <span class="shape1"></span>
-                                <span class="shape2"></span>
-                                <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path
-                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z">
-                                    </path>
-                                </svg>
-                                <span class="side-menu__label">Rendey-vous</span> </a>
+                                <i class="fas fa-calendar"></i> 
+                                <span class="ml-4  side-menu__label">Rendey-vous</span> 
+                            </a>
+                         </li>
+                        <li class="slide">
+                            <a class="side-menu__item" href="{{route('acte.manage')}}">
+                                <i class="fas fa-teeth-open"></i>
+                                <span class="ml-4 side-menu__label">Actes</span> </a>
                         </li>
                         <li class="slide">
-                            <a class="side-menu__item" href="{{route('patient.manage')}}"> <span class="shape1"></span>
-                                <span class="shape2"></span>
-                                <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path
-                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z">
-                                    </path>
-                                </svg>
-                                <span class="side-menu__label">Patients</span> </a>
+                            <a class="side-menu__item" href="{{route('traitement.manage')}}">
+                                <i class="fas fa-pills"></i>
+                                <span class="ml-4 side-menu__label">Traitement</span> 
+                            </a>
                         </li>
                         <li class="slide">
-                            <a class="side-menu__item" href="{{route('acte.manage')}}"> <span class="shape1"></span>
-                                <span class="shape2"></span>
-                                <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path
-                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z">
-                                    </path>
-                                </svg>
-                                <span class="side-menu__label">Actes</span> </a>
+                            <a class="side-menu__item" href="{{route('acte.manage')}}">
+                                <i class="fas fa-poll-h"></i>
+                                <span class="ml-4 side-menu__label">Facturation</span> 
+                            </a>
                         </li>
                         @guest
                             @if (Route::has('login'))
@@ -114,21 +106,16 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="slide">
                                 <a class="side-menu__item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                              document.getElementById('logout-form').submit();"> 
-                                <span class="shape1"></span>
-                                <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path
-                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z">
-                                    </path>
-                                </svg>
-                                <span class="side-menu__label">Déconnecter</span> </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span class="ml-4 side-menu__label">Déconnecter</span> 
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
                         @endguest
 
