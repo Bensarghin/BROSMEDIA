@@ -47,6 +47,7 @@ class patientController extends Controller
         ->join('patients','patients.id','=','rdvs.pat_id')
         ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
         ->select('patients.*','rdvs.*','etat_rdvs.*')
+        ->where('patients.id',$id)
         ->whereNotIn('etat_rdvs.id', $arrayData)
         ->first();
         $data = DB::table('rdvs')
