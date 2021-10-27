@@ -35,6 +35,33 @@ class patientController extends Controller
         }
     }
 
+    public function detail($id)
+    {
+        $arrayData = array_map(function($item) {
+            return (array)$item; 
+        }, DB::table('consultations')
+        ->select('erdv_id')
+        ->get()->toArray());
+
+        $patients = DB::table('rdvs')
+        ->join('patients','patients.id','=','rdvs.pat_id')
+        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
+        ->select('patients.*','rdvs.*','etat_rdvs.*')
+        ->whereNotIn('etat_rdvs.id', $arrayData)
+        ->first();
+        $data = DB::table('rdvs')
+        ->join('patients','patients.id','=','rdvs.pat_id')
+        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
+        ->join('consultations','consultations.erdv_id','=','etat_rdvs.id')
+        ->select('patients.*','rdvs.*','etat_rdvs.*','consultations.*')
+        ->where('patients.id',$id)
+        ->first();
+        return view('admin_pages.patient.details',[
+            'data'=>$data,
+            'patients'=>$patients
+        ]);
+    }
+
     public function update(Request $request,$id)
     {
         
@@ -49,6 +76,7 @@ class patientController extends Controller
             ]);
         }
         if($request->isMethod('POST')){
+
             $affected = DB::table('patients')
               ->where('id', $id)
               ->update(['cin' => $request->input('cin'),
@@ -70,7 +98,7 @@ class patientController extends Controller
         $data = DB::table('patients')
         ->where(DB::raw("CONCAT(nom,' ',prenom)"), 'LIKE', '%'.$nomPrenom.'%')
         ->orderBy('id', 'desc')
-        ->paginate(10);
+        ->paginate(2);
         return view('admin_pages.patient.manage')->with(['data'=>$data]);
     }
 

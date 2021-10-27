@@ -31,6 +31,7 @@ Route::post('/home/status',[HomeController::class,'updateStatus']);
 // patient routes
 Route::prefix('patient')->group(function () {
     Route::get('manage', [patientController::class,"index"])->name('patient.manage');
+    Route::get('details/{id}', [patientController::class,"detail"])->name('patient.detail');
     Route::post('add', [patientController::class,"insert"])->name('patient.add');
     Route::get('update/{id}', [patientController::class,"update"])->name('patient.update');
     Route::post('update/{id}', [patientController::class,"update"])->name('patient.update');
