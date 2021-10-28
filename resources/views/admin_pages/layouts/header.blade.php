@@ -80,18 +80,6 @@
                                 <i class="fas fa-teeth-open"></i>
                                 <span class="ml-4 side-menu__label">Actes</span> </a>
                         </li>
-                        <li class="slide">
-                            <a class="side-menu__item" href="{{route('traitement.manage')}}">
-                                <i class="fas fa-pills"></i>
-                                <span class="ml-4 side-menu__label">Traitement</span> 
-                            </a>
-                        </li>
-                        <li class="slide">
-                            <a class="side-menu__item" href="{{route('acte.manage')}}">
-                                <i class="fas fa-poll-h"></i>
-                                <span class="ml-4 side-menu__label">Facturation</span> 
-                            </a>
-                        </li>
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -118,8 +106,6 @@
                                 </form>
                             </li>
                         @endguest
-
-
                     </ul>
                 </div>
                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">

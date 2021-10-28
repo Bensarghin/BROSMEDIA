@@ -40,4 +40,33 @@ class TraitementController extends Controller
                 'data'=>$patients
             ]);
     }
+
+    public function ajouter(Request $request, $id){
+
+        $patients = DB::table('rdvs')
+        ->join('patients','rdvs.pat_id','=','patients.id')
+        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
+        ->select('patients.*','rdvs.*','etat_rdvs.*')
+        ->where('etat_rdvs.id',$id)
+        ->first();
+
+        return view('admin_pages.traitement.ajouter',[
+            'data'      =>    $patients,
+            'etat_id'   =>    $id
+        ]);
+    }
+
+    public function insert(Request $request, $id){
+
+        DB::table('traitements')
+        ->insert([
+            'nomTrait' => $request-> nomTrait,
+            'typeTrait' => $request-> type,
+            'description' => $request-> description,
+            'erdv_id' => $id,
+            'status' => $request->status
+        ]);
+
+        return redirect()->route('patient.manage');
+    }
 }

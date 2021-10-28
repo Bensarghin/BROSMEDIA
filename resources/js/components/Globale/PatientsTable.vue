@@ -63,7 +63,7 @@
          data () {
             return {
             data: {},
-            motif:'Consultaion',
+            motif:'Acte',
             detail:'selectionner un patient',
             adresse: 'selectionner un patient',
             date_prend_rdv:'',

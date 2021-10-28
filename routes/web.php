@@ -75,8 +75,8 @@ Route::prefix('traitement')->group(function () {
     Route::post('search', [traitementController::class,"search"])->name('traitement.search');
     Route::get('update/{id}', [traitementController::class,"update"])->name('traitement.update');
     Route::post('update/{id}', [traitementController::class,"update"])->name('traitement.update');
-    Route::get('insert/{id}', [traitementController::class,"insert"])->name('traitement.insert');
-    Route::post('ajouter', [traitementController::class,"ajouter"])->name('traitement.ajouter');
+    Route::post('insert/{id}', [traitementController::class,"insert"])->name('traitement.insert');
+    Route::get('ajouter/{id}', [traitementController::class,"ajouter"])->name('traitement.ajouter');
     Route::get('delete/{id}', [traitementController::class,"delete"])->name('traitement.delete');
     Route::get('filter/{id}', [traitementController::class,"filtrer"])->name('traitement.filter');
     
@@ -89,8 +89,8 @@ Route::prefix('consultation')->group(function () {
     Route::post('search', [ConsultationController::class,"search"])->name('Consultation.search');
     Route::get('update/{id}', [ConsultationController::class,"update"])->name('Consultation.update');
     Route::post('update/{id}', [ConsultationController::class,"update"])->name('Consultation.update');
-    Route::get('insert/{id}', [ConsultationController::class,"insert"])->name('Consultation.insert');
-    Route::post('ajouter', [ConsultationController::class,"ajouter"])->name('Consultation.ajouter');
+    Route::post('insert/{id}', [ConsultationController::class,"insert"])->name('Consultation.insert');
+    Route::get('ajouter/{id}', [ConsultationController::class,"ajouter"])->name('consultation.ajouter');
     Route::get('delete/{id}', [ConsultationController::class,"delete"])->name('Consultation.delete');
     Route::get('filter/{id}', [ConsultationController::class,"filtrer"])->name('Consultation.filter');
     

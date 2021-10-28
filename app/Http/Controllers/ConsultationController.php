@@ -41,4 +41,32 @@ class ConsultationController extends Controller
                 'data'=>$patients
             ]);
     }
+
+    public function ajouter($id)
+    {
+        $patients = DB::table('rdvs')
+        ->join('patients','rdvs.pat_id','=','patients.id')
+        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
+        ->select('patients.*','rdvs.*','etat_rdvs.*')
+        ->where('etat_rdvs.id',$id)
+        ->first();
+
+        return view('admin_pages.consultation.ajouter',[
+            'data'      =>    $patients,
+            'etat_id'   =>    $id
+        ]);
+    }
+
+    public function insert(Request $request,$id)
+    {
+       DB::table('consultations')
+       ->insert([
+            'motif' => $request->motif,
+            'duree' => $request->duree,
+            'detail'=> $request->detail,
+            'erdv_id'=>$id
+       ]);
+
+       return back();
+    }
 }
