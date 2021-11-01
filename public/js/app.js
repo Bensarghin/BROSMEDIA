@@ -2337,7 +2337,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       data: {},
-      motif: 'Consultaion',
+      motif: 'Acte',
       detail: 'selectionner un patient',
       adresse: 'selectionner un patient',
       date_prend_rdv: '',
@@ -2466,6 +2466,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2497,31 +2515,49 @@ __webpack_require__.r(__webpack_exports__);
     deleteActe: function deleteActe(Acteid) {
       var _this2 = this;
 
-      if (confirm('vous vouley vraiment supprimer ce enregistrement !?')) axios.post('/acte/delete', {
-        id: Acteid
-      }).then(function (response) {
-        return _this2.actes = response.data;
-      }).then(function (data) {
-        alert("votre enregistrement est bien supprimer");
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios.post('/acte/delete', {
+            id: Acteid
+          }).then(function (response) {
+            return _this2.actes = response.data;
+          }).then(function (data) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Your work has been saved',
+              showConfirmButton: false,
+              timer: 1500
+            });
 
-        _this2.fetchData();
-      })["catch"](function (error) {
-        alert('ce acte est relié par un rdv!');
+            _this2.fetchData();
+          })["catch"](function (error) {
+            alert('ce acte est relié par un rdv!');
+          });
+        }
       });
     },
     //edit method to fetch data to modal before updated
     getActe: function getActe(acte) {
-      this.prix = acte.prix, this.description = acte.description, this.nomActe = acte.nom_acte, this.acte_id = acte.id, this.msg = 'Modifier un acte', this.edit = true;
+      this.prix = acte.prix, this.description = acte.description, this.nomActe = acte.nom_acte, this.acte_id = acte.id, this.msg = 'Modifier un Acte', this.edit = true;
     },
     addActe: function addActe() {
-      this.prix = '', this.description = '', this.nomActe = '', this.msg = 'Ajouter un acte';
+      this.prix = '', this.description = '', this.nomActe = '', this.msg = 'Ajouter un Acte';
       this.edit = false;
     },
     enregistrer: function enregistrer() {
       var _this3 = this;
 
       // insert request
-      if (this.edit === false) {
+      if (!this.edit) {
         axios.post('/acte/sendJson', {
           nomActe: this.nomActe,
           prix: this.prix,
@@ -2529,7 +2565,17 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (response) {
           return _this3.actes = response.data;
         }).then(function (data) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1500
+          });
+
           _this3.fetchData();
+
+          document.getElementById("Annuler").click();
         })["catch"](function (error) {
           return console.log(error);
         });
@@ -2543,7 +2589,17 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (response) {
           return _this3.actes = response.data;
         }).then(function (data) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1500
+          });
+
           _this3.fetchData();
+
+          document.getElementById("Annuler").click();
         })["catch"](function (error) {
           return console.log(error);
         });
@@ -39403,27 +39459,40 @@ var render = function() {
                           _c("span", [_vm._v("Description :")])
                         ]
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.enregistrer()
-                          }
-                        }
-                      },
-                      [_vm._v("Enregistrer")]
-                    )
+                    ])
                   ],
                   1
                 )
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.enregistrer()
+                      }
+                    }
+                  },
+                  [_vm._v("Enregistrer")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: {
+                      type: "button",
+                      id: "Annuler",
+                      "data-bs-dismiss": "modal"
+                    }
+                  },
+                  [_vm._v("Annuler")]
+                )
+              ])
             ])
           ])
         ]
@@ -39468,67 +39537,115 @@ var render = function() {
       _vm._v(" "),
       _c("acte-search-component", { on: { "table-filtrer": _vm.refresh } }),
       _vm._v(" "),
-      _vm._l(_vm.actes, function(acte) {
-        return _c(
-          "div",
-          {
-            key: acte.id,
-            staticClass: "card text-dark bg-light mb-3",
-            on: { "table-filtrer": _vm.refresh }
-          },
-          [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v(
-                "\r\n            " + _vm._s(acte.nom_acte) + "\r\n        "
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
-                _vm._v(_vm._s(acte.prix) + ",00 DH")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v(_vm._s(acte.description))
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "card-link",
-                  attrs: {
-                    href: "",
-                    "data-bs-toggle": "modal",
-                    "data-bs-target": "#staticBackdrop"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.getActe(acte)
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fas fa-edit" }), _vm._v(" Modifier")]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "card-link",
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      return _vm.deleteActe(acte.id)
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fas fa-trash" }), _vm._v(" Supprimer")]
-              )
-            ])
-          ]
-        )
-      })
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.actes, function(acte) {
+          return _c(
+            "div",
+            {
+              key: acte.id,
+              staticClass: "col-sm-3",
+              on: { "table-filtrer": _vm.refresh }
+            },
+            [
+              _c("div", { staticClass: "card text-dark bg-light mb-3" }, [
+                _c(
+                  "div",
+                  { staticClass: "card-body" },
+                  [
+                    _c("div", { staticClass: "col-12  text-truncate" }, [
+                      _c("label", { staticClass: "la", attrs: { for: "" } }, [
+                        _vm._v("Nom")
+                      ]),
+                      _vm._v(
+                        "\r\n                    " +
+                          _vm._s(acte.nom_acte) +
+                          "\r\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("h6", { staticClass: "col-12 mb-2 text-muted" }, [
+                      _c("label", { staticClass: "la", attrs: { for: "" } }, [
+                        _vm._v("Prix")
+                      ]),
+                      _vm._v(
+                        "\r\n                        " +
+                          _vm._s(acte.prix) +
+                          ",00 DH"
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "col-12 text-truncate" }, [
+                      _c("label", { staticClass: "la", attrs: { for: "" } }, [
+                        _vm._v("Description")
+                      ]),
+                      _vm._v(
+                        "\r\n\r\n                        " +
+                          _vm._s(acte.description)
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("center", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "card-link",
+                          attrs: {
+                            href: "",
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#staticBackdrop"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.getActe(acte)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-edit",
+                            staticStyle: {
+                              color: "rgb(87 122 168)",
+                              "font-size": "18px"
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "card-link",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteActe(acte.id)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-trash",
+                            staticStyle: {
+                              color: "#522525",
+                              "font-size": "18px"
+                            }
+                          })
+                        ]
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ])
+            ]
+          )
+        }),
+        0
+      )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = [
@@ -39548,21 +39665,6 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "fas fa-times" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-bs-dismiss": "modal" }
-        },
-        [_vm._v("Annuler")]
-      )
-    ])
   }
 ]
 render._withStripped = true

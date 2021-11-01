@@ -70,12 +70,18 @@ class ConsultationController extends Controller
        return back();
     }
 
+<<<<<<< HEAD
     public function modifier($id){
 
+=======
+    public function modifier($id)
+    {
+>>>>>>> c600510afe539969ce921302ff32d488d656dcb0
         $data = DB::table('rdvs')
         ->join('patients','patients.id','=','rdvs.pat_id')
         ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
         ->join('consultations','consultations.erdv_id','=','etat_rdvs.id')
+<<<<<<< HEAD
         ->select('patients.*','rdvs.*','etat_rdvs.*','consultations.*','consultations.id as consu_id')
         ->where('consultations.id', $id)
         ->first();
@@ -87,13 +93,41 @@ class ConsultationController extends Controller
 
     public function update(Request $request,$id){
 
+=======
+        ->select('patients.*','patients.id as pat_id','consultations.*')
+        ->where('consultations.id', $id)
+        ->first();
+        return view('admin_pages.consultation.modifier',[
+            'data' => $data,
+            'id' => $id
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+>>>>>>> c600510afe539969ce921302ff32d488d656dcb0
         DB::table('consultations')
         ->where('id',$id)
         ->update([
             'motif' => $request->motif,
             'duree' => $request->duree,
+<<<<<<< HEAD
             'detail' => $request->detail
         ]);
+=======
+            'detail' => $request->detail,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function delete($id){
+      
+        DB::table('consultations')
+        ->where('id',$id)
+        ->delete();
+
+>>>>>>> c600510afe539969ce921302ff32d488d656dcb0
         return redirect()->back();
     }
 }

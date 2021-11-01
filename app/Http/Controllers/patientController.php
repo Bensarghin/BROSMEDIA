@@ -11,6 +11,7 @@ class patientController extends Controller
     {
         $this->middleware('auth');
     }
+    
     public function index(){
         $patients = DB::table('patients')
         ->orderBy('id','DESC')
@@ -22,7 +23,7 @@ class patientController extends Controller
         if($request->isMethod('POST')){
             
             DB::table('patients')->insertOrIgnore(
-                ['cin' => $request->input('cin'),
+                ['cin' => $request->cin,
                 'nom' => $request->input('nom'),
                 'prenom' => $request->input('prenom'),
                 'sexe' => $request->input('sexe'),
@@ -44,14 +45,18 @@ class patientController extends Controller
         ->join('patients','patients.id','=','rdvs.pat_id')
         ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
         ->join('consultations','consultations.erdv_id','=','etat_rdvs.id')
+<<<<<<< HEAD
         ->select('patients.*','rdvs.*','etat_rdvs.*','consultations.*','consultations.id as consu_id')
+=======
+        ->select('patients.*','rdvs.*','etat_rdvs.*','consultations.*','consultations.id as cons_id')
+>>>>>>> c600510afe539969ce921302ff32d488d656dcb0
         ->where('patients.id', $id)
         ->get();
         $traitements = DB::table('rdvs')
         ->join('patients','patients.id','=','rdvs.pat_id')
         ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
         ->join('traitements','traitements.erdv_id','=','etat_rdvs.id')
-        ->select('patients.*','rdvs.*','etat_rdvs.*','traitements.*')
+        ->select('patients.*','rdvs.*','etat_rdvs.*','traitements.*','traitements.id as trai_id')
         ->where('patients.id', $id)
         ->get();
         $rdvs = DB::table('rdvs')
@@ -60,12 +65,18 @@ class patientController extends Controller
         ->select('patients.*','rdvs.*','etat_rdvs.id as etat_id','etat_rdvs.*')
         ->where('patients.id', $id)
         ->get();
+        $facts = DB::table('facturations')
+        ->join('patients','patients.id','=','facturations.pat_id')
+        ->select('patients.*','facturations.*')
+        ->where('patients.id', $id)
+        ->get();
 
         return view('admin_pages.patient.details',[
             'patients'  => $patients,
             'consu' => $consu,
             'traitements'=> $traitements,
-            'rdvs' => $rdvs
+            'rdvs' => $rdvs,
+            'facts' =>  $facts
         ]);
     }
 

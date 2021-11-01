@@ -27,13 +27,13 @@
         <div class="table-responsive">
             <table id='exampleee' class='table table-striped table-light bg-light'>
                 <tr>                      
-                    <td>CIN</td>
-                    <td>NOM</td>
-                    <td>PRENOM</td>
+                    <td>{{ __('col.cin') }}</td>
+                    <td>Nom</td>
+                    <td>Prénom</td>
                     <td>SEXE</td>
-                    <td>DATE NAIS</td>
-                    <td>TELE</td>
-                    <td>MAJ</td>
+                    <td>Date Naissance</td>
+                    <td>Téléphone</td>
+                    <td>Action</td>
         
                 </tr>
                 @foreach ($data as $patient)
@@ -45,9 +45,10 @@
                     <td>{{$patient->date_nais}}</td>
                     <td>{{$patient->tele}}</td>
                     <td>
-                        <a href="{{route('patient.detail',['id'=>$patient->id])}}" class="text-secondary"><i class="far fa-folder-open"></i> Données</a> |
-                        <a href="{{route('patient.update',['id'=>$patient->id])}}" class="text-info"><i class="fas fa-edit"></i> Mod</a> | 
-                        <a onclick="return confirm('Vous étes vraiment à supprimer ce enregistrement')" class="text-danger" href="{{route('patient.delete',['id'=>$patient->id])}}"><i class="fas fa-trash"></i> Supp</a>
+                        <a href="" class="text-warning"><i class="fas fa-notes-medical"></i></a> | 
+                        <a href="{{route('patient.detail',['id'=>$patient->id])}}" class="text-secondary"><i class="far fa-folder-open"></i> </a> | 
+                        <a href="{{route('patient.update',['id'=>$patient->id])}}" class="text-info"><i class="fas fa-edit"></i> </a> | 
+                        <a onclick="return confirm('Vous étes vraiment à supprimer ce enregistrement')" class="text-danger" href="{{route('patient.delete',['id'=>$patient->id])}}"><i class="fas fa-trash"></i> </a>
                     </td>
                     
                 </tr>

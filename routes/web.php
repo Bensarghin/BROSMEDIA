@@ -3,11 +3,13 @@
 use App\Http\Controllers\patientController;
 use App\Http\Controllers\RendeyVousController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FacturationController;
 use App\Http\Controllers\TraitementController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\ActeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 // acceuil routes
 Route::get('/',[HomeController::class,'index'])->middleware('auth');
 Route::get('/home',[HomeController::class,'index'])->middleware('auth');
@@ -40,6 +43,16 @@ Route::prefix('patient')->group(function () {
     //Json http
     Route::post('/search', [patientController::class,'search'])->name('patient.search');
     
+});
+
+// facturations routes
+Route::prefix('facturation')->group(function () {
+    Route::get('manage', [FacturationController::class,"index"])->name('fact.manage');
+    Route::get('details/{id}', [FacturationController::class,"detail"])->name('fact.detail');
+    Route::post('add', [FacturationController::class,"insert"])->name('fact.add');
+    Route::get('modifier/{id}', [FacturationController::class,"edit"])->name('fact.modifier');
+    Route::post('update/{id}', [FacturationController::class,"update"])->name('fact.update');
+    Route::get('delete/{id}', [FacturationController::class,"delete"])->name('fact.delete'); 
 });
 
 // Rendey-vous routes
@@ -70,21 +83,15 @@ Route::prefix('acte')->group(function () {
 
 // traitements routes
 Route::prefix('traitement')->group(function () {
-    Route::get('manage', [traitementController::class,"index"])->name('traitement.manage');
-    Route::get('filter/{id}', [traitementController::class,"filtrer"])->name('traitement.filter');
-    Route::post('search', [traitementController::class,"search"])->name('traitement.search');
-    Route::get('update/{id}', [traitementController::class,"update"])->name('traitement.update');
-    Route::post('update/{id}', [traitementController::class,"update"])->name('traitement.update');
-    Route::post('insert/{id}', [traitementController::class,"insert"])->name('traitement.insert');
-    Route::get('ajouter/{id}', [traitementController::class,"ajouter"])->name('traitement.ajouter');
-    Route::get('delete/{id}', [traitementController::class,"delete"])->name('traitement.delete');
-    Route::get('filter/{id}', [traitementController::class,"filtrer"])->name('traitement.filter');
-    
+    Route::get('modifier/{id}', [TraitementController::class,"modifier"])->name('traitement.modifier');
+    Route::post('update/{id}', [TraitementController::class,"update"])->name('traitement.update');
+    Route::post('insert/{id}', [TraitementController::class,"insert"])->name('traitement.insert');
+    Route::get('ajouter/{id}', [TraitementController::class,"ajouter"])->name('traitement.ajouter');
+    Route::get('delete/{id}', [TraitementController::class,"delete"])->name('traitement.delete');
 });
 
 // consulations routes 
 Route::prefix('consultation')->group(function () {
-    Route::get('manage', [ConsultationController::class,"index"])->name('consultation');
     Route::get('filter/{id}', [ConsultationController::class,"filtrer"])->name('Consultation.filter');
     Route::post('search', [ConsultationController::class,"search"])->name('Consultation.search');
     Route::get('modifier/{id}', [ConsultationController::class,"modifier"])->name('Consultation.modifier');

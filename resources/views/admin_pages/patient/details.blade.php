@@ -109,8 +109,13 @@
               <td>{{$consultation->motif}}</td>
               <td>{{$consultation->duree}}</td>
               <td>{{$consultation->detail}}</td>
+<<<<<<< HEAD
               <td><a href="{{route('Consultation.modifier',['id'=>$consultation->consu_id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
               <td><a href="" class="text-danger"><i class="fas fa-trash"></i></a></td>
+=======
+              <td><a href="{{route('Consultation.modifier',['id' => $consultation->cons_id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
+              <td><a href="{{route('Consultation.delete',['id' => $consultation->cons_id])}}" class="text-danger"><i class="fas fa-trash"></i></a></td>
+>>>>>>> c600510afe539969ce921302ff32d488d656dcb0
             </tr>
             @endforeach
           </table>
@@ -141,8 +146,8 @@
               <td>{{$trait->typeTrait}}</td>
               <td>{{$trait->description}}</td>
               <td>{{$trait->status}}</td>
-              <td><a href="" class="text-primary"><i class="fas fa-edit"></i></a></td>
-              <td><a href="" class="text-danger"><i class="fas fa-trash"></i></a></td>
+              <td><a href="{{route('traitement.modifier',['id' => $trait->trai_id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
+              <td><a href="{{route('traitement.delete',['id' => $trait->trai_id])}}" class="text-danger"><i class="fas fa-trash"></i></a></td>
             </tr>
             @endforeach
           </table>
@@ -150,7 +155,44 @@
       </div>
       <!-- facturation section -->
       <div class="tab-pane fade" id="facturation" role="tabpanel" aria-labelledby="facturation-tab">
-        <h6 class="mt-4 text-info">Facturation</h6>
+        @if ($facts->count() < 1)
+        <div class="mt-4"> 
+          <span class="mt-4 text-danger">
+            Pas payer encore ... 
+          </span> 
+        </div>
+        @else
+        <div class="row mt-4 mb-4">
+          <div class="col-sm-4"><h4> Cassier </h4></div>
+          <div class="col-sm-8">
+            <a href="#" class="mybtn">Imprimer <i class="fas fa-print"></i></a> 
+            <a href="#" class="mybtn">ajouter <i class="fas fa-folder-plus"></i></a>
+          </div>
+          
+        </div>
+          <table class="table table-bordered">
+            <tr>
+              <td>Motif</td>
+              <td>Montant</td>
+              <td>Avance</td>
+              <td>Date payement</td>
+              <td>rest</td>
+              <td>Modifier</td>
+              <td>Supprimer</td>
+            </tr>
+            @foreach ($facts as $fact)
+            <tr>
+              <td>{{$fact->motif}}</td>
+              <td>{{$fact->montant}}</td>
+              <td>{{$fact->avance}}</td>
+              <td>{{$fact->date_pay}}</td>
+              <td>{{$fact->avance}}</td>
+              <td><a href="{{route('fact.modifier',['id' => $fact->pat_id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
+              <td><a href="{{route('fact.delete',['id' => $fact->pat_id])}}" class="text-danger"><i class="fas fa-trash"></i></a></td>
+            </tr>
+            @endforeach
+          </table>
+        @endif
       </div>
     </div>
   </div>
