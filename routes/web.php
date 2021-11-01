@@ -87,7 +87,7 @@ Route::prefix('consultation')->group(function () {
     Route::get('manage', [ConsultationController::class,"index"])->name('consultation');
     Route::get('filter/{id}', [ConsultationController::class,"filtrer"])->name('Consultation.filter');
     Route::post('search', [ConsultationController::class,"search"])->name('Consultation.search');
-    Route::get('update/{id}', [ConsultationController::class,"update"])->name('Consultation.update');
+    Route::get('modifier/{id}', [ConsultationController::class,"modifier"])->name('Consultation.modifier');
     Route::post('update/{id}', [ConsultationController::class,"update"])->name('Consultation.update');
     Route::post('insert/{id}', [ConsultationController::class,"insert"])->name('Consultation.insert');
     Route::get('ajouter/{id}', [ConsultationController::class,"ajouter"])->name('consultation.ajouter');

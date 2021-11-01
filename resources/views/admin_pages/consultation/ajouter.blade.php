@@ -19,6 +19,7 @@
         </div>
         <div class="card-subtitle">
             <h5>CIN : {{$data->cin}} </h5>
+            <h5>Date pour consultation : {{$data->date_consu}} </h5>
         </div>
         
         <div class="card-title">
@@ -32,18 +33,25 @@
             <center>
             {{-- Motif --}}
             <label class="pure-material-textfield-outlined">
-            <input type="text" placeholder=" " name="motif" required value="" >
-            <span>Motif : </span>
+                <input type="text" placeholder=" " name="motif" required value="" >
+                <span>Motif : </span>   
             </label>
             {{-- Duree --}}
             <label class="pure-material-textfield-outlined">
-            <input type="number" placeholder=" " name="duree" required value="" >
-            <span>Durée : </span>
+                <div class="input-group"> 
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Durée : </span>
+                    </div>
+                    <input type="number" name="duree" class="form-control" value="" aria-label="Amount (to the nearest dollar)">
+                    <div class="input-group-append">
+                        <span class="input-group-text">Heures</span>
+                    </div>
+                </div>
             </label>
             {{-- Details --}}
             <label class="pure-material-textfield-outlined">
-            <textarea name="detail" cols="30" rows="6"></textarea>
-            <span>Détails : </span>
+                <textarea name="detail" cols="30" rows="6"></textarea>
+                <span>Détails : </span>
             </label>
         </center>
         <button type="submit" class="btn btn-primary">Enregistrer</button>
