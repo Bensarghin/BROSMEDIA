@@ -109,13 +109,8 @@
               <td>{{$consultation->motif}}</td>
               <td>{{$consultation->duree}}</td>
               <td>{{$consultation->detail}}</td>
-<<<<<<< HEAD
-              <td><a href="{{route('Consultation.modifier',['id'=>$consultation->consu_id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
-              <td><a href="" class="text-danger"><i class="fas fa-trash"></i></a></td>
-=======
               <td><a href="{{route('Consultation.modifier',['id' => $consultation->cons_id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
               <td><a href="{{route('Consultation.delete',['id' => $consultation->cons_id])}}" class="text-danger"><i class="fas fa-trash"></i></a></td>
->>>>>>> c600510afe539969ce921302ff32d488d656dcb0
             </tr>
             @endforeach
           </table>

@@ -665,17 +665,17 @@ hr.message-inner-separator {
 }
 
 .avatar {
-    width: 2rem;
+    width: 33px;
     height: 2rem;
-    line-height: 2rem;
+    line-height: 26px;
     position: relative;
     text-align: center;
     display: inline-block;
-    background: #29327f no-repeat center/cover;
+    background: #84a9d9 no-repeat center/cover;
     color: #fff;
     font-weight: 600;
     vertical-align: bottom;
-    font-size: .875rem;
+    font-size: 10px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;

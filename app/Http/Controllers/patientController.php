@@ -45,11 +45,7 @@ class patientController extends Controller
         ->join('patients','patients.id','=','rdvs.pat_id')
         ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
         ->join('consultations','consultations.erdv_id','=','etat_rdvs.id')
-<<<<<<< HEAD
-        ->select('patients.*','rdvs.*','etat_rdvs.*','consultations.*','consultations.id as consu_id')
-=======
         ->select('patients.*','rdvs.*','etat_rdvs.*','consultations.*','consultations.id as cons_id')
->>>>>>> c600510afe539969ce921302ff32d488d656dcb0
         ->where('patients.id', $id)
         ->get();
         $traitements = DB::table('rdvs')

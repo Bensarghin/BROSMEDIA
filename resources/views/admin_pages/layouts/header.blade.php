@@ -81,9 +81,9 @@
                                 <span class="ml-4 side-menu__label">Actes</span> </a>
                         </li>
                         <li class="slide">
-                            <a class="side-menu__item" href="{{route('acte.manage')}}">
-                                <i class="fas fa-teeth-open"></i>
-                                <span class="ml-4 side-menu__label">Actes</span> 
+                            <a class="side-menu__item" href="{{route('medicament.manage')}}">
+                                <i class="fas fa-pills"></i>
+                                <span class="ml-4 side-menu__label">Médicaments</span> 
                             </a>
                         </li>
                         @guest
@@ -194,9 +194,7 @@
                                     </div>
                                     <div class="dropdown profile-dropdown"> <a href="#"
                                             class="nav-link pr-0 pl-2 leading-none" data-toggle="dropdown">
-                                            <span class="avatar brround"
-                                                style="background-image: url(sheet/assets/images/User.svg)"> <span
-                                                    class="avatar-status bg-green"></span> </span>
+                                            <span class="avatar brround"><i class="fas fa-user-cog"></i> </span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated p-0">
                                             <a class="dropdown-item border-bottom" href="../setting/index.php">

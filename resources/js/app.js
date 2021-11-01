@@ -28,6 +28,10 @@ Vue.component('filter-component', require('./components/Globale/FilterComponent.
 Vue.component('acte-search-component', require('./components/acte/searchComponent.vue').default);
 Vue.component('acte-list-component', require('./components/acte/listComponent.vue').default);
 
+// midecament components
+Vue.component('medicament-search-component', require('./components/medicament/searchComponent.vue').default);
+Vue.component('medicament-list-component', require('./components/medicament/listComponent.vue').default);
+
 
 // patient components
 Vue.component('patient-search-component', require('./components/patient/searchComponent.vue').default);

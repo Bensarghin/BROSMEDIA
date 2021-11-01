@@ -5,6 +5,7 @@ use App\Http\Controllers\RendeyVousController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FacturationController;
 use App\Http\Controllers\TraitementController;
+use App\Http\Controllers\MedicamentController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\ActeController;
 use Illuminate\Support\Facades\Route;
@@ -78,6 +79,19 @@ Route::prefix('acte')->group(function () {
     Route::post('/sendJson', [ActeController::class,'store']);
     Route::post('/updateJson', [ActeController::class,'update']);
     Route::post('/delete', [ActeController::class,'destroy']);
+    
+});
+
+// Medicament routes
+Route::prefix('medicament')->group(function () {
+    Route::get('manage', [MedicamentController::class,"index"])->name('medicament.manage');
+
+    //Json http
+    Route::get('/getJson', [MedicamentController::class,'show']);
+    Route::post('/getJson', [MedicamentController::class,'search']);
+    Route::post('/sendJson', [MedicamentController::class,'store']);
+    Route::post('/updateJson', [MedicamentController::class,'update']);
+    Route::post('/delete', [MedicamentController::class,'destroy']);
     
 });
 
