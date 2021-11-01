@@ -1423,8 +1423,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff !important;
-    background-color: #0043c7;
-    border-color: #0043c7;
+    background-color: #84a9d9;
+    border-color: #84a9d9;
     box-shadow: none;
 }
 
@@ -1770,10 +1770,9 @@ color: #0044cf !important;
 }
 
 .btn-default {
-    color: #495057;
-    background-color: #e8ebf2;
-    border-color: #dae0e5;
-    box-shadow: 0 0 10px -5px rgba(68, 84, 195, 0.2);
+    color: #000000;
+    background-color: #ffffff;
+    border-color: #ffffff;
 }
 
 .btn-default:hover {
@@ -6673,7 +6672,7 @@ button.close {
 
 .nav-tabs .nav-link.active {
     color: #fff;
-    background: #29327f;
+    background: #84a9d9;
     border: 0;
 }
 
@@ -32365,7 +32364,7 @@ a.text-light:focus {
 }
 
 .text-dark {
-    color: #424e79 !important;
+    color: #000000 !important;
 }
 
 a.text-dark:hover,
@@ -35792,7 +35791,6 @@ a.icon:hover {
 .col-sm-3 a:hover {
     border: 1px solid #ff4647;
     border-radius: 100% 60% / 30% 10%;
-    background: linear-gradient(rgba(56, 123, 131, 0.7), rgba(56, 123, 131, 0.7));
 }
 
 .gallery-list {
@@ -37381,4 +37379,26 @@ width: 200px;
     color: #000;
 }
 
-    
+    #staticBackdropLabel{
+        font-size: 25px;
+        font-family: 'Titillium Web';
+        color: #84a9d9;
+    }
+    .la{
+        color: #84a9d9;
+    }
+.mybtn{
+    background: #29327fdb;
+    border: 1px solid #29327f;
+    padding: 6px 16px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.mybtn:hover{
+    background: #29327f;
+    border: 1px solid #29327f;
+    color: #fff;
+}

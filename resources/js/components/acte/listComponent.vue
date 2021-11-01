@@ -25,11 +25,12 @@
                     <span>Description :</span>
                 </label>
             </center>
-            <button type="button" @click="enregistrer()" class="btn btn-primary" >Enregistrer</button>
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" @click="enregistrer()"  class="btn btn-primary" >Enregistrer</button>
+
+            <button type="button" class="btn btn-danger" id="Annuler" data-bs-dismiss="modal">Annuler</button>
         </div>
         </div>
     </div>
@@ -44,22 +45,39 @@
         </a>
     </div>
     <acte-search-component @table-filtrer="refresh"></acte-search-component>
-    <div class="card text-dark bg-light mb-3" v-for="acte in actes" :key="acte.id" @table-filtrer="refresh">
-        <div class="card-header">
-            {{acte.nom_acte}}
-        </div>
-        <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">{{acte.prix}},00 DH</h6>
-            <p class="card-text">{{acte.description}}</p>
-            <a href="" class="card-link" @click="getActe(acte)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit"></i> Modifier</a>
-            <a href="#" class="card-link" @click="deleteActe(acte.id)"><i class="fas fa-trash"></i> Supprimer</a>
+    <div class="row">
+        <div class="col-sm-3" v-for="acte in actes" :key="acte.id" @table-filtrer="refresh">
+            <div class="card text-dark bg-light mb-3">
+                <div class="card-body">
+                      <div class="col-12  text-truncate">
+                    <label for="" class="la">Nom</label>
+                    {{acte.nom_acte}}
+                </div>             
+
+                    <h6 class="col-12 mb-2 text-muted">
+                        <label for="" class="la">Prix</label>
+                        {{acte.prix}},00 DH</h6>
+
+                    <p class="col-12 text-truncate">
+                                                <label for="" class="la">Description</label>
+
+                        {{acte.description}}</p>
+                        <center>
+                    <a href="" class="card-link" @click="getActe(acte)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit" style="color: rgb(87 122 168);    font-size: 18px;"></i> </a>
+                    <a href="#" class="card-link" @click="deleteActe(acte.id)"><i class="fas fa-trash" style="color: #522525;    font-size: 18px;"></i> </a>
+             </center>
+                </div>
+            </div>
         </div>
     </div>
+   
 </div>
 </template>
 <style scoped>
  
 </style>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
 export default {
         data () {
@@ -92,19 +110,40 @@ export default {
 
             // Query methods
             deleteActe(Acteid){
-                if(confirm('vous vouley vraiment supprimer ce enregistrement !?'))
+                Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+
                 axios
                 .post('/acte/delete',{
                         id:Acteid
                 })
                 .then(response => (this.actes = response.data))
                 .then(data=>{
-                    alert("votre enregistrement est bien supprimer");
+               Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+})
                     this.fetchData();
                 })
                 .catch(error=>{
                     alert('ce acte est relié par un rdv!')
                 })
+
+
+  
+  }
+})
             },
             //edit method to fetch data to modal before updated
             getActe(acte){
@@ -112,19 +151,20 @@ export default {
                 this.description=acte.description,
                 this.nomActe=acte.nom_acte,
                 this.acte_id=acte.id,
-                this.msg='Modifier un acte',
+                this.msg='Modifier un Acte',
                 this.edit=true
             },
             addActe(){
                 this.prix='',
                 this.description='',
                 this.nomActe='',
-                this.msg='Ajouter un acte'
+                this.msg='Ajouter un Acte'
                 this.edit=false
             },
             enregistrer(){
                 // insert request
-                if(this.edit===false){
+                if(!this.edit){
+
                 axios.post('/acte/sendJson',
                 {
                     nomActe : this.nomActe,
@@ -133,7 +173,15 @@ export default {
                 })
                 .then(response =>(this.actes = response.data))
                 .then(data=>{
+                     Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+})
                     this.fetchData();
+                    document.getElementById("Annuler").click();
                 })
                 .catch(error => console.log(error))
                 }
@@ -148,7 +196,16 @@ export default {
                 })
                 .then(response =>(this.actes = response.data))
                 .then(data=>{
+                     Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+})
                     this.fetchData();
+                                        document.getElementById("Annuler").click();
+
                 })
                 .catch(error => console.log(error))
                 }

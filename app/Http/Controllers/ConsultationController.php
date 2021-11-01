@@ -69,4 +69,41 @@ class ConsultationController extends Controller
 
        return back();
     }
+
+    public function modifier($id)
+    {
+        $data = DB::table('rdvs')
+        ->join('patients','patients.id','=','rdvs.pat_id')
+        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
+        ->join('consultations','consultations.erdv_id','=','etat_rdvs.id')
+        ->select('patients.*','patients.id as pat_id','consultations.*')
+        ->where('consultations.id', $id)
+        ->first();
+        return view('admin_pages.consultation.modifier',[
+            'data' => $data,
+            'id' => $id
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        DB::table('consultations')
+        ->where('id',$id)
+        ->update([
+            'motif' => $request->motif,
+            'duree' => $request->duree,
+            'detail' => $request->detail,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function delete($id){
+      
+        DB::table('consultations')
+        ->where('id',$id)
+        ->delete();
+
+        return redirect()->back();
+    }
 }

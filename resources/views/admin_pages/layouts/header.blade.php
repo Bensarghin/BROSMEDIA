@@ -80,6 +80,12 @@
                                 <i class="fas fa-teeth-open"></i>
                                 <span class="ml-4 side-menu__label">Actes</span> </a>
                         </li>
+                        <li class="slide">
+                            <a class="side-menu__item" href="{{route('acte.manage')}}">
+                                <i class="fas fa-teeth-open"></i>
+                                <span class="ml-4 side-menu__label">Actes</span> 
+                            </a>
+                        </li>
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -184,7 +190,8 @@
                                                 <path
                                                     d="M7,14 L5,14 L5,19 L10,19 L10,17 L7,17 L7,14 Z M5,10 L7,10 L7,7 L10,7 L10,5 L5,5 L5,10 Z M17,17 L14,17 L14,19 L19,19 L19,14 L17,14 L17,17 Z M14,5 L14,7 L17,7 L17,10 L19,10 L19,5 L14,5 Z">
                                                 </path>
-                                            </svg> </a> </div>
+                                            </svg> </a> 
+                                    </div>
                                     <div class="dropdown profile-dropdown"> <a href="#"
                                             class="nav-link pr-0 pl-2 leading-none" data-toggle="dropdown">
                                             <span class="avatar brround"
@@ -193,11 +200,11 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated p-0">
                                             <a class="dropdown-item border-bottom" href="../setting/index.php">
-                                                <i class="dropdown-icon mdi mdi-account-outline"></i> My Profile </a>
+                                                <i class="dropdown-icon mdi mdi-account-outline"></i> Modifier Profile</a>
                                             <a class="dropdown-item border-bottom" href="../setting/index.php"> <i
-                                                    class="dropdown-icon zmdi zmdi-edit"></i> Edit Profile </a>
+                                                    class="dropdown-icon zmdi zmdi-edit"></i> Neauveu Mot de pass </a>
                                             <a class="dropdown-item border-bottom" href="../index.php"> <i
-                                                    class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out </a>
+                                                    class="dropdown-icon mdi  mdi-logout-variant"></i> Cabinet Info</a>
                                         </div>
                                     </div>
                                 </div>
