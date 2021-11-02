@@ -16,7 +16,7 @@ class CreateOrdonnancesTable extends Migration
         Schema::create('ordonnances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pat_id')->references('id')->on('patients');
-            $table->foreignId('medic_id')->references('id')->on('medicaments');
+            $table->foreignId('med_id')->references('id')->on('medecins');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
