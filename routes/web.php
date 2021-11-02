@@ -7,6 +7,7 @@ use App\Http\Controllers\FacturationController;
 use App\Http\Controllers\TraitementController;
 use App\Http\Controllers\MedicamentController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\OrdonnanceController;
 use App\Http\Controllers\ActeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -121,5 +122,9 @@ Auth::routes();
 Route::any('/register',function(){
  return '404 | not found';
 });
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('ordonnance')->group(function () {
+    Route::get('manage/{id}', [OrdonnanceController::class,'index'])->name('ord.manage');
+    Route::post('ajouter', [OrdonnanceController::class,'store'])->name('ord.ajouter');
+});
 

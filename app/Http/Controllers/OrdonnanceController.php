@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ordonnance;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrdonnanceController extends Controller
 {
@@ -13,9 +14,28 @@ class OrdonnanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $medic = DB::table('medicaments')->get();
+        $patients = DB::table('patients')
+        ->join('rdvs','rdvs.pat_id','=','patients.id')
+        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
+        ->join('medecins','medecins.id','=','etat_rdvs.med_id')
+
+        ->select(
+        'patients.*',
+        'patients.nom as nom_pat',
+        'patients.prenom as prenom_pat',
+        'medecins.*',
+        'medecins.nom as nom_med',
+        'medecins.prenom as prenom_med')
+
+        ->where('patients.id',$id)
+        ->first();
+        return view('admin_pages.ordonnance.manage',[
+            'medic' => $medic,
+            'patients' => $patients
+        ]);
     }
 
     /**
@@ -36,7 +56,12 @@ class OrdonnanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $id=DB::table('ordonnances')
+        // ->insertGetId([
+            
+        // ]);
+        // DB::table('medords')
+        // ->
     }
 
     /**
