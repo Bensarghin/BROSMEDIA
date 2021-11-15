@@ -118,13 +118,16 @@ Route::prefix('consultation')->group(function () {
     
 });
 
-Auth::routes();
-Route::any('/register',function(){
- return '404 | not found';
-});
+// ordonnance routes
 
 Route::prefix('ordonnance')->group(function () {
     Route::get('manage/{id}', [OrdonnanceController::class,'index'])->name('ord.manage');
-    Route::post('ajouter', [OrdonnanceController::class,'store'])->name('ord.ajouter');
+    Route::post('insert', [OrdonnanceController::class,"store"])->name('ordonnance.insert');
+    Route::get('show/{ordonnance}', [OrdonnanceController::class,"show"])->name('ordonnance.show');
+});
+
+Auth::routes();
+Route::any('/register',function(){
+ return '404 | not found';
 });
 

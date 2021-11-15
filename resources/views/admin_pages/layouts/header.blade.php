@@ -29,10 +29,10 @@
     <link rel="stylesheet" href="{{asset('sheet/assets/css/bootstrap.min.css')}}">
     <link href="{{asset('sheet/assets/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('sheet/assets/css/style.css')}}" rel="stylesheet" type="text/css" />
-    {{-- laravel  css --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        {{-- laravel  css --}}
+   
 </head>
-
 
 
 <body class="app sidebar-mini" oncontextmenu="false">

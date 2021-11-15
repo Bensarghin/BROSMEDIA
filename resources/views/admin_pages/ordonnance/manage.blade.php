@@ -1,50 +1,33 @@
 @extends('admin_pages.layouts.master')
 @section('content')
 
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Ordonnance</h4>
-        <h5 class="card-subtitle">Patient : {{$patients->nom_pat}} {{$patients->prenom_pat}}</h5>
-        <h5 class="card-subtitle">Medecin affecté: {{$patients->nom_med}} {{$patients->prenom_med}}</h5>
-    </div>
-    <div class="card-body">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <h3>Medicament 3</h3>
-                <p>Notice de utilisation detallier</p>
-                <a href="" class="text-info"><i class="fas fa-edit"></i></a> | <a href="" class="text-danger"><i class="fas fa-trash"></i></a>
-            </li>
-        </ul>
-    </div>
-    <div class="card-footer">
-        <a href="" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Neuveau medicament</a> 
-        | <a href=""  class="btn btn-secondary">Imprimer</a>
-    </div>
-</div>
+<form action="{{route('ordonnance.insert')}}" method="post">
+    @csrf
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Ordonnance</h4>
+            <input type="hidden" value="{{$patients->pat_id}}" name="pat_id">
+            <input type="hidden" value="{{$patients->med_id}}" name="med_id">
+            <h5 class="card-subtitle">Patient : {{$patients->nom_pat}} {{$patients->prenom_pat}}</h5>
+            <h5 class="card-subtitle">Medecin affecté: {{$patients->nom_med}} {{$patients->prenom_med}}</h5>
+        </div>
 
-<!-- modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel" v-text="msg">stock medicaments</h5>
-            <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+        <div class="card-body">
+            
+            @foreach ($medic as $item)
+            <div class="form-check form-check-inline ml-3" style="width: 300px">
+               <input class="form-check-input" type="checkbox" name='medic_id[]' value="{{$item->id}}">
+                <label class="form-check-label" >{{$item->nom_medicament}}</label>
+            </div>
+            @endforeach
+
         </div>
-        <div class="modal-body">
-            <form action="{{route('ord.ajouter')}}" method="POST">
-              <select name="medic_id" class="form-control">
-                <option disabled selected>Selectionner un medicament ...</option>
-                    @foreach ($medic as $item)
-                        <option value="{{$item->id}}">{{$item->nom_medicament}}</option>
-                    @endforeach
-                <button type="submit"  class="btn btn-primary" >Ajouter</button>
-              </select>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="Annuler" data-bs-dismiss="modal">Annuler</button>
-        </div>
+
+        <div class="card-footer">
+            <div class="mt-2">
+                <button class="btn btn-success" type="submit"> Enregistrer</button>
+            </div>
         </div>
     </div>
-    </div>
+</form>
 @endsection

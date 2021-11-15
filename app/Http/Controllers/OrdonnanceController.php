@@ -24,17 +24,22 @@ class OrdonnanceController extends Controller
 
         ->select(
         'patients.*',
+        'patients.id as pat_id',
         'patients.nom as nom_pat',
         'patients.prenom as prenom_pat',
         'medecins.*',
+        'medecins.id as med_id',
         'medecins.nom as nom_med',
         'medecins.prenom as prenom_med')
 
         ->where('patients.id',$id)
         ->first();
+
+        $ordonnance = Ordonnance::find(1);
         return view('admin_pages.ordonnance.manage',[
             'medic' => $medic,
-            'patients' => $patients
+            'patients' => $patients,
+            'ordonnance'=> $ordonnance
         ]);
     }
 
@@ -45,7 +50,7 @@ class OrdonnanceController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -56,12 +61,13 @@ class OrdonnanceController extends Controller
      */
     public function store(Request $request)
     {
-        // $id=DB::table('ordonnances')
-        // ->insertGetId([
-            
-        // ]);
-        // DB::table('medords')
-        // ->
+        $ord=Ordonnance::create([
+            'pat_id' => $request->pat_id,
+            'med_id' => $request->med_id
+        ]);
+
+        $ord->medicament()->attach($request->medic_id);
+        return redirect()->route('ordonnance.show',['ordonnance'=>$ord]);
     }
 
     /**
@@ -72,7 +78,7 @@ class OrdonnanceController extends Controller
      */
     public function show(Ordonnance $ordonnance)
     {
-        //
+        return view('admin_pages.ordonnance.show',['ord'=>$ordonnance]);
     }
 
     /**
