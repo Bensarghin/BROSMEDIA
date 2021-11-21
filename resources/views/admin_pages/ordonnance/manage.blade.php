@@ -13,7 +13,7 @@
         </div>
 
         <div class="card-body">
-            
+            @include('admin_pages.ordonnance.listPdf')
             @foreach ($medic as $item)
             <div class="form-check form-check-inline ml-3" style="width: 300px">
                <input class="form-check-input" type="checkbox" name='medic_id[]' value="{{$item->id}}">
@@ -25,7 +25,7 @@
 
         <div class="card-footer">
             <div class="mt-2">
-                <button class="btn btn-success" type="submit"> Enregistrer</button>
+                <button class="btn btn-success" type="submit">Neuveau ordonnance</button>
             </div>
         </div>
     </div>

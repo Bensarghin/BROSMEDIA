@@ -1,9 +1,7 @@
 @extends('admin_pages.layouts.master')
 @section('content')
-
-<form action="{{route('ordonnance.insert')}}" method="post">
     @csrf
-    <div class="card">
+    <div class="card" class="certificate">
         <div class="card-header">
             <h4 class="card-title">Ordonnance</h4>
             <input type="hidden" value="{{$ord->patient->id}}" name="pat_id">
@@ -27,9 +25,34 @@
 
         <div class="card-footer">
             <div class="mt-2">
-                <a href=""  class="btn btn-secondary">Imprimer</a>
+                <a id="imprimer" class="btn btn-secondary">Imprimer</a> | 
             </div>
         </div>
     </div>
-</form>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js"></script>
+<!--<script src="{{--asset('js/jQuery.print.min.js')--}}"></script>-->
+<script>
+$(document).ready(function(){
+    $("#imprimer").click(function(){
+        $('.certificate').printThis();
+    //   alert('print pdf');
+    // $('.certificate').print({
+    //         importCSS: false,
+    //         loadCSS: "path/to/new/CSS/file",
+    //         header: "<h1>Look at all of my kitties!</h1>"
+    //     });
+  });
+
+});
+
+// $(function() {
+//   $(".certificate").find('#imprimer').on('click', function() {
+//     $.printThis(".certificate");
+//   });
+// });
+
+</script>
 @endsection

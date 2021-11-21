@@ -6,8 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Cabinet Dentaire
-    </title>
+    <title>Cabinet Dentaire</title>
     <link rel="stylesheet" href="{{asset('admin_as/css/all.min.css')}}">
     <link rel="icon" href="{{asset('sheet/assets/images/icoon.png')}}')}}" type="image/x-icon">
     <link href="{{asset('sheet/assets/css/animated.css')}}" rel="stylesheet">
@@ -29,9 +28,7 @@
     <link rel="stylesheet" href="{{asset('sheet/assets/css/bootstrap.min.css')}}">
     <link href="{{asset('sheet/assets/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('sheet/assets/css/style.css')}}" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         {{-- laravel  css --}}
-   
 </head>
 
 
@@ -210,5 +207,5 @@
                         </div>
                     </div>
                     
-                    <div class="row">
+                    <div class="row" id="app">
                       <div class="col-12">

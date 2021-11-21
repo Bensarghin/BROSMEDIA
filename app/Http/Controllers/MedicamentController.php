@@ -6,6 +6,7 @@ use App\Models\Medicament;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class MedicamentController extends Controller
 {
@@ -26,7 +27,7 @@ class MedicamentController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

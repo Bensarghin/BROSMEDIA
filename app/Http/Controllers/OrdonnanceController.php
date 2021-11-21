@@ -6,6 +6,8 @@ use App\Models\Ordonnance;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Elibyy\TCPDF\Facades\TCPDF;
+use PDF;
 
 class OrdonnanceController extends Controller
 {
@@ -48,9 +50,25 @@ class OrdonnanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($ord_id)
     {
+        $ord = Ordonnance::find($ord_id);
+        $pdf = new TCPDF();
+        $medicament = $ord->medicament ;
+        $html = '<h1 style="color:#ddf" class="text-center">hello pdf</h1><br>';
+        foreach($medicament as $medic){
+            
+            $html.='<h5>'.$medic->nom_medicament.'</h5><br>';
+            $html.='<h6>'.$medic->notice_utilisation.'</h6>';
+        }
+        // $view = \View::make('admin_pages.ordonnance.show', ['ord'=>$ord]);
+        // $html = $view->render();
         
+        $pdf::SetTitle('Hello World');
+        $pdf::AddPage();
+        $pdf::writeHTML($html, true, false, true, false, '');
+
+        $pdf::Output('hello_world.pdf');
     }
 
     /**

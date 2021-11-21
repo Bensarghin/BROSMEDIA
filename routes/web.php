@@ -124,6 +124,7 @@ Route::prefix('ordonnance')->group(function () {
     Route::get('manage/{id}', [OrdonnanceController::class,'index'])->name('ord.manage');
     Route::post('insert', [OrdonnanceController::class,"store"])->name('ordonnance.insert');
     Route::get('show/{ordonnance}', [OrdonnanceController::class,"show"])->name('ordonnance.show');
+    Route::get('create/{ord}', [OrdonnanceController::class,"create"])->name('ordonnance.create');
 });
 
 Auth::routes();
