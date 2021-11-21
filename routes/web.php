@@ -7,6 +7,7 @@ use App\Http\Controllers\FacturationController;
 use App\Http\Controllers\TraitementController;
 use App\Http\Controllers\MedicamentController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\OrdonnanceController;
 use App\Http\Controllers\ActeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -50,10 +51,11 @@ Route::prefix('patient')->group(function () {
 Route::prefix('facturation')->group(function () {
     Route::get('manage', [FacturationController::class,"index"])->name('fact.manage');
     Route::get('details/{id}', [FacturationController::class,"detail"])->name('fact.detail');
-    Route::post('add', [FacturationController::class,"insert"])->name('fact.add');
+    Route::post('insert', [FacturationController::class,"store"])->name('fact.insert');
+    Route::get('ajouter/{id}', [FacturationController::class,"create"])->name('fact.ajouter');
     Route::get('modifier/{id}', [FacturationController::class,"edit"])->name('fact.modifier');
     Route::post('update/{id}', [FacturationController::class,"update"])->name('fact.update');
-    Route::get('delete/{id}', [FacturationController::class,"delete"])->name('fact.delete'); 
+    Route::get('delete/{id}', [FacturationController::class,"destroy"])->name('fact.delete'); 
 });
 
 // Rendey-vous routes
@@ -115,6 +117,14 @@ Route::prefix('consultation')->group(function () {
     Route::get('delete/{id}', [ConsultationController::class,"delete"])->name('Consultation.delete');
     Route::get('filter/{id}', [ConsultationController::class,"filtrer"])->name('Consultation.filter');
     
+});
+
+// ordonnance routes
+
+Route::prefix('ordonnance')->group(function () {
+    Route::get('manage/{id}', [OrdonnanceController::class,'index'])->name('ord.manage');
+    Route::post('insert', [OrdonnanceController::class,"store"])->name('ordonnance.insert');
+    Route::get('show/{ordonnance}', [OrdonnanceController::class,"show"])->name('ordonnance.show');
 });
 
 Auth::routes();

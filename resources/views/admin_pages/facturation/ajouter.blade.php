@@ -22,33 +22,29 @@
         </div>
         
         <div class="card-title">
-            Saisie de traitement 
+            Saisie de caissier 
         </div>
     </div>
 
     <div class="card-body">
-        <form action="{{route('traitement.insert',['id'=>$etat_id])}}" method="POST">
+        <form action="{{route('fact.insert')}}" method="POST">
             @csrf
             <center>
+                <input type="hidden" name="pat_id" value="{{$data->id}}">
                 {{-- Motif --}}
                 <label class="pure-material-textfield-outlined">
-                    <input type="text" placeholder=" " name="nomTrait" required value="" >
-                    <span>Nom traitement : </span>
+                    <input type="text" placeholder="" name="motif" required value="" >
+                    <span>Motif : </span>
                 </label>
                 {{-- Duree --}}
                 <label class="pure-material-textfield-outlined">
-                    <input type="text" placeholder=" " name="typeTrait" required value="" >
-                    <span>Type traitement : </span>
-                </label>
-                {{-- Details --}}
-                <label class="pure-material-textfield-outlined">
-                    <textarea name="description" cols="30" rows="6"></textarea>
-                    <span>Description : </span>
+                    <input type="text" placeholder="" name="montant" required value="" >
+                    <span>Montant : </span>
                 </label>
                 {{-- Status --}}
                 <label class="pure-material-textfield-outlined">
-                    <input type="text" placeholder=" " name="status" required value="" >
-                    <span>Status : </span>
+                    <input type="text" placeholder="" name="avance" required value="" >
+                    <span>Avance : </span>
                 </label>
             </center>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
