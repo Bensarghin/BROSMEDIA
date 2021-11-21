@@ -27,18 +27,38 @@
 
         <div class="card-footer">
             <div class="mt-2">
-                <a id="imprimer" class="btn btn-secondary">Imprimer</a>
+                <a onclick="jQuery.print()" class="print-link btn btn-secondary">Imprimer</a>
             </div>
         </div>
     </div>
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{asset('js/jQuery.print.js')}}"></script>
 <script>
-$(document).ready(function(){
-  $("#imprimer").click(function(){
-    $('#DivIdToPrint').print();
-  });
-});
+jQuery(function($) { 'use strict';
+            try {
+                var original = document.getElementById('canvasExample');
+                original.getContext('2d').fillRect(20, 20, 120, 120);
+            } catch (err) {
+                console.warn(err)
+            }
+            // $("#DivIdToPrint").find('.print-link').on('click', function() {
+            //     //Print ele2 with default options
+            //     $.print("#DivIdToPrint");
+            // });
+
+            $("#DivIdToPrint").find('.print-link').on('click', function() {
+                //Print DivIdToPrint with custom options
+                $("#DivIdToPrint").print({
+                    //Use Global styles
+                    globalStyles : false,
+                    //Add link with attrbute media=print
+                    mediaPrint : false,
+                    //Custom stylesheet
+                    stylesheet : "{{asset('sheet/assets/css/style.css')}}"
+                });
+            });
+        });
 </script>
 @endsection
 
