@@ -63,7 +63,7 @@ class patientController extends Controller
         ->get();
         $facts = DB::table('facturations')
         ->join('patients','patients.id','=','facturations.pat_id')
-        ->select('patients.*','facturations.*')
+        ->select('patients.id as pat_id','facturations.*')
         ->where('patients.id', $id)
         ->get();
 

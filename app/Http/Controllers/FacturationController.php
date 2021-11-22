@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Facturation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class FacturationController extends Controller
@@ -16,7 +17,6 @@ class FacturationController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -24,9 +24,10 @@ class FacturationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $data = DB::table('patients')->where('id',$id)->first();
+        return view('admin_pages.facturation.ajouter',['data'=>$data]);
     }
 
     /**
@@ -37,7 +38,18 @@ class FacturationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $getDate = Date('Y-m-d');
+        DB::table('facturations')
+        ->insert([
+            'pat_id' => $request->pat_id,
+            'montant' => $request->montant,
+            'avance' => $request->avance,
+            'motif' => $request->motif,
+            'date_pay' => $getDate
+
+        ]);
+
+        return redirect()->route('patient.detail',['id'=>$request->pat_id]);
     }
 
     /**
@@ -57,13 +69,10 @@ class FacturationController extends Controller
      * @param  \App\Models\Facturation  $facturation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Facturation $facturation)
+    public function edit($id)
     {
-        $facts = DB::table('facturations')
-        ->join('patients','patients.id','=','facturations.pat_id')
-        ->select('patients.*','facturations.*')
-        ->where('facturations.id', $facturation)
-        ->first();
+        $facts = Facturation::find($id);
+        return view('admin_pages.facturation.modifier',['data'=>$facts]);
 
 
     }
@@ -75,9 +84,18 @@ class FacturationController extends Controller
      * @param  \App\Models\Facturation  $facturation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Facturation $facturation)
+    public function update(Request $request, $id)
     {
-        //
+        DB::table('facturations')
+        ->where('id',$id)
+        ->update([
+            'montant' => $request->montant,
+            'avance' => $request->avance,
+            'motif' => $request->motif
+
+        ]);
+
+        return redirect()->route('patient.detail',['id'=>$request->pat_id]);
     }
 
     /**
@@ -86,8 +104,11 @@ class FacturationController extends Controller
      * @param  \App\Models\Facturation  $facturation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Facturation $facturation)
+    public function destroy($id)
     {
-        //
+        DB::table('facturations')
+        ->where('id',$id)
+        ->delete();
+        return redirect()->back();
     }
 }

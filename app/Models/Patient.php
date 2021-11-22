@@ -9,5 +9,14 @@ class Patient extends Model
 {
     use HasFactory;
 
-    protected $fillable=['sexe'] ;
+    protected $fillable=['cin','nom','prenom','date_nais','sexe','tele','adresse'] ;
+
+    public function facturation(){
+        return $this->hasMany('App\Models\Facturation','pat_id');
+    }
+
+    public function ordonnance()
+    {
+        return $this->hasOne('App\Models\Ordonnance','pat_id');
+    }
 }

@@ -152,16 +152,17 @@
       <div class="tab-pane fade" id="facturation" role="tabpanel" aria-labelledby="facturation-tab">
         @if ($facts->count() < 1)
         <div class="mt-4"> 
-          <span class="mt-4 text-danger">
-            Pas payer encore ... 
+          <span class="text-danger">
+            Pas de payements ... 
           </span> 
+          <a href="{{route('fact.ajouter',['id'=>$patients->id])}}" class="ml-6">ajouter <i class="fas fa-folder-plus"></i></a>
         </div>
         @else
         <div class="row mt-4 mb-4">
           <div class="col-sm-4"><h4> Cassier </h4></div>
           <div class="col-sm-8">
             <a href="#" class="mybtn">Imprimer <i class="fas fa-print"></i></a> 
-            <a href="#" class="mybtn">ajouter <i class="fas fa-folder-plus"></i></a>
+            <a href="{{route('fact.ajouter',['id'=>$patients->id])}}" class="mybtn">ajouter <i class="fas fa-folder-plus"></i></a>
           </div>
           
         </div>
@@ -171,22 +172,31 @@
               <td>Montant</td>
               <td>Avance</td>
               <td>Date payement</td>
-              <td>rest</td>
+              <td>Reste</td>
               <td>Modifier</td>
               <td>Supprimer</td>
             </tr>
             @foreach ($facts as $fact)
             <tr>
-              <td>{{$fact->motif}}</td>
+              <td>{{$fact->motif}} </td>
               <td>{{$fact->montant}}</td>
               <td>{{$fact->avance}}</td>
               <td>{{$fact->date_pay}}</td>
-              <td>{{$fact->avance}}</td>
-              <td><a href="{{route('fact.modifier',['id' => $fact->pat_id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
-              <td><a href="{{route('fact.delete',['id' => $fact->pat_id])}}" class="text-danger"><i class="fas fa-trash"></i></a></td>
+              <td>{{$fact->montant - $fact->avance}}</td>
+              <td><a href="{{route('fact.modifier',['id' => $fact->id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
+              <td><a href="{{route('fact.delete',['id' => $fact->id])}}" class="text-danger"><i class="fas fa-trash"></i></a></td>
             </tr>
-            @endforeach
+            @endforeach 
+            <tr class="bg-secondary">
+              <td><b>Total : </b></td>
+              <td><b> {{$facts->sum('montant')}} : DH </b></td>
+              <td><b> {{$facts->sum('avance')}} : DH </b></td>
+              <td></td>
+              <td><b>{{$facts->sum('montant') - $facts->sum('avance')}} : DH </b></td>
+              <td  colspan="2"></td>
+            </tr>
           </table>
+
         @endif
       </div>
     </div>
