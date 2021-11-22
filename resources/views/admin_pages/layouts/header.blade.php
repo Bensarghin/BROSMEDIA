@@ -197,11 +197,11 @@
                                             <span class="avatar brround"><i class="fas fa-user-cog"></i> </span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated p-0">
-                                            <a class="dropdown-item border-bottom" href="../setting/index.php">
+                                            <a class="dropdown-item border-bottom" href="{{route('user.edit')}}">
                                                 <i class="dropdown-icon mdi mdi-account-outline"></i> Modifier Profile</a>
-                                            <a class="dropdown-item border-bottom" href="../setting/index.php"> <i
+                                            <a class="dropdown-item border-bottom" href="{{route('user.edit')}}"> <i
                                                     class="dropdown-icon zmdi zmdi-edit"></i> Neauveu Mot de pass </a>
-                                            <a class="dropdown-item border-bottom" href="../index.php"> <i
+                                            <a class="dropdown-item border-bottom" href="{{route('user.edit')}}"> <i
                                                     class="dropdown-icon mdi  mdi-logout-variant"></i> Cabinet Info</a>
                                         </div>
                                     </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\FacturationController;
 use App\Http\Controllers\TraitementController;
 use App\Http\Controllers\MedicamentController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrdonnanceController;
 use App\Http\Controllers\ActeController;
 use Illuminate\Support\Facades\Route;
@@ -125,6 +126,11 @@ Route::prefix('ordonnance')->group(function () {
     Route::get('manage/{id}', [OrdonnanceController::class,'index'])->name('ord.manage');
     Route::post('insert', [OrdonnanceController::class,"store"])->name('ordonnance.insert');
     Route::get('show/{ordonnance}', [OrdonnanceController::class,"show"])->name('ordonnance.show');
+});
+
+// User routes
+Route::prefix('admin')->group(function () {
+    Route::get('edit', [UserController::class,'edit'])->name('user.edit');
 });
 
 Auth::routes();
