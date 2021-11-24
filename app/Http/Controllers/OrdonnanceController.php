@@ -6,6 +6,7 @@ use App\Models\Ordonnance;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Patient;
 
 class OrdonnanceController extends Controller
 {
@@ -48,9 +49,11 @@ class OrdonnanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        
+        $patients = Patient::find($id);
+
+        return view('admin_pages.ordonnance.index',['patients' => $patients]);
     }
 
     /**
@@ -112,6 +115,7 @@ class OrdonnanceController extends Controller
      */
     public function destroy(Ordonnance $ordonnance)
     {
-        //
+        $ordonnance->delete();
+        return redirect()->back();
     }
 }

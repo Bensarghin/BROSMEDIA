@@ -2,28 +2,25 @@
 @section('content')
     <div class="container">
         <div class="card mt-5">
-            <div class="card-header">
-                <h5 class="card-title">Cabenit</h5>
-            </div>
             <div class="card-body">
                 @if (isset($cabinet))
                 <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                        <img src="{{asset('public/cabenit/'.$cabinet->logo)}}" alt="...">
-                        </div>
-                        <div class="col-md-8">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="{{asset('storage/cabenit/'.$cabinet->logo)}}" class="img-fluid rounded-start" alt="...">
+                      </div>
+                      <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">{{$cabinet->nom_cabenit}}</h5>
-                            <p class="card-text">{{$cabinet->description}}</p>
-                            <p class="card-text">
-                                <small class="text-muted">{{$cabinet->tele}}</small><br>
-                                <small class="text-muted">{{$cabinet->adresse}}</small>
-                            </p>
+                          <div class="row"> 
+                            <h5 class="col-sm-6 card-title"> {{$cabinet->nom_cabenit}} </h5>
+                            <a href="" class="col-sm-6 card-title"><i class="fas fa-edit"></i></a>
+                          </div>
+                          <p class="card-text"> {{$cabinet->description}} </p>
+                          <p class="card-text"><small class="text-muted">{{$cabinet->tele}} <br> {{$cabinet->adresse}}</small></p>
                         </div>
-                        </div>
+                      </div>
                     </div>
-                </div>
+                  </div>
                 @else
                 <form action="{{route('user.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf

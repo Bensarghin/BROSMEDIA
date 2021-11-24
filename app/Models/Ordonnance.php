@@ -20,4 +20,9 @@ class Ordonnance extends Model
         return $this->belongsTo('App\Models\Patient','pat_id');
     }
 
+    public function medecin()
+    {
+        return $this->belongsTo('App\Models\Medecin','med_id');
+    }
+
 }

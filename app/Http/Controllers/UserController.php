@@ -48,7 +48,7 @@ class UserController extends Controller
         // Filename to store
         $fileNameToStore = $filename.'_'.time().'.'.$extension;
         // Upload Image
-        $path = $request->file('logo')->storeAs('public/cabenit',$fileNameToStore);
+        $request->file('logo')->storeAs('public/cabenit',$fileNameToStore);
 
         DB::table('cabinets')
         ->insert([
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

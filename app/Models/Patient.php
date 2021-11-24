@@ -17,6 +17,6 @@ class Patient extends Model
 
     public function ordonnance()
     {
-        return $this->hasOne('App\Models\Ordonnance','pat_id');
+        return $this->hasMany('App\Models\Ordonnance','pat_id');
     }
 }

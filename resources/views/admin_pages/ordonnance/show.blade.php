@@ -69,7 +69,8 @@ jQuery(function($) { 'use strict';
                     mediaPrint : false,
                     
                     //Custom stylesheet
-                    stylesheet : "{{asset('sheet/assets/css/style.css')}}",
+                    stylesheet : "{{asset('admin_as/css/all.min.css')}}",
+                    //stylesheet : "{{asset('sheet/assets/css/style.css')}}",
                 });
             });
         });

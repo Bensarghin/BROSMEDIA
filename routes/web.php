@@ -126,6 +126,8 @@ Route::prefix('ordonnance')->group(function () {
     Route::get('manage/{id}', [OrdonnanceController::class,'index'])->name('ord.manage');
     Route::post('insert', [OrdonnanceController::class,"store"])->name('ordonnance.insert');
     Route::get('show/{ordonnance}', [OrdonnanceController::class,"show"])->name('ordonnance.show');
+    Route::get('list/{id}', [OrdonnanceController::class,"create"])->name('ordonnance.list');
+    Route::get('delete/{ordonnance}', [OrdonnanceController::class,"destroy"])->name('ordonnance.delete');
 });
 
 // User routes
