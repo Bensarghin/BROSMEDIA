@@ -200,9 +200,9 @@
                                             <a class="dropdown-item border-bottom" href="{{route('user.edit')}}">
                                                 <i class="dropdown-icon mdi mdi-account-outline"></i> Modifier Profile</a>
                                             <a class="dropdown-item border-bottom" href="{{route('user.edit')}}"> <i
-                                                    class="dropdown-icon zmdi zmdi-edit"></i> Neauveu Mot de pass </a>
-                                            <a class="dropdown-item border-bottom" href="{{route('user.edit')}}"> <i
-                                                    class="dropdown-icon mdi  mdi-logout-variant"></i> Cabinet Info</a>
+                                                    class="dropdown-icon zmdi zmdi-edit"></i>Mot DePass </a>
+                                            <a class="dropdown-item border-bottom" href="{{route('user.cabenit')}}"> <i
+                                                    class="dropdown-icon mdi  mdi-house"></i> Cabinet</a>
                                         </div>
                                     </div>
                                 </div>

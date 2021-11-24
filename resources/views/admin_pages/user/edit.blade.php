@@ -1,23 +1,29 @@
 @extends('admin_pages.layouts.master')
 @section('content')
-    
-    <div class="card">
-        <div class="card-body">
-            <form class="container" action="" method="POST">
-                @csrf
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-header">
+                <h5 class="card-title">Modifer login</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{route('user.update')}}" method="POST">
+                    @csrf
 
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Name :</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Email :</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name :</label>
+                        <input type="text" class="form-control" name="name" value="{{Auth::user()->name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Email :</label>
+                        <input type="email" name="email" class="form-control" value="{{Auth::user()->email}}" >
+                    </div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                <a href="" class="btn btn-link">Change mot de pass <i class="fas fa-key"></i></a>
+            </div>
         </div>
     </div>
 

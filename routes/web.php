@@ -131,6 +131,9 @@ Route::prefix('ordonnance')->group(function () {
 // User routes
 Route::prefix('admin')->group(function () {
     Route::get('edit', [UserController::class,'edit'])->name('user.edit');
+    Route::post('update', [UserController::class,'update'])->name('user.update');
+    Route::get('cabenit', [UserController::class,'index'])->name('user.cabenit');
+    Route::post('store', [UserController::class,'store'])->name('user.store');
 });
 
 Auth::routes();
