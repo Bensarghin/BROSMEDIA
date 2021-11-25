@@ -14,19 +14,28 @@
     <div class="card">
         <div id="DivIdToPrint">
             <div class="card-header">
-                <h4 class="card-title">Ordonnance</h4>
-            </div>
 
-            <div class="card-body">
+                <h4 class="card-title">
+                    {{$cabinet->nom_cabenit}} <br>
+                    
+                    {{$ord->medecin->nom}} {{$ord->medecin->prenom}}
+                </h4>
+                <p>{{$cabinet->tele}}<br>{{$cabinet->adresse}}</p>
+                <h5 class="card-subtitle mt-5">
+                </h5>
+                
                 <div class="row">
                     <div class="col-sm-6">
-                        <h5 class="card-subtitle mt-5">Patient : {{$ord->patient->nom}} {{$ord->patient->prenom}}</h5>
-                        <h5 class="card-subtitle mt-5">Medecin affecté: {{$ord->patient->nom_med}} {{$ord->patient->prenom_med}}</h5>
+                        {{--   --}}
+                        <h5 class="card-subtitle mt-5">Mme / Ms : {{$ord->patient->nom}} {{$ord->patient->prenom}}</h5>
+                        <h5 class="card-subtitle mt-5">age : {{ Date('Y') - (\Carbon\Carbon::parse($ord->patient->date_nais)->format('Y'))}} </h5>
                     </div>
                     <div class="col-sm-6">
-                        <img src="{{asset('img/cabinet.png')}}" alt="" width="100" height="100">
+                        <img src="{{asset('storage/cabenit/'.$cabinet->logo)}}" alt="" width="100" height="100">
                     </div>
                 </div>
+
+            <div class="card-body">
                 @foreach ($ord->medicament as $item)
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
@@ -66,10 +75,10 @@ jQuery(function($) { 'use strict';
                     //Use Global styles
                     globalStyles : false,
                     //Add link with attrbute media=print
-                    mediaPrint : false,
+                    mediaPrint : true,
                     
                     //Custom stylesheet
-                    stylesheet : "{{asset('admin_as/css/all.min.css')}}",
+                    stylesheet : "{{asset('sheet/assets/plugins/bootstrap/css/bootstrap.css')}}",
                     //stylesheet : "{{asset('sheet/assets/css/style.css')}}",
                 });
             });

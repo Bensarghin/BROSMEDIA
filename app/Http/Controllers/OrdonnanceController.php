@@ -81,7 +81,10 @@ class OrdonnanceController extends Controller
      */
     public function show(Ordonnance $ordonnance)
     {
-        return view('admin_pages.ordonnance.show',['ord'=>$ordonnance]);
+        $cabenit  = DB::table('cabinets')->first();
+        return view('admin_pages.ordonnance.show',[
+            'ord'     => $ordonnance,
+            'cabinet' => $cabenit]);
     }
 
     /**
