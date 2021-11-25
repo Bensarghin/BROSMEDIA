@@ -9,6 +9,7 @@ use App\Http\Controllers\MedicamentController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrdonnanceController;
+use App\Http\Controllers\MedecinController;
 use App\Http\Controllers\ActeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -105,6 +106,16 @@ Route::prefix('traitement')->group(function () {
     Route::post('insert/{id}', [TraitementController::class,"insert"])->name('traitement.insert');
     Route::get('ajouter/{id}', [TraitementController::class,"ajouter"])->name('traitement.ajouter');
     Route::get('delete/{id}', [TraitementController::class,"delete"])->name('traitement.delete');
+});
+
+// medecins routes
+Route::prefix('medecin')->group(function () {
+    Route::get('manage', [MedecinController::class,"index"])->name('medecin');
+    Route::get('modifier/{id}', [MedecinController::class,"edit"])->name('medecin.edit');
+    Route::post('update/{id}', [MedecinController::class,"update"])->name('medecin.update');
+    Route::get('create', [MedecinController::class,"create"])->name('medecin.create');
+    Route::post('store', [MedecinController::class,"store"])->name('medecin.store');
+    Route::get('delete/{medecin}', [MedecinController::class,"delete"])->name('medecin.delete');
 });
 
 // consulations routes 

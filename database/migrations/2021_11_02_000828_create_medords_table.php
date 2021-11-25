@@ -15,8 +15,12 @@ class CreateMedordsTable extends Migration
     {
         Schema::create('medords', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ord_id')->references('id')->on('ordonnances');
-            $table->foreignId('medic_id')->references('id')->on('medicaments');
+            $table->foreignId('ord_id')->references('id')->on('ordonnances')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->foreignId('medic_id')->references('id')->on('medicaments')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

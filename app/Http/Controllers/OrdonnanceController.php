@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Patient;
+use App\Models\Medecin;
 
 class OrdonnanceController extends Controller
 {
@@ -18,29 +19,12 @@ class OrdonnanceController extends Controller
     public function index($id)
     {
         $medic = DB::table('medicaments')->get();
-        $patients = DB::table('patients')
-        ->join('rdvs','rdvs.pat_id','=','patients.id')
-        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
-        ->join('medecins','medecins.id','=','etat_rdvs.med_id')
-
-        ->select(
-        'patients.*',
-        'patients.id as pat_id',
-        'patients.nom as nom_pat',
-        'patients.prenom as prenom_pat',
-        'medecins.*',
-        'medecins.id as med_id',
-        'medecins.nom as nom_med',
-        'medecins.prenom as prenom_med')
-
-        ->where('patients.id',$id)
-        ->first();
-
-        $ordonnance = Ordonnance::find(1);
+        $patients = Patient::find($id);
+        $medecins = Medecin::all();
         return view('admin_pages.ordonnance.manage',[
             'medic' => $medic,
             'patients' => $patients,
-            'ordonnance'=> $ordonnance
+            'medecins' => $medecins
         ]);
     }
 

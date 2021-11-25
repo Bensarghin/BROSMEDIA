@@ -17,9 +17,10 @@ class CreateCabinetsTable extends Migration
             $table->id();
             $table->string('nom_cabenit');
             $table->string('logo')->nullable();
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('tele');
             $table->string('adresse');
+            $table->string('ville');
         });
     }
 

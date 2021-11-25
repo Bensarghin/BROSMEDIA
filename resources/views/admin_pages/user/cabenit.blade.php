@@ -12,7 +12,7 @@
                       <div class="col-md-8">
                         <div class="card-body">
                           <div class="row"> 
-                            <h5 class="col-sm-6 card-title"> {{$cabinet->nom_cabenit}} </h5>
+                            <h5 class="col-sm-6 card-title"> {{$cabinet->nom_cabenit}}, {{$cabinet->ville}} </h5>
                             <a href="" class="col-sm-6 card-title"><i class="fas fa-edit"></i></a>
                           </div>
                           <p class="card-text"> {{$cabinet->description}} </p>
@@ -48,6 +48,11 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">adresse :</label>
                         <input type="adresse" name="adresse" class="form-control" value="" >
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">ville :</label>
+                      <input type="adresse" name="ville" class="form-control" value="" >
                     </div>
 
                     <button type="submit" class="btn btn-primary">Modifier</button>

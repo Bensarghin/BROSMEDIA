@@ -19,7 +19,9 @@ class CreateFacturationsTable extends Migration
             $table->float('montant');
             $table->float('avance')->nullable();
             $table->date('date_pay');
-            $table->foreignId('pat_id')->references('id')->on('patients');
+            $table->foreignId('pat_id')->references('id')->on('patients')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

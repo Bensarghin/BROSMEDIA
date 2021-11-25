@@ -18,8 +18,12 @@ class CreateEtatrdvsTable extends Migration
             $table->date('date_consu');
             $table->time('heure_rdv');
             $table->string('status');
-            $table->foreignId('rdv_id')->references('id')->on('rdvs');
-            $table->foreignId('med_id')->references('id')->on('medecins');
+            $table->foreignId('rdv_id')->references('id')->on('rdvs')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->foreignId('med_id')->references('id')->on('medecins')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

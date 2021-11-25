@@ -75,6 +75,12 @@
                                 <span class="ml-4  side-menu__label">Rendey-vous</span> 
                             </a>
                          </li>
+                         <li class="slide">
+                            <a class="side-menu__item" href="{{route('medecin')}}"> <span class="shape1"></span>
+                                <i class="fas fa-stethoscope"></i> 
+                                <span class="ml-4  side-menu__label">Medecins</span> 
+                            </a>
+                         </li>
                         <li class="slide">
                             <a class="side-menu__item" href="{{route('acte.manage')}}">
                                 <i class="fas fa-teeth-open"></i>

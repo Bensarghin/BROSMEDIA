@@ -56,7 +56,8 @@ class UserController extends Controller
             'logo' => $fileNameToStore,
             'description' => $request->description,
             'tele' => $request->tele,
-            'adresse' => $request->adresse
+            'adresse' => $request->adresse,
+            'ville' => $request->ville,
         ]);
 
         return redirect()->back();

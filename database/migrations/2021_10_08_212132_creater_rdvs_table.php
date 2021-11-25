@@ -16,10 +16,15 @@ class CreaterRdvsTable extends Migration
         Schema::create('rdvs', function (Blueprint $table) {
             $table->id();
             $table->date('date_prend_rdv');
-            // $table->integer('pat_id')->unsigned();
-            $table->foreignId('pat_id')->references('id')->on('patients');
-            // $table->integer('act_id')->unsigned();
-            $table->foreignId('act_id')->references('id')->on('actes');
+
+            $table->foreignId('pat_id')->references('id')->on('patients')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->bigInteger('act_id')->unsigned()->nullable();
+            $table->foreign('act_id')->references('id')->on('actes')
+            ->onDelete('set null')
+            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

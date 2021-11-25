@@ -8,8 +8,18 @@
             <h4 class="card-title">Ordonnance</h4>
             <input type="hidden" value="{{$patients->pat_id}}" name="pat_id">
             <input type="hidden" value="{{$patients->med_id}}" name="med_id">
-            <h5 class="card-subtitle">Patient : {{$patients->nom_pat}} {{$patients->prenom_pat}}</h5>
-            <h5 class="card-subtitle">Medecin affecté: {{$patients->nom_med}} {{$patients->prenom_med}}</h5>
+            <h5 class="card-subtitle">Patient : {{$patients->nom}} {{$patients->prenom}}</h5>
+            <div id="app" class="row">
+                <div class="col-sm-3"><h5 class="card-subtitle">Medecin affecté : </h5></div>
+                <div class="col-sm-3">
+                <select class="form-control col-sm-3" style="width: 230px" v-model="medecin">
+                    <option selected disabled>Medecin affecté .... </option>
+                    @foreach ($medecins as $medecin)
+                    <option value="{{$medecin->id}}">{{$medecin->nom}} {{$medecin->prenom}}</option>
+                    @endforeach
+                </select>
+                </div>
+            </div>
         </div>
 
         <div class="card-body">
@@ -30,4 +40,13 @@
         </div>
     </div>
 </form>
+<script src="{{asset('js/vue.js')}}"></script>
+<script>
+    var VM = new Vue({
+        ele: "#app",
+        data:{
+                medecin:'...',
+            }
+    });
+</script>
 @endsection

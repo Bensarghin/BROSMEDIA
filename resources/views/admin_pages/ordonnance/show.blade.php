@@ -1,11 +1,28 @@
 @extends('admin_pages.layouts.master')
 @section('content')
 <style>
-    #DivIdToPrint{
-        -webkit-print-color-adjust:exact;
-    }
-</style>
+    body{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #2e3849;
+    text-align: left;
+    background: #eff2f6;
+}
+.card-header .row-row .colum{
+    display: inline-block;
+    margin: 15px;
+    padding: 15px;
+}
 
+.card-header .row-row .p-4{
+    display: inline-block;
+    margin: -15px;
+    padding: -15px;
+}
+</style>
 <form action="{{route('ordonnance.insert')}}" method="post">
     @csrf
     
@@ -13,37 +30,38 @@
     <input type="hidden" value="{{$ord->patient->med_id}}" name="med_id">
     <div class="card">
         <div id="DivIdToPrint">
-            <div class="card-header">
 
-                <h4 class="card-title">
-                    {{$cabinet->nom_cabenit}} <br>
-                    
-                    {{$ord->medecin->nom}} {{$ord->medecin->prenom}}
-                </h4>
-                <p>{{$cabinet->tele}}<br>{{$cabinet->adresse}}</p>
-                <h5 class="card-subtitle mt-5">
-                </h5>
-                
-                <div class="row">
-                    <div class="col-sm-6">
-                        {{--   --}}
-                        <h5 class="card-subtitle mt-5">Mme / Ms : {{$ord->patient->nom}} {{$ord->patient->prenom}}</h5>
-                        <h5 class="card-subtitle mt-5">age : {{ Date('Y') - (\Carbon\Carbon::parse($ord->patient->date_nais)->format('Y'))}} </h5>
+            <div class="card-header">
+                <div class="row-row">
+                    <div class="colum p-4">
+                    Cabinet : {{$cabinet->nom_cabenit}} <br>
+                    Medecin : {{$ord->medecin->nom}} {{$ord->medecin->prenom}} <br>
                     </div>
-                    <div class="col-sm-6">
-                        <img src="{{asset('storage/cabenit/'.$cabinet->logo)}}" alt="" width="100" height="100">
+                    <div class="colum">
+                        <img src="{{asset('storage/cabenit/'.$cabinet->logo)}}" alt="" width="80" height="80">
+                    </div>
+                    <div class="colum p-4">
+                        {{$cabinet->adresse}}<br>{{$cabinet->tele}}
                     </div>
                 </div>
+            </div>
 
             <div class="card-body">
+                <h6>{{$cabinet->ville}} le : {{Date('d M Y')}}</h6>
+                <p>
+                    Mlle / Mr : {{$ord->patient->nom}} {{$ord->patient->prenom}}<br>
+                    Né le : {{$ord->patient->date_nais}} / {{ (Date('Y') - \Carbon\Carbon::parse($ord->patient->date_nais)->format('Y')).' ans'}}<br>
+                </p>
+                <div class="margin-div"></div>
+
+                <ol class="list-group list-group-flush">
                 @foreach ($ord->medicament as $item)
-                <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <h3 class="card-title">{{$item->nom_medicament}}</h3>
                         <p class="card-subtitle">{{$item->notice_utilisation}}</p>
-                    </li>
-                </ul>
+                    </li> 
                 @endforeach
+                </ol>
 
             </div>
         </div>
@@ -75,11 +93,14 @@ jQuery(function($) { 'use strict';
                     //Use Global styles
                     globalStyles : false,
                     //Add link with attrbute media=print
-                    mediaPrint : true,
+                    mediaPrint : false,
+                    header: null,               // prefix to html
+                    footer: null,
+                    pageTitle: "",
                     
                     //Custom stylesheet
-                    stylesheet : "{{asset('sheet/assets/plugins/bootstrap/css/bootstrap.css')}}",
-                    //stylesheet : "{{asset('sheet/assets/css/style.css')}}",
+                    //stylesheet : "{{asset('sheet/assets/plugins/bootstrap/css/bootstrap.css')}}",
+                    stylesheet : "{{asset('css/ordonnance.css'), asset('sheet/assets/plugins/bootstrap/css/bootstrap.css')}}",
                 });
             });
         });

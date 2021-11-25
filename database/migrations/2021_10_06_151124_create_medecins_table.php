@@ -22,7 +22,7 @@ class CreateMedecinsTable extends Migration
             $table->string('sexe');
             $table->date('date_nais');
             $table->string('tele');
-            $table->date('adresse');
+            $table->text('adresse');
             $table->timestamps();
         });
     }
