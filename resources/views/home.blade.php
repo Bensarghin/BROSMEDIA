@@ -11,7 +11,7 @@
                 <div class="card-body pb-0">
                     <p class=" mb-1 ">Total Rendez-vous</p>
                     <h2 class="mb-1 font-weight-bold fs-30">
-                        {{$total_rdv}}
+                        {{$rdvs->count()}}
                     </h2>
                 </div>
                 <div class="chart-wrapper overflow-hidden">
@@ -69,7 +69,7 @@
                 <div class="card-body pb-0">
                     <p class=" mb-1 ">Total Gains </p>
                     <h2 class="mb-1 font-weight-bold fs-30">
-                        60.4545 DH
+                        {{$fact->sum('montant'). ' DH'}}
                     </h2>
                 </div>
                 <div class="chart-wrapper overflow-hidden">

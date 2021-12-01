@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Etat_rdv extends Model
 {
     use HasFactory;
+
+    public function rdv()
+    {
+        return $this->belongsTo('App\Models\Rdv','rdv_id');
+    }
 }

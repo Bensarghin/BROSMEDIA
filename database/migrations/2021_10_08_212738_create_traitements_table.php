@@ -25,7 +25,8 @@ class CreateTraitementsTable extends Migration
             $table->foreign('cons_id')->references('id')->on('consultations')
             ->onDelete('set null')
             ->onUpdate('cascade');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

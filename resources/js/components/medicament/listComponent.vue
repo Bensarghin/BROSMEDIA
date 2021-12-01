@@ -1,6 +1,6 @@
 <template>
 <div>
-        <!-- Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -29,30 +29,33 @@
         </div>
     </div>
     </div>
-
-    <div class="card-header">
-        <div class="card-title" style="font-family:Titillium Web;margin-bottom: -30px;color: #84a9d9;font-size:30px">
-            Liste des medicaments
-        </div> 
-        <a type="button" @click="addMedic()" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            AJOUTER UN MEDICAMENT <i class="fas fa-folder-plus"></i> 
-        </a>
-    </div>
-    <acte-search-component @table-filtrer="refresh"></acte-search-component>
     <div class="card">
+        <div class="card-header">
+            <div class="card-title" style="font-family:Titillium Web;margin-bottom: -30px;color: #84a9d9;font-size:30px">
+                Liste des medicaments
+            </div> 
+            <a type="button" @click="addMedic()" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                AJOUTER UN MEDICAMENT <i class="fas fa-folder-plus"></i> 
+            </a>
+        </div>
         <div class="card-body">
-            <table class="table table-bordered ">
+            <acte-search-component @table-filtrer="refresh"></acte-search-component>
+            <table class="table table-bordered">
                 <tr>
-                    <td class="col-sm-4">Nom Medicament : </td>
-                    <td class="col-sm-6">Notice Utilisation :</td>
-                    <td class="col-sm-2">Actions</td>
+                    <td>Nom Medicament : </td>
+                    <td>Notice Utilisation :</td>
+                    <td>Actions</td>
                 </tr>
                 <tr v-for="medic in medicaments" :key="medic.id" @table-filtrer="refresh">
-                    <td class="col-sm-4">{{medic.nom_medicament}}</td>
-                    <td class="col-sm-6"> {{medic.notice_utilisation}}</td>
-                    <td class="col-sm-2">
-                        <a href="" class="card-link" @click="getMedic(medic)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit" style="color: rgb(87 122 168);    font-size: 18px;"></i> </a>
-                        <a href="#" class="card-link" @click="deleteMedic(medic.id)"><i class="fas fa-trash" style="color: #522525;    font-size: 18px;"></i> </a>
+                    <td>{{medic.nom_medicament.substring(0, 60)}}</td>
+                    <td> {{medic.notice_utilisation.substring(0, 60)}}</td>
+                    <td>
+                        <a href="" class="card-link" @click="getMedic(medic)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <i class="fas fa-edit" style="color: rgb(87 122 168);font-size: 18px;"></i> 
+                        </a>
+                        <a href="#" class="card-link" @click="deleteMedic(medic.id)">
+                            <i class="fas fa-trash" style="color: #522525;font-size: 18px;"></i> 
+                        </a>
                     </td>
                 </tr>
             </table>

@@ -161,7 +161,6 @@
         <div class="row mt-4 mb-4">
           <div class="col-sm-4"><h4> Cassier </h4></div>
           <div class="col-sm-8">
-            <a href="#" class="mybtn">Imprimer <i class="fas fa-print"></i></a> 
             <a href="{{route('fact.ajouter',['id'=>$patients->id])}}" class="mybtn">ajouter <i class="fas fa-folder-plus"></i></a>
           </div>
           

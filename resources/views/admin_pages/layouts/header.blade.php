@@ -92,32 +92,12 @@
                                 <span class="ml-4 side-menu__label">Médicaments</span> 
                             </a>
                         </li>
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="slide">
-                                <a class="side-menu__item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    <span class="ml-4 side-menu__label">Déconnecter</span> 
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </li>
-                        @endguest
+                        <li class="slide">
+                            <a class="side-menu__item" href="{{route('cabinet')}}">
+                                <i class="fas fa-hospital-user"></i>
+                                <span class="ml-4 side-menu__label">Cabinet</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
@@ -204,11 +184,18 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated p-0">
                                             <a class="dropdown-item border-bottom" href="{{route('user.edit')}}">
-                                                <i class="dropdown-icon mdi mdi-account-outline"></i> Modifier Profile</a>
-                                            <a class="dropdown-item border-bottom" href="{{route('user.edit')}}"> <i
-                                                    class="dropdown-icon zmdi zmdi-edit"></i>Mot DePass </a>
-                                            <a class="dropdown-item border-bottom" href="{{route('user.cabenit')}}"> <i
-                                                    class="dropdown-icon mdi  mdi-house"></i> Cabinet</a>
+                                                <i class="dropdown-icon mdi mdi-account-outline"></i> 
+                                                Modifier Profile
+                                            </a>
+                                            <a class="dropdown-item border-bottom" href="{{ route('logout') }}" 
+                                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();"> 
+                                            <i class="dropdown-icon mdi  mdi-logout"></i> 
+                                                Déconnecter
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

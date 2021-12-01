@@ -25,7 +25,8 @@ class CreaterRdvsTable extends Migration
             $table->foreign('act_id')->references('id')->on('actes')
             ->onDelete('set null')
             ->onUpdate('cascade');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

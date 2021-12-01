@@ -19,4 +19,9 @@ class Patient extends Model
     {
         return $this->hasMany('App\Models\Ordonnance','pat_id');
     }
+
+    public function rdv()
+    {
+        return $this->hasMany('App\Models\Rdv','pat_id');
+    }
 }

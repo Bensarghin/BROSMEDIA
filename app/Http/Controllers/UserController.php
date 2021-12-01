@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cabinet;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +38,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $cabenit = Cabinet::first();
+        return view('admin_pages.User.modifier',[ 'cabinet' => $cabenit ]);
     }
 
     /**
@@ -48,7 +58,7 @@ class UserController extends Controller
         // Filename to store
         $fileNameToStore = $filename.'_'.time().'.'.$extension;
         // Upload Image
-        $request->file('logo')->storeAs('public/cabenit',$fileNameToStore);
+        $request->logo->move(public_path('cabenit'), $fileNameToStore);
 
         DB::table('cabinets')
         ->insert([
@@ -69,9 +79,32 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        
+    public function modifier(Request $request)
+    { 
+        // delete old file
+        $cabenit = Cabinet::first();
+        File::delete(public_path('cabenit/'.$cabenit->logo));
+
+        $filenameWithExt = $request->file('logo')->getClientOriginalName();
+        //Get just filename
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        // Get just ext
+        $extension = $request->file('logo')->getClientOriginalExtension();
+        // Filename to store
+        $fileNameToStore = $filename.'_'.time().'.'.$extension;
+        // Upload Image
+        $request->logo->move(public_path('cabenit'), $fileNameToStore);
+
+        DB::table('cabinets')
+        ->update([
+            'nom_cabenit' => $request->nom,
+            'logo'        => $fileNameToStore,
+            'description' => $request->description,
+            'tele'        => $request->tele,
+            'adresse'     => $request->adresse,
+            'ville'       => $request->ville
+        ]);
+        return redirect()->route('cabinet');
     }
 
     /**
@@ -103,6 +136,26 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function edit_psw(Request $request){
+
+        $this->validate($request,[
+            'old_psw' => 'required|password|min:6',
+            'new_psw' => 'required|min:6',
+            'confirm_psw' => 'required|same:new_psw|min:6'
+        ]);
+
+        $psw = $request->confirm_psw;
+        if(Hash::check($request->old_psw, auth()->user()->password)){
+            DB::table('users')
+            ->where('id', Auth::id())
+            ->update([
+                'password' => Hash::make($psw)
+            ]);
+            
+            return redirect()->route('user.edit')->with(['success' => 'Success Mot de Passe change']);
+        }
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -111,6 +164,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $cabenit = Cabinet::find($id);
+        if($cabenit){
+            $cabenit->destroy($id);
+            File::delete(public_path('cabenit/'.$cabenit->logo));
+            return redirect()->back();
+        }
+        else {
+           abort('404');
+        }
     }
 }

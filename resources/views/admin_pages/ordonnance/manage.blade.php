@@ -6,18 +6,22 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Ordonnance</h4>
-            <input type="hidden" value="{{$patients->pat_id}}" name="pat_id">
-            <input type="hidden" value="{{$patients->med_id}}" name="med_id">
+            <input type="hidden" value="{{$patients->id}}" name="pat_id">
             <h5 class="card-subtitle">Patient : {{$patients->nom}} {{$patients->prenom}}</h5>
             <div id="app" class="row">
-                <div class="col-sm-3"><h5 class="card-subtitle">Medecin affecté : </h5></div>
-                <div class="col-sm-3">
-                <select class="form-control col-sm-3" style="width: 230px" v-model="medecin">
-                    <option selected disabled>Medecin affecté .... </option>
-                    @foreach ($medecins as $medecin)
-                    <option value="{{$medecin->id}}">{{$medecin->nom}} {{$medecin->prenom}}</option>
-                    @endforeach
-                </select>
+                <div class="input-group mb-3" style="width: 400px">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2">Medecin : </span>
+                    </div>
+                    <select class="form-control" name="med_id" 
+                    aria-label="Recipient's username" 
+                    aria-describedby="basic-addon2" required>
+                        <option selected disabled>Medecin affecté .... </option>
+                        @foreach ($medecins as $medecin)
+                        <option value="{{$medecin->id}}">{{$medecin->nom}} {{$medecin->prenom}}</option>
+                        @endforeach
+
+                    </select>
                 </div>
             </div>
         </div>
@@ -40,13 +44,4 @@
         </div>
     </div>
 </form>
-<script src="{{asset('js/vue.js')}}"></script>
-<script>
-    var VM = new Vue({
-        ele: "#app",
-        data:{
-                medecin:'...',
-            }
-    });
-</script>
 @endsection

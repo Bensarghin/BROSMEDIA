@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\App;
 
 // acceuil routes
 Route::get('/',[HomeController::class,'index'])->middleware('auth');
-Route::get('/home',[HomeController::class,'index'])->middleware('auth');
+Route::get('/home',[HomeController::class,'index'])->name('home');
 Route::get('home/JsonData',[HomeController::class,'getdata']);
 Route::get('/home/getJson',[HomeController::class,'filtrer']);
 Route::post('/home/getJson',[HomeController::class,'filtrer']);
@@ -145,13 +145,20 @@ Route::prefix('ordonnance')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('edit', [UserController::class,'edit'])->name('user.edit');
     Route::post('update', [UserController::class,'update'])->name('user.update');
-    Route::get('cabenit', [UserController::class,'index'])->name('user.cabenit');
-    Route::post('store', [UserController::class,'store'])->name('user.store');
+    Route::post('edit_psw', [UserController::class,'edit_psw'])->name('user.edit_psw');
+});
+
+// Cabinet routes
+Route::prefix('cabinet')->group(function () {
+    Route::get('/', [UserController::class,'index'])->name('cabinet');
+    Route::get('delete/{id}', [UserController::class,'destroy'])->name('cabinet.delete');
+    Route::post('store', [UserController::class,'store'])->name('cabinet.store');
+    Route::get('modifier', [UserController::class,'create'])->name('cabinet.edit');
+    Route::post('update', [UserController::class,'modifier'])->name('cabinet.update');
 });
 
 Auth::routes();
 Route::any('/register',function(){
  return '404 | not found';
 });
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

@@ -22,7 +22,8 @@ class CreatePatientsTable extends Migration
             $table->date('date_nais');
             $table->string('tele');
             $table->string('adresse');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

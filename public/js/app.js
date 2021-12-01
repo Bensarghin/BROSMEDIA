@@ -2733,6 +2733,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -40156,151 +40159,150 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "div",
-        {
-          staticClass: "modal fade",
-          attrs: {
-            id: "staticBackdrop",
-            "data-bs-backdrop": "static",
-            "data-bs-keyboard": "false",
-            tabindex: "-1",
-            "aria-labelledby": "staticBackdropLabel",
-            "aria-hidden": "true"
-          }
-        },
-        [
-          _c("div", { staticClass: "modal-dialog" }, [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "modal-title",
-                    attrs: { id: "staticBackdropLabel" },
-                    domProps: { textContent: _vm._s(_vm.msg) }
-                  },
-                  [_vm._v(_vm._s(_vm.msg))]
-                ),
-                _vm._v(" "),
-                _vm._m(0)
-              ]),
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "staticBackdrop",
+          "data-bs-backdrop": "static",
+          "data-bs-keyboard": "false",
+          tabindex: "-1",
+          "aria-labelledby": "staticBackdropLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "h5",
+                {
+                  staticClass: "modal-title",
+                  attrs: { id: "staticBackdropLabel" },
+                  domProps: { textContent: _vm._s(_vm.msg) }
+                },
+                [_vm._v(_vm._s(_vm.msg))]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  [
-                    _c("center", [
-                      _c(
-                        "label",
-                        { staticClass: "pure-material-textfield-outlined" },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.nomMedic,
-                                expression: "nomMedic"
-                              }
-                            ],
-                            attrs: {
-                              type: "text",
-                              placeholder: "",
-                              name: "nom_Medic",
-                              required: "",
-                              value: ""
-                            },
-                            domProps: { value: _vm.nomMedic },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.nomMedic = $event.target.value
-                              }
+              _vm._m(0)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                [
+                  _c("center", [
+                    _c(
+                      "label",
+                      { staticClass: "pure-material-textfield-outlined" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.nomMedic,
+                              expression: "nomMedic"
                             }
-                          }),
-                          _vm._v(" "),
-                          _c("span", [_vm._v("Nom medicament :")])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        { staticClass: "pure-material-textfield-outlined" },
-                        [
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.utilisation,
-                                expression: "utilisation"
+                          ],
+                          attrs: {
+                            type: "text",
+                            placeholder: "",
+                            name: "nom_Medic",
+                            required: "",
+                            value: ""
+                          },
+                          domProps: { value: _vm.nomMedic },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
-                            ],
-                            attrs: {
-                              placeholder: " ",
-                              name: "utilisation",
-                              rows: "5",
-                              required: ""
-                            },
-                            domProps: { value: _vm.utilisation },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.utilisation = $event.target.value
-                              }
+                              _vm.nomMedic = $event.target.value
                             }
-                          }),
-                          _vm._v(" "),
-                          _c("span", [_vm._v("Notice utilisation :")])
-                        ]
-                      )
-                    ])
-                  ],
-                  1
-                )
-              ]),
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Nom medicament :")])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      { staticClass: "pure-material-textfield-outlined" },
+                      [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.utilisation,
+                              expression: "utilisation"
+                            }
+                          ],
+                          attrs: {
+                            placeholder: " ",
+                            name: "utilisation",
+                            rows: "5",
+                            required: ""
+                          },
+                          domProps: { value: _vm.utilisation },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.utilisation = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("Notice utilisation :")])
+                      ]
+                    )
+                  ])
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.enregistrer()
+                    }
+                  }
+                },
+                [_vm._v("Enregistrer")]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.enregistrer()
-                      }
-                    }
-                  },
-                  [_vm._v("Enregistrer")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: {
-                      type: "button",
-                      id: "Annuler",
-                      "data-bs-dismiss": "modal"
-                    }
-                  },
-                  [_vm._v("Annuler")]
-                )
-              ])
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  attrs: {
+                    type: "button",
+                    id: "Annuler",
+                    "data-bs-dismiss": "modal"
+                  }
+                },
+                [_vm._v("Annuler")]
+              )
             ])
           ])
-        ]
-      ),
-      _vm._v(" "),
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-header" }, [
         _c(
           "div",
@@ -40313,7 +40315,7 @@ var render = function() {
               "font-size": "30px"
             }
           },
-          [_vm._v("\r\n            Liste des medicaments\r\n        ")]
+          [_vm._v("\r\n                Liste des medicaments\r\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -40332,19 +40334,21 @@ var render = function() {
             }
           },
           [
-            _vm._v("\r\n            AJOUTER UN MEDICAMENT "),
+            _vm._v("\r\n                AJOUTER UN MEDICAMENT "),
             _c("i", { staticClass: "fas fa-folder-plus" })
           ]
         )
       ]),
       _vm._v(" "),
-      _c("acte-search-component", { on: { "table-filtrer": _vm.refresh } }),
-      _vm._v(" "),
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
+      _c(
+        "div",
+        { staticClass: "card-body" },
+        [
+          _c("acte-search-component", { on: { "table-filtrer": _vm.refresh } }),
+          _vm._v(" "),
           _c(
             "table",
-            { staticClass: "table table-bordered " },
+            { staticClass: "table table-bordered" },
             [
               _vm._m(1),
               _vm._v(" "),
@@ -40353,15 +40357,17 @@ var render = function() {
                   "tr",
                   { key: medic.id, on: { "table-filtrer": _vm.refresh } },
                   [
-                    _c("td", { staticClass: "col-sm-4" }, [
-                      _vm._v(_vm._s(medic.nom_medicament))
+                    _c("td", [
+                      _vm._v(_vm._s(medic.nom_medicament.substring(0, 60)))
                     ]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "col-sm-6" }, [
-                      _vm._v(" " + _vm._s(medic.notice_utilisation))
+                    _c("td", [
+                      _vm._v(
+                        " " + _vm._s(medic.notice_utilisation.substring(0, 60))
+                      )
                     ]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "col-sm-2" }, [
+                    _c("td", [
                       _c(
                         "a",
                         {
@@ -40416,11 +40422,11 @@ var render = function() {
             ],
             2
           )
-        ])
-      ])
-    ],
-    1
-  )
+        ],
+        1
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -40445,11 +40451,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("td", { staticClass: "col-sm-4" }, [_vm._v("Nom Medicament : ")]),
+      _c("td", [_vm._v("Nom Medicament : ")]),
       _vm._v(" "),
-      _c("td", { staticClass: "col-sm-6" }, [_vm._v("Notice Utilisation :")]),
+      _c("td", [_vm._v("Notice Utilisation :")]),
       _vm._v(" "),
-      _c("td", { staticClass: "col-sm-2" }, [_vm._v("Actions")])
+      _c("td", [_vm._v("Actions")])
     ])
   }
 ]

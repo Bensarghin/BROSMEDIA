@@ -21,7 +21,8 @@ class CreateConsultationsTable extends Migration
             $table->foreignId('erdv_id')->references('id')->on('etat_rdvs')
             ->onDelete('cascade')
             ->onUpdate('cascade');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

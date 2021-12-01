@@ -11,6 +11,10 @@ use App\Models\Medecin;
 
 class OrdonnanceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -48,6 +52,11 @@ class OrdonnanceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'pat_id' => 'required',
+            'med_id' => 'required'
+
+        ]);
         $ord=Ordonnance::create([
             'pat_id' => $request->pat_id,
             'med_id' => $request->med_id

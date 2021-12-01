@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Rdv extends Model
 {
     use HasFactory;
+
+    public function etat_rdv()
+    {
+        return $this->hasOne('App\Models\Etat_rdv','rdv_id');
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo('App\Models\Patient','pat_id');
+    }
 }

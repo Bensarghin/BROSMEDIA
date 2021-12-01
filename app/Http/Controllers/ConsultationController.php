@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class ConsultationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index(){
         // avec consulatation
         $patients = DB::table('rdvs')

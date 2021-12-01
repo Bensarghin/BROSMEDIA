@@ -1,26 +1,32 @@
 @extends('admin_pages.layouts.master')
 @section('content')
 <style>
-    body{
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #2e3849;
-    text-align: left;
-    background: #eff2f6;
-}
 .card-header .row-row .colum{
-    display: inline-block;
+    display: inline-flex;
     margin: 15px;
     padding: 15px;
+    max-width: 250px;
+    vertical-align: middle;
+    border-style: none;
+}
+.card-body h6{
+    margin: 15px;
+    font-size: 17px;
+    color: #2e3849;
+}
+.card-body p{
+    
+    margin: 15px;
+    color: #2e3849;
+}
+img {
+    max-width: 100%;
+    vertical-align: middle;
+    border-style: none;
 }
 
-.card-header .row-row .p-4{
-    display: inline-block;
-    margin: -15px;
-    padding: -15px;
+.margin-div{
+    margin-top: 80px;
 }
 </style>
 <form action="{{route('ordonnance.insert')}}" method="post">
@@ -30,24 +36,30 @@
     <input type="hidden" value="{{$ord->patient->med_id}}" name="med_id">
     <div class="card">
         <div id="DivIdToPrint">
-
+                
             <div class="card-header">
                 <div class="row-row">
                     <div class="colum p-4">
-                    Cabinet : {{$cabinet->nom_cabenit}} <br>
-                    Medecin : {{$ord->medecin->nom}} {{$ord->medecin->prenom}} <br>
+                         {{ isset($cabinet->nom_cabenit)?'Cabinet : '.$cabinet->nom_cabenit:''}} <br>
+                        Medecin : {{ $ord->medecin->nom}} {{$ord->medecin->prenom}} <br>
                     </div>
                     <div class="colum">
-                        <img src="{{asset('storage/cabenit/'.$cabinet->logo)}}" alt="" width="80" height="80">
+                        @if(isset($cabinet))
+                        <img src="{{asset('cabenit/'.$cabinet->logo)}}" alt="" width="80" height="80">
+                        @else
+                            <a class="text-danger" href="{{route('user.cabenit')}}">Ajouter information de  votre cabinet ...</a>
+                        @endif
                     </div>
                     <div class="colum p-4">
-                        {{$cabinet->adresse}}<br>{{$cabinet->tele}}
+                        {{isset($cabinet->adresse)?$cabinet->adresse:''}}<br>
+                        {{isset($cabinet->tele)?$cabinet->tele:''}}
                     </div>
                 </div>
             </div>
+            
 
             <div class="card-body">
-                <h6>{{$cabinet->ville}} le : {{Date('d M Y')}}</h6>
+                <h6>{{isset($cabinet->ville)?$cabinet->ville:''}} le : {{Date('d M Y')}}</h6>
                 <p>
                     Mlle / Mr : {{$ord->patient->nom}} {{$ord->patient->prenom}}<br>
                     Né le : {{$ord->patient->date_nais}} / {{ (Date('Y') - \Carbon\Carbon::parse($ord->patient->date_nais)->format('Y')).' ans'}}<br>

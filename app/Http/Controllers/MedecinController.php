@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class MedecinController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $data = Medecin::orderBy('id','DESC')->get();
