@@ -18,4 +18,9 @@ class Rdv extends Model
     {
         return $this->belongsTo('App\Models\Patient','pat_id');
     }
+
+    public function consultation()
+    {
+        return $this->hasOne('App\Models\Consultation','rdv_id');
+    }
 }

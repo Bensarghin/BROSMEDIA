@@ -3,6 +3,13 @@
 
 <form action="{{route('ordonnance.insert')}}" method="post">
     @csrf
+    @if ($errors->any())
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </div>
+    @endif
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Ordonnance</h4>
@@ -13,7 +20,7 @@
                     <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon2">Medecin : </span>
                     </div>
-                    <select class="form-control" name="med_id" 
+                    <select class="form-control" name="medecin" 
                     aria-label="Recipient's username" 
                     aria-describedby="basic-addon2" required>
                         <option selected disabled>Medecin affecté .... </option>
@@ -30,7 +37,7 @@
             
             @foreach ($medic as $item)
             <div class="form-check form-check-inline ml-3" style="width: 300px">
-               <input class="form-check-input" type="checkbox" name='medic_id[]' value="{{$item->id}}">
+               <input class="form-check-input" type="checkbox" name='medicaments[]' value="{{$item->id}}">
                 <label class="form-check-label" >{{$item->nom_medicament}}</label>
             </div>
             @endforeach

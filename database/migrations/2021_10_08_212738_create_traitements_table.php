@@ -17,9 +17,9 @@ class CreateTraitementsTable extends Migration
             $table->id();
             $table->string('nomTrait');
             $table->string('typeTrait');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('status');
-            $table->foreignId('erdv_id')->references('id')->on('etat_rdvs')->onDelete('cascade')
+            $table->foreignId('rdv_id')->references('id')->on('rdvs')->onDelete('cascade')
             ->onUpdate('cascade');
             $table->bigInteger('cons_id')->unsigned()->nullable();
             $table->foreign('cons_id')->references('id')->on('consultations')

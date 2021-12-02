@@ -54,15 +54,16 @@ class OrdonnanceController extends Controller
     {
         $request->validate([
             'pat_id' => 'required',
-            'med_id' => 'required'
+            'medecin' => 'required',
+            'medicaments' => 'required'
 
         ]);
         $ord=Ordonnance::create([
             'pat_id' => $request->pat_id,
-            'med_id' => $request->med_id
+            'med_id' => $request->medecin
         ]);
 
-        $ord->medicament()->attach($request->medic_id);
+        $ord->medicament()->attach($request->medicaments);
         return redirect()->route('ordonnance.show',['ordonnance'=>$ord]);
     }
 

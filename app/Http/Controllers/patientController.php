@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Patient;
+use App\Models\Rdv;
 class patientController extends Controller
 {
     public function __construct()
@@ -20,7 +21,6 @@ class patientController extends Controller
     }
     public function insert(Request $request)
     {
-        if($request->isMethod('POST')){
             
             DB::table('patients')->insertOrIgnore(
                 ['cin' => $request->cin,
@@ -33,46 +33,15 @@ class patientController extends Controller
             );
 
             return redirect()->route('patient.manage');
-        }
     }
 
     public function detail($id)
     {
-        $patients = DB::table('patients')
-        ->where('id',$id)
-        ->first();
-        $consu = DB::table('rdvs')
-        ->join('patients','patients.id','=','rdvs.pat_id')
-        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
-        ->join('consultations','consultations.erdv_id','=','etat_rdvs.id')
-        ->select('patients.*','rdvs.*','etat_rdvs.*','consultations.*','consultations.id as cons_id')
-        ->where('patients.id', $id)
-        ->get();
-        $traitements = DB::table('rdvs')
-        ->join('patients','patients.id','=','rdvs.pat_id')
-        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
-        ->join('traitements','traitements.erdv_id','=','etat_rdvs.id')
-        ->select('patients.*','rdvs.*','etat_rdvs.*','traitements.*','traitements.id as trai_id')
-        ->where('patients.id', $id)
-        ->get();
-        $rdvs = DB::table('rdvs')
-        ->join('patients','patients.id','=','rdvs.pat_id')
-        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
-        ->select('patients.*','rdvs.*','etat_rdvs.id as etat_id','etat_rdvs.*')
-        ->where('patients.id', $id)
-        ->get();
-        $facts = DB::table('facturations')
-        ->join('patients','patients.id','=','facturations.pat_id')
-        ->select('patients.id as pat_id','facturations.*')
-        ->where('patients.id', $id)
-        ->get();
+
+        $rdvs  = Rdv::where('pat_id', $id);
 
         return view('admin_pages.patient.details',[
-            'patients'  => $patients,
-            'consu' => $consu,
-            'traitements'=> $traitements,
-            'rdvs' => $rdvs,
-            'facts' =>  $facts
+            'rdvs' => $rdvs
         ]);
     }
 

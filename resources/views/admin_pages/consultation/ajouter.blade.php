@@ -19,7 +19,6 @@
         </div>
         <div class="card-subtitle">
             <h5>CIN : {{$data->cin}} </h5>
-            <h5>Date pour consultation : {{$data->date_consu}} </h5>
         </div>
         
         <div class="card-title">
@@ -31,6 +30,7 @@
         <form action="{{route('Consultation.insert',['id'=>$etat_id])}}" method="POST">
             @csrf
             <center>
+                <input type="hidden" name="pat_id" value="{{$pat_id}}">
             {{-- Motif --}}
             <label class="pure-material-textfield-outlined">
                 <input type="text" placeholder=" " name="motif" required value="" >
@@ -51,7 +51,7 @@
             {{-- Details --}}
             <label class="pure-material-textfield-outlined">
                 <textarea name="detail" cols="30" rows="6"></textarea>
-                <span>Détails : </span>
+                <span>Détails (optionel): </span>
             </label>
         </center>
         <button type="submit" class="btn btn-primary">Enregistrer</button>

@@ -125,7 +125,7 @@ Route::prefix('consultation')->group(function () {
     Route::get('modifier/{id}', [ConsultationController::class,"modifier"])->name('Consultation.modifier');
     Route::post('update/{id}', [ConsultationController::class,"update"])->name('Consultation.update');
     Route::post('insert/{id}', [ConsultationController::class,"insert"])->name('Consultation.insert');
-    Route::get('ajouter/{id}', [ConsultationController::class,"ajouter"])->name('consultation.ajouter');
+    Route::get('ajouter/{id}/{pat_id}', [ConsultationController::class,"ajouter"])->name('consultation.ajouter');
     Route::get('delete/{id}', [ConsultationController::class,"delete"])->name('Consultation.delete');
     Route::get('filter/{id}', [ConsultationController::class,"filtrer"])->name('Consultation.filter');
     

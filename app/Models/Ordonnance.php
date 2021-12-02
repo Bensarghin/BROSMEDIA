@@ -15,6 +15,7 @@ class Ordonnance extends Model
     {
         return $this->belongsToMany('App\Models\Medicament','medords', 'ord_id','medic_id');
     }
+    
     public function patient()
     {
         return $this->belongsTo('App\Models\Patient','pat_id');

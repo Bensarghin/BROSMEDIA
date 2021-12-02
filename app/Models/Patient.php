@@ -12,6 +12,7 @@ class Patient extends Model
     protected $fillable=['cin','nom','prenom','date_nais','sexe','tele','adresse'] ;
 
     public function facturation(){
+        
         return $this->hasMany('App\Models\Facturation','pat_id');
     }
 
@@ -19,9 +20,9 @@ class Patient extends Model
     {
         return $this->hasMany('App\Models\Ordonnance','pat_id');
     }
-
+    
     public function rdv()
     {
-        return $this->hasMany('App\Models\Rdv','pat_id');
+        return $this->hasMany('App\Models\Rdv', 'pat_id');
     }
 }

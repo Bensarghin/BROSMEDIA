@@ -109,17 +109,19 @@ export default {
             },
 
             // Query methods
+
+            // delete
             deleteActe(Acteid){
                 Swal.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.isConfirmed) {
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                if (result.isConfirmed) {
 
                 axios
                 .post('/acte/delete',{
@@ -132,19 +134,15 @@ export default {
                 icon: 'success',
                 title: 'Your work has been saved',
                 showConfirmButton: false,
-                timer: 1500
-})
+                timer: 1500})
                     this.fetchData();
                 })
                 .catch(error=>{
                     alert('ce acte est relié par un rdv!')
-                })
-
-
-  
-  }
-})
+                })}
+            })
             },
+
             //edit method to fetch data to modal before updated
             getActe(acte){
                 this.prix=acte.prix,
@@ -161,6 +159,7 @@ export default {
                 this.msg='Ajouter un Acte'
                 this.edit=false
             },
+            
             enregistrer(){
                 // insert request
                 if(!this.edit){
@@ -174,12 +173,12 @@ export default {
                 .then(response =>(this.actes = response.data))
                 .then(data=>{
                      Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Your work has been saved',
-                showConfirmButton: false,
-                timer: 1500
-})
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                })
                     this.fetchData();
                     document.getElementById("Annuler").click();
                 })
@@ -197,11 +196,11 @@ export default {
                 .then(response =>(this.actes = response.data))
                 .then(data=>{
                      Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Your work has been saved',
-                showConfirmButton: false,
-                timer: 1500
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
 })
                     this.fetchData();
                                         document.getElementById("Annuler").click();

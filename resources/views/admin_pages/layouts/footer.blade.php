@@ -92,9 +92,44 @@
         
 
         {{-- laravel js --}}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        
+<script>
+    {{-- $(document).ready(function()  {
+        $(".sweet_delete").click(function(event){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                if (result.isConfirmed) {
+                    var c_id = $('#tag_id').val();
+                    var p_id = $('#pat_id').val();
+                    $.ajax({
+                        type:'GET',
+                        url:'/consultation/delete/'+c_id+'/'+p_id,
+                        success:function(data){
+                            window.location.href = data.redirect;
+                        }
+                     });
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success')
+                    }
+            });
+        
+        });
+
+}); --}}
+  </script>
 
 </body>
 

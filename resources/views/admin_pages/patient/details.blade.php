@@ -5,10 +5,10 @@
   <div class="card-header">
     <div  style="font-family:Titillium Web;margin-bottom: -30px;color: #84a9d9;font-size:30px">
       <div class="card-title">
-        {{isset($patients)?$patients->nom:'pas rendez-vous'}} {{isset($patients)?$patients->prenom:''}}
+        {{$rdvs->patient->nom}} {{$rdvs->patient->prenom}}
       </div>
       <div class="card-subtitle">
-        <h5>CIN : {{isset($patients)?$patients->cin:''}} </h5>
+        <h5>CIN : {{$rdvs->patient->cin}} </h5>
       </div>
     </div>
   </div>
@@ -41,11 +41,11 @@
     <div class="tab-content" id="myTabContent">
       <!-- contact section -->
       <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-        <h4 class="mt-4 ml-4">Date de naissance : <span class="text-info"> {{isset($patients)?$patients->date_nais:$patients->date_nais}} </span></h4>
+        <h4 class="mt-4 ml-4">Date de naissance : <span class="text-info"> {{$rdvs->patient->date_nais}} </span></h4>
         <ul class="list-group">
-          <li class="list-group-item"><span class="text-primary">Telephone </span><i class="fas fa-phone-square-alt"></i> : {{isset($patients)?$patients->tele:''}}</li>
-          <li class="list-group-item"><span class="text-primary">Adresse </span><i class="fas fa-map-marker-alt"></i> : {{isset($patients)?$patients->adresse:''}}</li>
-          <li class="list-group-item"><span class="text-primary">Gender  </span><i class="fas fa-venus-mars"></i> : {{isset($patients)?$patients->sexe:''}}</li>
+          <li class="list-group-item"><span class="text-primary">Telephone </span><i class="fas fa-phone-square-alt"></i> : {{$rdvs->patient->tele}}</li>
+          <li class="list-group-item"><span class="text-primary">Adresse </span><i class="fas fa-map-marker-alt"></i> : {{$rdvs->patient->adresse}}</li>
+          <li class="list-group-item"><span class="text-primary">Gender  </span><i class="fas fa-venus-mars"></i> : {{$rdvs->patient->sexe}}</li>
         </ul>
       </div>
       <!-- rendez-vous section -->
@@ -55,7 +55,7 @@
           <span class="mt-4 text-danger">
             Pas de rendez-vous 
           </span> | 
-          <a class="text-info" href="{{route('consultation.ajouter',['id'=>$patients->id])}}">Ajouter Rendez-vous</a>
+          <a class="text-info" href="{{route('rdv.insert',['id'=>$patients->id])}}">Ajouter Rendez-vous</a>
         </div>
         @else
           <h4 class="mt-4 ml-4"> Liste de rendez-vous</h4>
@@ -78,7 +78,7 @@
               <td>{{$rdv->heure_rdv}}</td>
               <td>{{$rdv->med_id}}</td>
               <td>{{$rdv->status}}</td>
-              <td><a href="{{route('consultation.ajouter',['id'=>$rdv->etat_id])}}"><i class="fas fa-plus-square"></i></a></td>
+              <td><a href="{{route('consultation.ajouter',['id'=>$rdv->etat_id , 'pat_id'=>$patients->id])}}"><i class="fas fa-plus-square"></i></a></td>
               <td><a href="{{route('traitement.ajouter',['id'=>$rdv->etat_id])}}"><i class="fas fa-plus-square"></i></a></td>
             </tr>
             @endforeach
@@ -88,7 +88,7 @@
       </div>
       <!-- consulation section -->
       <div class="tab-pane fade" id="Consultation" role="tabpanel" aria-labelledby="Consultation-tab">
-        @if ($consu->count() < 1)
+        @if ($rdvs->consultation->count() < 1)
         <div class="mt-4"> 
           <span class="mt-4 text-danger">
             Pas de consultation 
@@ -104,13 +104,14 @@
               <td>Modifier</td>
               <td>Supprimer</td>
             </tr>
-            @foreach ($consu as $consultation)
+            @foreach ($rdvs->consultation as $consultation)
             <tr>
               <td>{{$consultation->motif}}</td>
               <td>{{$consultation->duree}}</td>
               <td>{{$consultation->detail}}</td>
+              {{-- href="" --}}
               <td><a href="{{route('Consultation.modifier',['id' => $consultation->cons_id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
-              <td><a href="{{route('Consultation.delete',['id' => $consultation->cons_id])}}" class="text-danger"><i class="fas fa-trash"></i></a></td>
+              <td><a href="{{route('Consultation.delete',['id' => $consultation->cons_id])}}" class="sweet_delete text-danger"><i class="fas fa-trash"></i></a></td>
             </tr>
             @endforeach
           </table>
@@ -118,7 +119,7 @@
       </div>
       <!-- traitements section -->
       <div class="tab-pane fade" id="traitement" role="tabpanel" aria-labelledby="traitement-tab">
-        @if ($traitements->count() < 1)
+        @if (!$patients->traitement)
         <div class="mt-4"> 
           <span class="mt-4 text-danger">
             Pas de traitements 
@@ -135,7 +136,7 @@
               <td>Modifier</td>
               <td>Supprimer</td>
             </tr>
-            @foreach ($traitements as $trait)
+            @foreach ($$patients->traitement as $trait)
             <tr>
               <td>{{$trait->nomTrait}}</td>
               <td>{{$trait->typeTrait}}</td>
@@ -150,7 +151,7 @@
       </div>
       <!-- facturation section -->
       <div class="tab-pane fade" id="facturation" role="tabpanel" aria-labelledby="facturation-tab">
-        @if ($facts->count() < 1)
+        @if ($patients->facturation->count() < 1)
         <div class="mt-4"> 
           <span class="text-danger">
             Pas de payements ... 
@@ -175,7 +176,7 @@
               <td>Modifier</td>
               <td>Supprimer</td>
             </tr>
-            @foreach ($facts as $fact)
+            @foreach ($patients->facturation as $fact)
             <tr>
               <td>{{$fact->motif}} </td>
               <td>{{$fact->montant}}</td>
@@ -183,7 +184,7 @@
               <td>{{$fact->date_pay}}</td>
               <td>{{$fact->montant - $fact->avance}}</td>
               <td><a href="{{route('fact.modifier',['id' => $fact->id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
-              <td><a href="{{route('fact.delete',['id' => $fact->id])}}" class="text-danger"><i class="fas fa-trash"></i></a></td>
+              <td><a href="{{route('fact.delete',['id' => $fact->id])}}" class="text-danger sweet_delete"><i class="fas fa-trash"></i></a></td>
             </tr>
             @endforeach 
             <tr class="bg-secondary">
@@ -204,5 +205,4 @@
     Total rdvs  : 3 | Total consulations : 2 | Total Traitements : 1 | Facturation : 10000,00 DH
   </div>
 </div>
-
 @endsection

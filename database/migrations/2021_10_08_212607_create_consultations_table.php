@@ -17,8 +17,8 @@ class CreateConsultationsTable extends Migration
             $table->id();
             $table->string('duree');
             $table->string('motif');
-            $table->text('detail');
-            $table->foreignId('erdv_id')->references('id')->on('etat_rdvs')
+            $table->text('detail')->nullable();
+            $table->foreignId('rdv_id')->references('id')->on('rdvs')
             ->onDelete('cascade')
             ->onUpdate('cascade');
             $table->timestamp('created_at')->useCurrent();
