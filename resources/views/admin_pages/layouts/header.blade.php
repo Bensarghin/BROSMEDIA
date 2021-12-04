@@ -59,41 +59,55 @@
                     <ul class="side-menu">
                         <li class="slide">
                             <a class="side-menu__item" href="{{url('/')}}">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
                                 <i class="fas fa-home"></i>
                                 <span class="ml-4 side-menu__label">Acceuil</span> 
                             </a>
                         </li>
                         <li class="slide">
-                            <a class="side-menu__item" href="{{route('patient.manage')}}"> <span class="shape1"></span>
+                            <a class="side-menu__item" href="{{route('patient.manage')}}"> 
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
                                 <i class="fas fa-procedures"></i>
                                 <span class="ml-4 side-menu__label">Patients</span> 
                             </a>
                         </li>
                         <li class="slide">
-                            <a class="side-menu__item" href="{{route('rdv.manage')}}"> <span class="shape1"></span>
+                            <a class="side-menu__item" href="{{route('rdv.manage')}}"> 
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
                                 <i class="fas fa-calendar"></i> 
                                 <span class="ml-4  side-menu__label">Rendey-vous</span> 
                             </a>
                          </li>
                          <li class="slide">
-                            <a class="side-menu__item" href="{{route('medecin')}}"> <span class="shape1"></span>
+                            <a class="side-menu__item" href="{{route('medecin')}}"> 
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
                                 <i class="fas fa-stethoscope"></i> 
                                 <span class="ml-4  side-menu__label">Medecins</span> 
                             </a>
                          </li>
                         <li class="slide">
                             <a class="side-menu__item" href="{{route('acte.manage')}}">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
                                 <i class="fas fa-teeth-open"></i>
                                 <span class="ml-4 side-menu__label">Actes</span> </a>
                         </li>
                         <li class="slide">
                             <a class="side-menu__item" href="{{route('medicament.manage')}}">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
                                 <i class="fas fa-pills"></i>
                                 <span class="ml-4 side-menu__label">Médicaments</span> 
                             </a>
                         </li>
                         <li class="slide">
                             <a class="side-menu__item" href="{{route('cabinet')}}">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
                                 <i class="fas fa-hospital-user"></i>
                                 <span class="ml-4 side-menu__label">Cabinet</span>
                             </a>

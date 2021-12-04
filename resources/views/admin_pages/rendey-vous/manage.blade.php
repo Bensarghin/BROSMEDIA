@@ -5,7 +5,7 @@
     
 <div class="card">
     <div class="card-header">
-        <div class="card-title" style="font-family:Titillium Web; color: #84a9d9;font-size:30px">
+        <div class="card-title" style="font-family:Titillium Web; color: #06a3da;font-size:30px">
             Liste des Rendey-vous
         </div> 
     </div>

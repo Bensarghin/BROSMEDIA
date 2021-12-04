@@ -5,7 +5,7 @@
     
 <div class="card">
     <div class="card-header">
-        <div class="card-title" style="font-family:Titillium Web;margin-bottom: -30px;color: #84a9d9;font-size:30px">
+        <div class="card-title" style="font-family:Titillium Web;margin-bottom: -30px;color: #06a3da;font-size:30px">
         Liste de Patient
         </div> 
         <a type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">

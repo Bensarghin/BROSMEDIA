@@ -45,7 +45,7 @@
         right: 0;
         position: fixed;
         z-index: 999;
-        background: #84a9d9;
+        background: #06a3da;
         border-top-right-radius: 70px;
         -webkit-transition: left 0.3s ease, width 0.3s ease;
         -o-transition: left 0.3s ease, width 0.3s ease;
@@ -240,7 +240,7 @@
     width: 250px;
     height: 100%;
     z-index: 1000;
-    background: #84a9d9;
+    background: #06a3da;
     -webkit-box-shadow: 0px 22px 0 21px #f1f4fb;
     box-shadow: -8px 12px 18px 0 #f1f4fb;
     border-right: 1px solid #eff0f6;
@@ -357,13 +357,13 @@
 
 .side-menu__item.active {
     text-decoration: none;
-    color: #84a9d9;
+    color: #06a3da;
 }
 
 .side-menu__item.active .side-menu__icon,
 .side-menu__item.active:hover .side-menu__icon,
 .side-menu__item.active:focus .side-menu__icon {
-    color: #84a9d9;
+    color: #06a3da;
     fill: #b3b8d1;
 }
 
@@ -618,11 +618,11 @@
 
     .app.sidebar-mini.sidenav-toggled .side-menu__item.active:before,
     .app.sidebar-mini.sidenav-toggled .side-menu__item.active:after {
-        border-right: 20px solid  #84a9d9;
+        border-right: 20px solid  #06a3da;
     }
 
     .app.sidebar-mini.sidenav-toggled1 .side-menu__item.active:after {
-        border-right:20px solid  #84a9d9;
+        border-right:20px solid  #06a3da;
     }
 
     .app.sidebar-mini.sidenav-toggled .app-sidebar__logo {
@@ -900,7 +900,7 @@
 
 .side-menu__item.active {
     background: #f1f3fd;
-    color: #84a9d9;
+    color: #06a3da;
 }
 
 .app.sidebar-mini .footer {
@@ -954,7 +954,7 @@
     border-top-color: transparent;
     border-left-color: transparent;
     border-bottom: transparent;
-    border-right: 20px solid #84a9d9;
+    border-right: 20px solid #06a3da;
     border-radius: 0px 48px 0px 0px;
 }
 
@@ -970,7 +970,7 @@
 .side-menu__item.active .shape2 {
     background: #eff2f6;
     position: absolute;
-    top: 46px;
+    top: 32px;
     width: 20px;
     height: 30px;
     right: 0px;

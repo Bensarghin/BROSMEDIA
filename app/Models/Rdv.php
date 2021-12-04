@@ -9,9 +9,17 @@ class Rdv extends Model
 {
     use HasFactory;
 
+    protected $table = 'rdvs';
+
+    protected $fillable = [
+        'date_prend_rdv',
+        'pat_id',
+        'act_id'
+    ];
+
     public function etat_rdv()
     {
-        return $this->hasOne('App\Models\Etat_rdv','rdv_id');
+        return $this->hasOne('App\Models\Etat_rdv');
     }
 
     public function patient()
@@ -21,6 +29,11 @@ class Rdv extends Model
 
     public function consultation()
     {
-        return $this->hasOne('App\Models\Consultation','rdv_id');
+        return $this->hasOne('App\Models\Consultation');
+    }
+
+    public function acte()
+    {
+        return $this->belongsTo('App\Models\Acte','act_id');
     }
 }

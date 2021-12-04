@@ -21,10 +21,15 @@ class CreaterRdvsTable extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
+            $table->foreignId('med_id')->references('id')->on('medecins')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
             $table->bigInteger('act_id')->unsigned()->nullable();
             $table->foreign('act_id')->references('id')->on('actes')
             ->onDelete('set null')
             ->onUpdate('cascade');
+
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

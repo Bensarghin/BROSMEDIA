@@ -124,26 +124,26 @@ class RendeyVousController extends Controller
             $date_prend_rdv=$request->date_prend_rdv;
             $acte_id=$request->acte_id;
             $pat_id=$request->pat_id;
+            $med_id=$request->med_id;
 
             $rdv_id = DB::table('rdvs')
             ->insertGetId( [
                 'date_prend_rdv' => $date_prend_rdv,
                 'act_id' => $acte_id,
-                'pat_id' => $pat_id
+                'pat_id' => $pat_id,
+                'med_id' => $med_id
             ]);
 
             // insert into etat_rdv
             $date_consu=$request->date_consu;
             $status=$request->status;
             $heure_rdv=$request->heure_rdv;
-            $med_id=$request->med_id;
 
             DB::table('etat_rdvs')
             ->insert([
                 'date_consu'=>$date_consu,
                 'status'=>$status,
                 'heure_rdv'=>$heure_rdv,
-                'med_id'=>$med_id,
                 'rdv_id'=> $rdv_id
 
             ]);

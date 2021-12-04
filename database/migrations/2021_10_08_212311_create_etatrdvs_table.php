@@ -21,9 +21,6 @@ class CreateEtatrdvsTable extends Migration
             $table->foreignId('rdv_id')->unique()->references('id')->on('rdvs')
             ->onDelete('cascade')
             ->onUpdate('cascade');
-            $table->foreignId('med_id')->references('id')->on('medecins')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

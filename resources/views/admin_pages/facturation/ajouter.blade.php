@@ -8,7 +8,7 @@
     .card-title{
         
         font-family:Titillium Web;
-        color: #84a9d9;
+        color: #06a3da;
         font-size:30px;
     }
 </style>

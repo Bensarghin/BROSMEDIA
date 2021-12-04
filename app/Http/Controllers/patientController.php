@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Consultation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Patient;
@@ -19,6 +20,7 @@ class patientController extends Controller
         ->paginate(6);
         return view('admin_pages.patient.manage',['data'=>$patients]);
     }
+
     public function insert(Request $request)
     {
             
@@ -38,10 +40,16 @@ class patientController extends Controller
     public function detail($id)
     {
 
-        $rdvs  = Rdv::where('pat_id', $id);
+        $patient  = Patient::find($id);
+        $data= DB::table('rdvs')
+        ->join('patients','rdvs.pat_id','=','patients.id')
+        ->join('consultations','consultations.rdv_id','=','rdvs.id')
+        ->select('rdvs.*','patients.*','consultations.*')
+        ->where('patients.id',$id);
 
         return view('admin_pages.patient.details',[
-            'rdvs' => $rdvs
+            'patient' => $patient,
+            'data'   => $data
         ]);
     }
 

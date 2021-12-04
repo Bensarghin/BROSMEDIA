@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Facturation;
 use App\Models\Rdv;
 use App\Models\Etat_rdv;
+use App\Models\Consultation;
 
 class HomeController extends Controller
 {
@@ -27,11 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = DB::table('rdvs')
-        ->join('patients','rdvs.pat_id','=','patients.id')
-        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
-        ->join('consultations','consultations.erdv_id','=','etat_rdvs.id')
-        ->get();
+        $data = Consultation::all();
         $total_trait= DB::table('traitements')
         ->whereDate('created_at', date('Y-m-d'))
         ->count();

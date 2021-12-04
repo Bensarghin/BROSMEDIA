@@ -39321,7 +39321,7 @@ var staticRenderFns = [
           staticStyle: {
             "font-family": "Titillium Web",
             "margin-bottom": "-30px",
-            color: "#84a9d9",
+            color: "#06a3da",
             "font-size": "30px"
           }
         },
@@ -39902,7 +39902,7 @@ var render = function() {
             staticStyle: {
               "font-family": "Titillium Web",
               "margin-bottom": "-30px",
-              color: "#84a9d9",
+              color: "#06a3da",
               "font-size": "30px"
             }
           },
@@ -40311,7 +40311,7 @@ var render = function() {
             staticStyle: {
               "font-family": "Titillium Web",
               "margin-bottom": "-30px",
-              color: "#84a9d9",
+              color: "#06a3da",
               "font-size": "30px"
             }
           },

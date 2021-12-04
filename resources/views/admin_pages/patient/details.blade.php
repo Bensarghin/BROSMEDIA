@@ -3,12 +3,12 @@
 
 <div class="card">
   <div class="card-header">
-    <div  style="font-family:Titillium Web;margin-bottom: -30px;color: #84a9d9;font-size:30px">
+    <div  style="font-family:Titillium Web;margin-bottom: -30px;color: #06a3da;font-size:30px">
       <div class="card-title">
-        {{$rdvs->patient->nom}} {{$rdvs->patient->prenom}}
+        {{$patient->nom}} {{$patient->prenom}}
       </div>
       <div class="card-subtitle">
-        <h5>CIN : {{$rdvs->patient->cin}} </h5>
+        <h5>CIN : {{$patient->cin}} </h5>
       </div>
     </div>
   </div>
@@ -41,21 +41,21 @@
     <div class="tab-content" id="myTabContent">
       <!-- contact section -->
       <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-        <h4 class="mt-4 ml-4">Date de naissance : <span class="text-info"> {{$rdvs->patient->date_nais}} </span></h4>
+        <h4 class="mt-4 ml-4">Date de naissance : <span class="text-info"> {{$patient->date_nais}} </span></h4>
         <ul class="list-group">
-          <li class="list-group-item"><span class="text-primary">Telephone </span><i class="fas fa-phone-square-alt"></i> : {{$rdvs->patient->tele}}</li>
-          <li class="list-group-item"><span class="text-primary">Adresse </span><i class="fas fa-map-marker-alt"></i> : {{$rdvs->patient->adresse}}</li>
-          <li class="list-group-item"><span class="text-primary">Gender  </span><i class="fas fa-venus-mars"></i> : {{$rdvs->patient->sexe}}</li>
+          <li class="list-group-item"><span class="text-primary">Telephone </span><i class="fas fa-phone-square-alt"></i> : {{$patient->tele}}</li>
+          <li class="list-group-item"><span class="text-primary">Adresse </span><i class="fas fa-map-marker-alt"></i> : {{$patient->adresse}}</li>
+          <li class="list-group-item"><span class="text-primary">Gender  </span><i class="fas fa-venus-mars"></i> : {{$patient->sexe}}</li>
         </ul>
       </div>
       <!-- rendez-vous section -->
       <div class="tab-pane fade" id="rdv" role="tabpanel" aria-labelledby="rdv-tab">
-        @if ($rdvs->count() < 1)
+        @if ($patient->rdv->count() < 1)
         <div class="mt-4"> 
           <span class="mt-4 text-danger">
             Pas de rendez-vous 
           </span> | 
-          <a class="text-info" href="{{route('rdv.insert',['id'=>$patients->id])}}">Ajouter Rendez-vous</a>
+          <a class="text-info" href="{{route('rdv.insert',['id'=>$patient->id])}}">Ajouter Rendez-vous</a>
         </div>
         @else
           <h4 class="mt-4 ml-4"> Liste de rendez-vous</h4>
@@ -70,16 +70,16 @@
               <td>Consultation</td>
               <td>Traitement</td>
             </tr>
-            @foreach ($rdvs as $rdv)
+            @foreach ($patient->rdv as $rdvs)
             <tr>
-              <td>{{$rdv->date_prend_rdv}}</td>
-              <td>{{$rdv->act_id}}</td>
-              <td>{{$rdv->date_consu}}</td>
-              <td>{{$rdv->heure_rdv}}</td>
-              <td>{{$rdv->med_id}}</td>
-              <td>{{$rdv->status}}</td>
-              <td><a href="{{route('consultation.ajouter',['id'=>$rdv->etat_id , 'pat_id'=>$patients->id])}}"><i class="fas fa-plus-square"></i></a></td>
-              <td><a href="{{route('traitement.ajouter',['id'=>$rdv->etat_id])}}"><i class="fas fa-plus-square"></i></a></td>
+              <td>{{$rdvs->date_prend_rdv}}</td>
+              <td>{{$rdvs->acte->nom_acte}}</td>
+              <td>{{$rdvs->etat_rdv->date_consu}}</td>
+              <td>{{$rdvs->etat_rdv->heure_rdv}}</td>
+              <td>{{$rdvs->etat_rdv->med_id}}</td>
+              <td>{{$rdvs->etat_rdv->status}}</td>
+              <td><a href="{{route('consultation.ajouter',['id' => $rdvs->id , 'pat_id' => $patient->id ])}}"><i class="fas fa-plus-square"></i></a></td>
+              <td><a href="{{route('traitement.ajouter',['id'=> $rdvs->id ])}}"><i class="fas fa-plus-square"></i></a></td>
             </tr>
             @endforeach
           </table>
@@ -88,7 +88,7 @@
       </div>
       <!-- consulation section -->
       <div class="tab-pane fade" id="Consultation" role="tabpanel" aria-labelledby="Consultation-tab">
-        @if ($rdvs->consultation->count() < 1)
+        @if ( $data->count() < 1  )
         <div class="mt-4"> 
           <span class="mt-4 text-danger">
             Pas de consultation 
@@ -104,14 +104,14 @@
               <td>Modifier</td>
               <td>Supprimer</td>
             </tr>
-            @foreach ($rdvs->consultation as $consultation)
+            @foreach ( $data as $consult )
             <tr>
-              <td>{{$consultation->motif}}</td>
-              <td>{{$consultation->duree}}</td>
-              <td>{{$consultation->detail}}</td>
+              <td>{{$consult->motif}}</td>
+              <td>{{$consult->duree}}</td>
+              <td>{{$consult->detail}}</td>
               {{-- href="" --}}
-              <td><a href="{{route('Consultation.modifier',['id' => $consultation->cons_id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
-              <td><a href="{{route('Consultation.delete',['id' => $consultation->cons_id])}}" class="sweet_delete text-danger"><i class="fas fa-trash"></i></a></td>
+              <td><a href="{{route('Consultation.modifier',['id' => $consult->id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
+              <td><a href="{{route('Consultation.delete',['id' => $consult->id])}}" class="sweet_delete text-danger"><i class="fas fa-trash"></i></a></td>
             </tr>
             @endforeach
           </table>
@@ -119,7 +119,7 @@
       </div>
       <!-- traitements section -->
       <div class="tab-pane fade" id="traitement" role="tabpanel" aria-labelledby="traitement-tab">
-        @if (!$patients->traitement)
+        @if (!$patient->traitement)
         <div class="mt-4"> 
           <span class="mt-4 text-danger">
             Pas de traitements 
@@ -136,7 +136,7 @@
               <td>Modifier</td>
               <td>Supprimer</td>
             </tr>
-            @foreach ($$patients->traitement as $trait)
+            @foreach ($patient->traitement as $trait)
             <tr>
               <td>{{$trait->nomTrait}}</td>
               <td>{{$trait->typeTrait}}</td>
@@ -151,18 +151,18 @@
       </div>
       <!-- facturation section -->
       <div class="tab-pane fade" id="facturation" role="tabpanel" aria-labelledby="facturation-tab">
-        @if ($patients->facturation->count() < 1)
+        @if ($patient->facturation->count() < 1)
         <div class="mt-4"> 
           <span class="text-danger">
             Pas de payements ... 
           </span> 
-          <a href="{{route('fact.ajouter',['id'=>$patients->id])}}" class="ml-6">ajouter <i class="fas fa-folder-plus"></i></a>
+          <a href="{{route('fact.ajouter',['id'=>$patient->id])}}" class="ml-6">ajouter <i class="fas fa-folder-plus"></i></a>
         </div>
         @else
         <div class="row mt-4 mb-4">
           <div class="col-sm-4"><h4> Cassier </h4></div>
           <div class="col-sm-8">
-            <a href="{{route('fact.ajouter',['id'=>$patients->id])}}" class="mybtn">ajouter <i class="fas fa-folder-plus"></i></a>
+            <a href="{{route('fact.ajouter',['id'=>$patient->id])}}" class="mybtn">ajouter <i class="fas fa-folder-plus"></i></a>
           </div>
           
         </div>
@@ -176,7 +176,7 @@
               <td>Modifier</td>
               <td>Supprimer</td>
             </tr>
-            @foreach ($patients->facturation as $fact)
+            @foreach ($patient->facturation as $fact)
             <tr>
               <td>{{$fact->motif}} </td>
               <td>{{$fact->montant}}</td>
