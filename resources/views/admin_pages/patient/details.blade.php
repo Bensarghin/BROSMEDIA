@@ -55,7 +55,7 @@
           <span class="mt-4 text-danger">
             Pas de rendez-vous 
           </span> | 
-          <a class="text-info" href="{{route('rdv.insert',['id'=>$patient->id])}}">Ajouter Rendez-vous</a>
+          <a class="text-info" href="{{route('rdv.insert',['id'=>$patient->id])}}">ajouter rendez-vous</a>
         </div>
         @else
           <h4 class="mt-4 ml-4"> Liste de rendez-vous</h4>
@@ -76,9 +76,9 @@
               <td>{{$rdvs->acte->nom_acte}}</td>
               <td>{{$rdvs->etat_rdv->date_consu}}</td>
               <td>{{$rdvs->etat_rdv->heure_rdv}}</td>
-              <td>{{$rdvs->etat_rdv->med_id}}</td>
+              <td>{{$rdvs->medecin->nom}} {{$rdvs->medecin->prenom}}</td>
               <td>{{$rdvs->etat_rdv->status}}</td>
-              <td><a href="{{route('consultation.ajouter',['id' => $rdvs->id , 'pat_id' => $patient->id ])}}"><i class="fas fa-plus-square"></i></a></td>
+              <td><a href="{{route('consultation.ajouter',['id' => $rdvs->id ])}}"><i class="fas fa-plus-square"></i></a></td>
               <td><a href="{{route('traitement.ajouter',['id'=> $rdvs->id ])}}"><i class="fas fa-plus-square"></i></a></td>
             </tr>
             @endforeach
@@ -108,8 +108,7 @@
             <tr>
               <td>{{$consult->motif}}</td>
               <td>{{$consult->duree}}</td>
-              <td>{{$consult->detail}}</td>
-              {{-- href="" --}}
+              <td>{{Str::limit($consult->detail,30)}}</td>
               <td><a href="{{route('Consultation.modifier',['id' => $consult->id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
               <td><a href="{{route('Consultation.delete',['id' => $consult->id])}}" class="sweet_delete text-danger"><i class="fas fa-trash"></i></a></td>
             </tr>
@@ -119,7 +118,7 @@
       </div>
       <!-- traitements section -->
       <div class="tab-pane fade" id="traitement" role="tabpanel" aria-labelledby="traitement-tab">
-        @if (!$patient->traitement)
+        @if ($traitements->count() < 1)
         <div class="mt-4"> 
           <span class="mt-4 text-danger">
             Pas de traitements 
@@ -136,14 +135,14 @@
               <td>Modifier</td>
               <td>Supprimer</td>
             </tr>
-            @foreach ($patient->traitement as $trait)
+            @foreach ($traitements as $trait)
             <tr>
               <td>{{$trait->nomTrait}}</td>
               <td>{{$trait->typeTrait}}</td>
-              <td>{{$trait->description}}</td>
+              <td>{{Str::limit($trait->description, 30)}}</td>
               <td>{{$trait->status}}</td>
-              <td><a href="{{route('traitement.modifier',['id' => $trait->trai_id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
-              <td><a href="{{route('traitement.delete',['id' => $trait->trai_id])}}" class="text-danger"><i class="fas fa-trash"></i></a></td>
+              <td><a href="{{route('traitement.modifier',['id' => $trait->id])}}" class="text-primary"><i class="fas fa-edit"></i></a></td>
+              <td><a href="{{route('traitement.delete',['id' => $trait->id])}}" class="text-danger"><i class="fas fa-trash"></i></a></td>
             </tr>
             @endforeach
           </table>
@@ -154,9 +153,9 @@
         @if ($patient->facturation->count() < 1)
         <div class="mt-4"> 
           <span class="text-danger">
-            Pas de payements ... 
-          </span> 
-          <a href="{{route('fact.ajouter',['id'=>$patient->id])}}" class="ml-6">ajouter <i class="fas fa-folder-plus"></i></a>
+            Pas de payements
+          </span> | 
+          <a href="{{route('fact.ajouter',['id'=>$patient->id])}}" class="text-info">ajouter </a>
         </div>
         @else
         <div class="row mt-4 mb-4">
@@ -189,10 +188,10 @@
             @endforeach 
             <tr class="bg-secondary">
               <td><b>Total : </b></td>
-              <td><b> {{$facts->sum('montant')}} : DH </b></td>
-              <td><b> {{$facts->sum('avance')}} : DH </b></td>
+              <td><b> {{$patient->facturation->sum('montant')}} : DH </b></td>
+              <td><b> {{$patient->facturation->sum('avance')}} : DH </b></td>
               <td></td>
-              <td><b>{{$facts->sum('montant') - $facts->sum('avance')}} : DH </b></td>
+              <td><b>{{$patient->facturation->sum('montant') - $patient->facturation->sum('avance')}} : DH </b></td>
               <td  colspan="2"></td>
             </tr>
           </table>
@@ -202,7 +201,7 @@
     </div>
   </div>
   <div class="card-footer">
-    Total rdvs  : 3 | Total consulations : 2 | Total Traitements : 1 | Facturation : 10000,00 DH
+    Total rdvs  : {{$patient->rdv->count()}} | Total consulations : {{$patient->facturation->count()}} | Total Traitements : {{$traitements->count()}} | Facturation : {{$patient->facturation->sum('montant')}}, 00 DH
   </div>
 </div>
 @endsection

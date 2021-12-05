@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Rdv;
+use App\Models\Consultation;
 use App\Models;
 
 class ConsultationController extends Controller
@@ -16,6 +17,7 @@ class ConsultationController extends Controller
     }
     
     public function index(){
+
         // avec consulatation
         $patients = DB::table('rdvs')
         ->join('patients','rdvs.pat_id','=','patients.id')
@@ -49,19 +51,12 @@ class ConsultationController extends Controller
             ]);
     }
 
-    public function ajouter($id, $pat_id)
+    public function ajouter($id)
     {
-        $patients = DB::table('rdvs')
-        ->join('patients','rdvs.pat_id','=','patients.id')
-        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
-        ->select('patients.*','rdvs.*','etat_rdvs.*')
-        ->where('etat_rdvs.id',$id)
-        ->first();
+        $patients = Rdv::find($id);
 
         return view('admin_pages.consultation.ajouter',[
-            'data'      =>    $patients,
-            'etat_id'   =>    $id,
-            'pat_id'    =>    $pat_id
+            'data'      =>    $patients
         ]);
     }
 
@@ -74,7 +69,7 @@ class ConsultationController extends Controller
             'motif' => $request->motif,
             'duree' => $request->duree,
             'detail'=> $request->detail,
-            'erdv_id'=> $id
+            'rdv_id'=> $id
        ]);
 
        return redirect()->route('patient.detail', [ 'id' =>  $pat_id]);

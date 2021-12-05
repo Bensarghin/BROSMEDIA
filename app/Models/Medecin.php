@@ -13,4 +13,9 @@ class Medecin extends Model
     {
         return $this->hasMany('App\Models\Ordonnance','med_id');
     }
+
+    public function rdv()
+    {
+        return $this->belongsToMany('App\Models\Rdv','med_id');
+    }
 }

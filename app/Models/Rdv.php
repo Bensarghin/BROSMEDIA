@@ -14,7 +14,8 @@ class Rdv extends Model
     protected $fillable = [
         'date_prend_rdv',
         'pat_id',
-        'act_id'
+        'act_id',
+        'med_id'
     ];
 
     public function etat_rdv()
@@ -32,8 +33,18 @@ class Rdv extends Model
         return $this->hasOne('App\Models\Consultation');
     }
 
+    public function traitement()
+    {
+        return $this->hasOne('App\Models\Traitement');
+    }
+
     public function acte()
     {
         return $this->belongsTo('App\Models\Acte','act_id');
+    }
+
+    public function medecin()
+    {
+        return $this->belongsTo('App\Models\Medecin','med_id');
     }
 }

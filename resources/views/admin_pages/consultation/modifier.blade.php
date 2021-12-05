@@ -15,10 +15,10 @@
 <div class="card">
     <div class="card-header">
         <div class="card-title">
-            Patient : {{$data->patient->nom}} {{$data->patient->prenom}}
+            Patient : {{$data->rdv->patient->nom}} {{$data->rdv->patient->prenom}}
         </div>
         <div class="card-subtitle">
-            <h5>CIN : {{$data->patient->cin}} </h5>
+            <h5>CIN : {{$data->rdv->patient->cin}} </h5>
         </div>
         
         <div class="card-title">
@@ -29,7 +29,7 @@
     <div class="card-body">
         <form action="{{route('Consultation.update',['id'=>$id])}}" method="POST">
             @csrf
-            <input type="hidden" name="pat_id" value="{{$data->id}}">
+            <input type="hidden" name="pat_id" value="{{$data->rdv->patient->id}}">
             <center>
             {{-- Motif --}}
             <label class="pure-material-textfield-outlined">
@@ -38,8 +38,15 @@
             </label>
             {{-- Duree --}}
             <label class="pure-material-textfield-outlined">
-                <input type="number" placeholder=" " name="duree" required value="{{$data->duree}}" >
-                <span>Durée : </span>
+                <div class="input-group mr-auto"  style="width: 400px !important"> 
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Durée : </span>
+                    </div>
+                    <input type="number" name="duree" class="form-control" value="{{$data->duree}}" style="height: 45px;">
+                    <div class="input-group-append">
+                        <span class="input-group-text">Heures</span>
+                    </div>
+                </div>
             </label>
             {{-- Details --}}
             <label class="pure-material-textfield-outlined">

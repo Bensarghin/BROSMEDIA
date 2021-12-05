@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rdv;
+use App\Models\Traitement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,40 +17,32 @@ class TraitementController extends Controller
 
     public function ajouter($id)
     {
-        $patients = DB::table('rdvs')
-        ->join('patients','rdvs.pat_id','=','patients.id')
-        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
-        ->select('patients.*','rdvs.*','etat_rdvs.*')
-        ->where('etat_rdvs.id',$id)
-        ->first();
+        $patients = Rdv::find($id);
 
-        return view('admin_pages.traitement.ajouter',[
-            'data'      =>    $patients,
-            'etat_id'   =>    $id
+        return view('admin_pages.traitement.ajouter', [
+            'data'     =>    $patients
         ]);
     }
 
-    public function insert(Request $request,$id)
+    public function insert(Request $request, $id)
     {
-       DB::table('traitements')
-       ->insert([
+       $trait_id = DB::table('traitements')
+       ->insertGetId([
         'nomTrait' => $request->nomTrait,
         'typeTrait' => $request->typeTrait,
         'description' => $request->description,
         'status' => $request->status,
-        'erdv_id' => $id,
+        'rdv_id' => $id,
     ]);
-;
-
-       return back();
+    $pat_id = Traitement::find($trait_id)->rdv->patient;
+       return redirect()->route('patient.detail',['id' => $pat_id]);
     }
 
     public function modifier($id)
     {
         $data = DB::table('rdvs')
         ->join('patients','patients.id','=','rdvs.pat_id')
-        ->join('etat_rdvs','etat_rdvs.rdv_id','=','rdvs.id')
-        ->join('traitements','traitements.erdv_id','=','etat_rdvs.id')
+        ->join('traitements','traitements.rdv_id','=','rdvs.id')
         ->select('patients.*','patients.id as pat_id','traitements.*')
         ->where('traitements.id', $id)
         ->first();
@@ -69,7 +63,9 @@ class TraitementController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->back();
+        $pat_id = Traitement::find($id)->rdv->patient;
+
+        return redirect()->route('patient.detail',['id' => $pat_id]);
     }
 
     public function delete($id){

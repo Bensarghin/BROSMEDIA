@@ -1,15 +1,20 @@
 <!-- Button trigger modal -->
+<style>
+  .pure-material-textfield-outlined{
+    width: 200px !important;
+  }
 
+</style>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <form action="{{route('medecin.store')}}" method="POST" class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">Ajouter Nouveau Medecin</h5>
           <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
-          <form action="{{route('medecin.store')}}" method="POST">
+          <div>
             @csrf
             <center>
             {{-- cin --}}
@@ -63,12 +68,13 @@
                 <span>Adresse</span>
             </label>
           </center>
-          <button type="submit" class="btn btn-primary">Enregistrer</button>
-          </form>
+        </div>
         </div>
         <div class="modal-footer">
+          
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
         </div>
       </div>
-    </div>
+    </form>
   </div>

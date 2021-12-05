@@ -45,11 +45,20 @@ class patientController extends Controller
         ->join('patients','rdvs.pat_id','=','patients.id')
         ->join('consultations','consultations.rdv_id','=','rdvs.id')
         ->select('rdvs.*','patients.*','consultations.*')
-        ->where('patients.id',$id);
+        ->where('patients.id',$id)
+        ->get();
+
+        $traitements= DB::table('rdvs')
+        ->join('patients','rdvs.pat_id','=','patients.id')
+        ->join('traitements','traitements.rdv_id','=','rdvs.id')
+        ->select('rdvs.*','patients.*','traitements.*')
+        ->where('patients.id',$id)
+        ->get();
 
         return view('admin_pages.patient.details',[
             'patient' => $patient,
-            'data'   => $data
+            'data'   => $data,
+            'traitements'    => $traitements
         ]);
     }
 

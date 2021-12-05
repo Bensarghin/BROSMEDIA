@@ -25,7 +25,7 @@
                     aria-describedby="basic-addon2" required>
                         <option selected disabled>Medecin affecté .... </option>
                         @foreach ($medecins as $medecin)
-                        <option value="{{$medecin->id}}">{{$medecin->nom}} {{$medecin->prenom}}</option>
+                        <option value="{{$medecin->id}}" {{ old('medecin') == $medecin->id ? "selected" : "" }}>{{$medecin->nom}} {{$medecin->prenom}}</option>
                         @endforeach
 
                     </select>
@@ -34,10 +34,10 @@
         </div>
 
         <div class="card-body">
-            
+            <h4 class="text-muted mb-3">List de medicaments</h4>
             @foreach ($medic as $item)
             <div class="form-check form-check-inline ml-3" style="width: 300px">
-               <input class="form-check-input" type="checkbox" name='medicaments[]' value="{{$item->id}}">
+               <input class="form-check-input" @if(is_array(old('medicaments')) && in_array($item->id, old('medicaments'))) checked @endif type="checkbox" name='medicaments[]' value="{{$item->id}}">
                 <label class="form-check-label" >{{$item->nom_medicament}}</label>
             </div>
             @endforeach

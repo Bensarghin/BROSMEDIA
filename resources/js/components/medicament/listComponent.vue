@@ -39,7 +39,7 @@
             </a>
         </div>
         <div class="card-body">
-            <acte-search-component @table-filtrer="refresh"></acte-search-component>
+            <medicament-search-component @table-filtrer="refresh"></medicament-search-component>
             <table class="table table-bordered">
                 <tr>
                     <td>Nom Medicament : </td>

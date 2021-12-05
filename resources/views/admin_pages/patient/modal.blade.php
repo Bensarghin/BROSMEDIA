@@ -1,15 +1,20 @@
 <!-- Button trigger modal -->
+<style>
+  .pure-material-textfield-outlined{
+    width: 200px !important;
+  }
 
+</style>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <form  action="{{route('patient.add')}}" method="POST" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Ajouter Nouveau Patient</h5>
         <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
       </div>
       <div class="modal-body">
-        <form action="{{route('patient.add')}}" method="POST">
+        <div>
           @csrf
           <center>
           {{-- cin --}}
@@ -29,14 +34,24 @@
           </label>
             {{-- sexe --}}
             <label class="pure-material-textfield-outlined">
-              <input type="text" placeholder=" " name="sexe" required value="{{isset($data->id)? $data->sexe: ''}}" >
-              <span>sexe</span>
+              <div class="form-check">
+                  <input class="form-check-input" value="M" type="radio" name="sexe" id="sexe1" >
+                  <label class="form-check-label" for="sexe1">
+                    Masculin
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="F" name="sexe" id="sexe2">
+                  <label class="form-check-label" for="sexe2">
+                    Feminin
+                  </label>
+                </div>
           </label>
             {{-- date naissance --}}
             <label class="pure-material-textfield-outlined">
               <input type="date" placeholder=" " name="date_nais" required value="{{isset($data->id)?  $data->date_nais: ''}}" >
               <span>dateNaissance</span>
-          </label>
+            </label>
             {{-- telephone --}}
             <label class="pure-material-textfield-outlined">
               <input type="text" placeholder=" " name="tele" required value="{{isset($data->id)?  $data->tele : ''}}">
@@ -48,12 +63,12 @@
               <span>Adresse</span>
           </label>
         </center>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+      </div>
       </div>
       <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
       </div>
-    </div>
+    </form>
   </div>
 </div>

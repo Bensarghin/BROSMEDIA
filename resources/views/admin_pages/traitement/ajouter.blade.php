@@ -15,10 +15,10 @@
 <div class="card">
     <div class="card-header">
         <div class="card-title">
-            Patient : {{$data->nom}} {{$data->prenom}}
+            Patient : {{$data->patient->nom}} {{$data->patient->prenom}}
         </div>
         <div class="card-subtitle">
-            <h5>CIN : {{$data->cin}} </h5>
+            <h5>CIN : {{$data->patient->cin}} </h5>
         </div>
         
         <div class="card-title">
@@ -27,7 +27,7 @@
     </div>
 
     <div class="card-body">
-        <form action="{{route('traitement.insert',['id'=>$etat_id])}}" method="POST">
+        <form action="{{route('traitement.insert',['id'=>$data->id])}}" method="POST">
             @csrf
             <center>
                 {{-- Motif --}}

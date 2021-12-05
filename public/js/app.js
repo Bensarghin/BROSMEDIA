@@ -2512,6 +2512,7 @@ __webpack_require__.r(__webpack_exports__);
       this.actes = response.data;
     },
     // Query methods
+    // delete
     deleteActe: function deleteActe(Acteid) {
       var _this2 = this;
 
@@ -2890,7 +2891,7 @@ __webpack_require__.r(__webpack_exports__);
     search: function search() {
       var _this = this;
 
-      axios.post('/Medicament/getJson', {
+      axios.post('/medicament/getJson', {
         nomMedic: this.nomMedic
       }).then(function (response) {
         return _this.$emit('table-filtrer', response);
@@ -2978,7 +2979,7 @@ Vue.component('add-patient', __webpack_require__(/*! ./components/Globale/AddPat
 Vue.component('filter-component', __webpack_require__(/*! ./components/Globale/FilterComponent.vue */ "./resources/js/components/Globale/FilterComponent.vue")["default"]); // acte components
 
 Vue.component('acte-search-component', __webpack_require__(/*! ./components/acte/searchComponent.vue */ "./resources/js/components/acte/searchComponent.vue")["default"]);
-Vue.component('acte-list-component', __webpack_require__(/*! ./components/acte/listComponent.vue */ "./resources/js/components/acte/listComponent.vue")["default"]); // midecament components
+Vue.component('acte-list-component', __webpack_require__(/*! ./components/acte/listComponent.vue */ "./resources/js/components/acte/listComponent.vue")["default"]); // medicament components
 
 Vue.component('medicament-search-component', __webpack_require__(/*! ./components/medicament/searchComponent.vue */ "./resources/js/components/medicament/searchComponent.vue")["default"]);
 Vue.component('medicament-list-component', __webpack_require__(/*! ./components/medicament/listComponent.vue */ "./resources/js/components/medicament/listComponent.vue")["default"]); // patient components
@@ -40344,7 +40345,9 @@ var render = function() {
         "div",
         { staticClass: "card-body" },
         [
-          _c("acte-search-component", { on: { "table-filtrer": _vm.refresh } }),
+          _c("medicament-search-component", {
+            on: { "table-filtrer": _vm.refresh }
+          }),
           _vm._v(" "),
           _c(
             "table",

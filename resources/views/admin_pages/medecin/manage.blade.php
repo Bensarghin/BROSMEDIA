@@ -36,7 +36,7 @@
                     <td>{{$medecin->sexe}}</td>
                     <td>{{$medecin->date_nais}}</td>
                     <td>{{$medecin->tele}}</td>
-                    <td>{{$medecin->adresse}}</td>
+                    <td>{{Str::limit($medecin->adresse, 20)}}</td>
                     <td>
                         <a href="{{route('medecin.edit' , ['id' => $medecin->id])}}" class="text-info"><i class="fas fa-edit"></i> </a> | 
                         <a onclick="return confirm('Vous étes vraiment à supprimer ce enregistrement')" class="text-danger" href="{{route('medecin.delete',['medecin' => $medecin])}}"><i class="fas fa-trash"></i> </a>
