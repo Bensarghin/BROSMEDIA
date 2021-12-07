@@ -1,11 +1,10 @@
 <template>
-<div class="card mb-4">
-    <div class="card-header">   
-        <h4 class="s-attend mb-3 mt-3">
-                Salle d'attend <i class="fas fa-couch"></i> :
-                <span class="ml-4" v-text="currentDateTime()"> </span>
-        </h4>
-
+<div class="card mb-4">  
+    <div class="card-header">
+    <h4 class="text-muted text-center mb-3 mt-4 p-3 border" style="width:400px">
+            salle d'attend <i class="fas fa-couch"></i> :
+            <span> {{currentDateTime()}} </span>
+    </h4>
         <filter-component @table-filtrer="refresh"></filter-component>
     </div>
     <div class="card-body">
@@ -62,6 +61,7 @@
      export default {
          data () {
             return {
+                
             data: {},
             motif:'Acte',
             detail:'selectionner un patient',

@@ -27,6 +27,9 @@ use Illuminate\Support\Facades\App;
 */
 
 // acceuil routes
+Route::prefix('admin')->group(function () {
+
+
 Route::get('/',[HomeController::class,'index'])->middleware('auth');
 Route::get('/home',[HomeController::class,'index'])->name('home');
 Route::get('home/JsonData',[HomeController::class,'getdata']);
@@ -159,7 +162,13 @@ Route::prefix('cabinet')->group(function () {
 });
 
 Auth::routes();
-Route::any('/register',function(){
- return '404 | not found';
+
 });
 
+Route::any('/register',function(){
+    return '404 | not found';
+});
+
+Route::get('/', function () {
+    return view('visiteur_pages.pages.home');
+});

@@ -2332,7 +2332,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -39553,15 +39552,19 @@ var render = function() {
       "div",
       { staticClass: "card-header" },
       [
-        _c("h4", { staticClass: "s-attend mb-3 mt-3" }, [
-          _vm._v("\r\n                Salle d'attend "),
-          _c("i", { staticClass: "fas fa-couch" }),
-          _vm._v(" :\r\n                "),
-          _c("span", {
-            staticClass: "ml-4",
-            domProps: { textContent: _vm._s(_vm.currentDateTime()) }
-          })
-        ]),
+        _c(
+          "h4",
+          {
+            staticClass: "text-muted text-center mb-3 mt-4 p-3 border",
+            staticStyle: { width: "400px" }
+          },
+          [
+            _vm._v("\r\n            salle d'attend "),
+            _c("i", { staticClass: "fas fa-couch" }),
+            _vm._v(" :\r\n            "),
+            _c("span", [_vm._v(" " + _vm._s(_vm.currentDateTime()) + " ")])
+          ]
+        ),
         _vm._v(" "),
         _c("filter-component", { on: { "table-filtrer": _vm.refresh } })
       ],
