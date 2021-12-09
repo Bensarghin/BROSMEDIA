@@ -43,7 +43,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-12">
                 <ul class="top-header-information">
-                    <li><i class='bx bxs-map'></i>35 West Dental Street, California 1004</li>
+                    <li><i class='bx bxs-map'></i>{{isset($cabinet->adresse)?$cabinet->adresse:''}}</li>
                     <li><i class='bx bx-envelope-open'></i>
                         <a href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#1f6c6a6f6f706d6b5f786d7671317c7072"><span class="__cf_email__" data-cfemail="6f1c1a1f1f001d1b2f081d0601410c0002">[email&#160;protected]</span></a>
                     </li>
@@ -85,14 +85,14 @@
         <div class="row align-items-center">
             <div class="col-lg-4 col-md-12">
                 <div class="middle-header">
-                    <h1><a href="index.html">Cabenit</a></h1>
+                    <h1><a href="index.html">{{isset($cabinet->nom_cabenit)?$cabinet->nom_cabenit:''}}</a></h1>
                 </div>
             </div>
             <div class="col-lg-8 col-md-12">
                 <ul class="middle-header-content">
                     <li>
                         <i class="flaticon-emergency-call"></i>Call Today<span>
-                        <a href="tel:088123654987">+088 123 654 987</a></span>
+                        <a href="tel:088123654987">{{isset($cabinet->tele)?$cabinet->tele:''}}</a></span>
                     </li>
                     <li>
                         <i class="flaticon-wall-clock"></i>Open Hour<span>09:00 AM to 18:00 PM</span>
@@ -110,7 +110,7 @@
             <div class="main-responsive-menu">
                 <div class="logo">
                     <a href="index.html">
-                    <img src="{{asset('assets/images/logo.png')}}" alt="logo">
+                    <img src="{{asset('vasheet/assets/images/logo.png')}}" alt="logo">
                     </a>
                 </div>
             </div>

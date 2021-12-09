@@ -11,9 +11,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrdonnanceController;
 use App\Http\Controllers\MedecinController;
 use App\Http\Controllers\ActeController;
+// viteur controllers
+use App\Http\Controllers\visiteur\acceuilController;
+use App\Http\Controllers\visiteur\rdvController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -169,6 +173,8 @@ Route::any('/register',function(){
     return '404 | not found';
 });
 
-Route::get('/', function () {
-    return view('visiteur_pages.pages.home');
-});
+
+// Visiteur routes
+Route::get('/', [acceuilController::class,'index']);
+Route::get('/prend_rdv', [rdvController::class,'index']);
+Route::post('/insert',[rdvController::class,'insert'])->name('rdv.saisie');

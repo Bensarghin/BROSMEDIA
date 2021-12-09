@@ -45,4 +45,47 @@
         </div>
     </div>
 </div>
+
+<!-- Actes section -->
+<section class="features-area bg-ffffff pt-100 pb-70"></section>
+
+<section class="services-area pb-70">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <div class="section-title-warp">
+                    <span class="sub-title">
+                    <i class="flaticon-hashtag-symbol"></i>
+                    Our Best Dental Services
+                    </span>
+                    <h2>Enjoy Specialized Care Through Precision, Artistry, and Experience</h2>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="section-warp-btn">
+                    <a href="services.html" class="default-btn">View All</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach ($actes as $acte)
+            <div class="col-lg-4 col-md-6">
+                <div class="single-services-item">
+                    <div class="services-image">
+                        <a href="services-details.html"><img src="{{asset('vsheet/assets/images/services/services-6.jpg')}}" alt="image"></a>
+                        <div class="icon">
+                            <a href="services-details.html"><i class="flaticon-tooth-2"></i></a>
+                        </div>
+                    </div>
+                    <div class="services-content">
+                        <h3><a href="services-details.html">{{$acte->nom_acte}}</a></h3>
+                        <p>{{Str::limit($acte->description, 150)}}</p>
+                        <a href="services-details.html" class="default-btn">Read More</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
 @endsection

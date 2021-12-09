@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreaterRdvsTable extends Migration
 {
@@ -15,13 +16,12 @@ class CreaterRdvsTable extends Migration
     {
         Schema::create('rdvs', function (Blueprint $table) {
             $table->id();
-            $table->date('date_prend_rdv');
+            $table->date('date_prend_rdv')->default(DB::raw('CURRENT_TIMESTAMP'));
 
             $table->foreignId('pat_id')->references('id')->on('patients')
             ->onDelete('cascade')
             ->onUpdate('cascade');
-
-            $table->foreignId('med_id')->references('id')->on('medecins')
+            $table->foreignId('med_id')->nullable()->references('id')->on('medecins')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

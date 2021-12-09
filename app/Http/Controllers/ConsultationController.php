@@ -90,8 +90,8 @@ class ConsultationController extends Controller
         DB::table('consultations')
         ->where('id',$id)
         ->update([
-            'motif' => $request->motif,
-            'duree' => $request->duree,
+            'motif'  => $request->motif,
+            'duree'  => $request->duree,
             'detail' => $request->detail,
         ]);
 
