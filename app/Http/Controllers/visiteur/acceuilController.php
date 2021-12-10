@@ -12,7 +12,7 @@ class acceuilController extends Controller
     public function index()
     {
         $cabinet = Cabinet::first();
-        $actes = Acte::limit(6)->get();
+        $actes = Acte::paginate(6);
         return view('visiteur_pages.pages.home',[
             'cabinet' => $cabinet,
             'actes'   => $actes

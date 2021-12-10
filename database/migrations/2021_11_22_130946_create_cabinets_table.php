@@ -21,6 +21,10 @@ class CreateCabinetsTable extends Migration
             $table->string('tele');
             $table->string('adresse');
             $table->string('ville');
+            $table->string('services_titre');
+            $table->time('heure_ouver');
+            $table->time('heure_ferme');
+            
         });
     }
 

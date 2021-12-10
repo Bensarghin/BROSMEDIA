@@ -12,10 +12,6 @@
     <link rel="icon" href="{{asset('sheet/assets/images/icoon.png')}}')}}" type="image/x-icon">
     <link href="{{asset('sheet/assets/css/animated.css')}}" rel="stylesheet">
     <link href="{{asset('sheet/assets/css/sidemenu.css')}}" rel="stylesheet">
-    <link href="{{asset('sheet/assets/plugins/p-scrollbar/p-scrollbar.css')}}" rel="stylesheet">
-    <link href="{{asset('sheet/assets/css/icons.css')}}" rel="stylesheet"> <!-- INTERNAl Select2 css -->
-    <link href="{{asset('sheet/assets/plugins/select2/select2.min.css')}}" rel="stylesheet"> <!-- INTERNAL Morris Charts css -->
-    <link href="{{asset('sheet/assets/plugins/morris/morris.css')}}" rel="stylesheet"> <!-- INTERNAL Data table css -->
     <link href="{{asset('sheet/assets/switcher/css/switcher.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('sheet/assets/switcher/demo.css')}}" rel="stylesheet" type="text/css">
     <link rel="icon" href="{{asset('sheet/assets/images/op.png')}}')}}" type="image/x-icon" />
@@ -31,6 +27,7 @@
     <link href="{{asset('sheet/assets/css/style.css')}}" rel="stylesheet" type="text/css" />
     {{-- laravel  css --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 </head>
 
 
@@ -58,7 +55,7 @@
                     </div>
                     <ul class="side-menu">
                         <li class="slide">
-                            <a class="side-menu__item" href="{{url('/')}}">
+                            <a class="side-menu__item" href="{{route('home')}}">
                                 <span class="shape1"></span>
                                 <span class="shape2"></span>
                                 <i class="fas fa-home"></i>
@@ -104,13 +101,17 @@
                                 <span class="ml-4 side-menu__label">Médicaments</span> 
                             </a>
                         </li>
-                        <li class="slide">
-                            <a class="side-menu__item" href="{{route('cabinet')}}">
+                        <li class="dropdown">
+                            <a class="side-menu__item dropdown-toggle text-light" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="shape1"></span>
                                 <span class="shape2"></span>
-                                <i class="fas fa-hospital-user"></i>
-                                <span class="ml-4 side-menu__label">Cabinet</span>
+                                <i class="fas fa-cog"></i>
+                                <span class="ml-4 side-menu__label">Settings</span>
                             </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><a class="dropdown-item" href="{{route('cabinet')}}">Cabinet</a></li>
+                              <li><a class="dropdown-item" href="{{route('service')}}">Services</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

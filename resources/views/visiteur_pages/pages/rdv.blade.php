@@ -35,13 +35,6 @@
 
     <section class="features-area-two pt-100 pb-70">
         <h4 class="text-center"> Prend Rendez-vous</h4>
-        @if ($errors->any())
-            <div class="alert alert-danger m-auto mt-4" style="width: 400px !important">
-               @foreach ($errors->all() as $error)
-                   <li>{{$error}}</li>
-               @endforeach 
-            </div>
-        @endif
         @if(Session::has('message'))
             <div class="alert alert-info m-auto mt-4" style="width: 400px !important">
                 <p>
@@ -60,16 +53,28 @@
                 @csrf
                 <div class="form-group">
                     <input type="text" value="{{old('cin')}}" class="form-control" name="cin" placeholder="CIN">
+                    @error('cin')
+                        <span class="text-danger">{{$errors->first('cin')}}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <input type="text" value="{{old('nom')}}"  class="form-control" name="nom" placeholder="Nom">
+                    @error('nom')
+                        <span class="text-danger">{{$errors->first('nom')}}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <input type="text"  value="{{old('prenom')}}" class="form-control" name="prenom" placeholder="Prenom">
+                    @error('prenom')
+                        <span class="text-danger">{{$errors->first('prenom')}}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="date_nais" 
+                    <input type="text" value="{{old('date_nais')}}" class="form-control" name="date_nais" 
                     placeholder="Date Naissance" onfocus="(this.type='date')">
+                    @error('date_nais')
+                        <span class="text-danger">{{$errors->first('date_nais')}}</span>
+                    @enderror
                 </div>
 
                 <div class="form-check form-check-inline m-2">
@@ -80,12 +85,22 @@
                     <input class="form-check-input" type="radio" id="inlineRadio2" name="sexe" value="F">
                     <label class="form-check-label" for="inlineRadio2">Feminin</label>
                 </div>
+                @error('sexe')
+                <br>
+                        <span class="text-danger">{{$errors->first('sexe')}}</span>
+                @enderror
                   
                 <div class="form-group">
-                    <input type="text" class="form-control" name="tele" placeholder="Numéro">
+                    <input type="text"  value="{{old('tele')}}" class="form-control" name="tele" placeholder="Numéro">
+                @error('tele')
+                    <span class="text-danger">{{$errors->first('tele')}}</span>
+                @enderror
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="adresse" placeholder="Adress">
+                    <input type="text" value="{{old('adresse')}}" class="form-control" name="adresse" placeholder="Adress">
+                    @error('adresse')
+                        <span class="text-danger">{{$errors->first('adresse')}}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <select name="acte" id="" class="form-control">
@@ -94,6 +109,9 @@
                             <option value="{{$acte->id}}">{{$acte->nom_acte}}</option>
                         @endforeach
                     </select>
+                    @error('acte')
+                        <span class="text-danger">{{$errors->first('acte')}}</span>
+                    @enderror
                 </div>
                 <button type="submit" class="default-btn">Suivant</button>
             </form>

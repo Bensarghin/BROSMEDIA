@@ -24,7 +24,7 @@ class rdvController extends Controller
     public function insert(Request $request){
 
         $request->validate([
-            'cin'       => 'required',
+            'cin'       => 'required|unique:patients,cin',
             'nom'       => 'required',
             'prenom'    => 'required',
             'sexe'      => 'required',
@@ -40,7 +40,7 @@ class rdvController extends Controller
             'prenom'    => $request->prenom,
             'sexe'      => $request->sexe,
             'date_nais' => $request->date_nais,
-            'tele'      => $request->nom,
+            'tele'      => $request->tele,
             'adresse'   => $request->adresse,
         ]);
 

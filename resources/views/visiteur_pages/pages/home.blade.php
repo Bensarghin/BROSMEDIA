@@ -39,7 +39,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="main-banner-image">
-                <img src="{{asset('vsheet/assets/images/main-banner-1.jpg')}}" alt="image">
+                    <img src="{{asset('vsheet/assets/images/main-banner-1.jpg')}}" alt="image">
                 </div>
             </div>
         </div>
@@ -50,13 +50,13 @@
 <section class="features-area bg-ffffff pt-100 pb-70"></section>
 
 <section class="services-area pb-70">
-    <div class="container">
+    <div class="container" id="services">
         <div class="row align-items-center">
             <div class="col-lg-7">
                 <div class="section-title-warp">
                     <span class="sub-title">
                     <i class="flaticon-hashtag-symbol"></i>
-                    Our Best Dental Services
+                        Notre meilleur Services
                     </span>
                     <h2>Enjoy Specialized Care Through Precision, Artistry, and Experience</h2>
                 </div>
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="services-content">
-                        <h3><a href="services-details.html">{{$acte->nom_acte}}</a></h3>
+                        <h3><a href="services-details.html">{{Str::limit($acte->nom_acte,20)}}</a></h3>
                         <p>{{Str::limit($acte->description, 150)}}</p>
                         <a href="services-details.html" class="default-btn">Read More</a>
                     </div>
@@ -86,6 +86,7 @@
             </div>
             @endforeach
         </div>
+        {{$actes->links()}}
     </div>
 </section>
 @endsection

@@ -11,6 +11,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrdonnanceController;
 use App\Http\Controllers\MedecinController;
 use App\Http\Controllers\ActeController;
+use App\Http\Controllers\ServiceController;
+
 // viteur controllers
 use App\Http\Controllers\visiteur\acceuilController;
 use App\Http\Controllers\visiteur\rdvController;
@@ -165,6 +167,17 @@ Route::prefix('cabinet')->group(function () {
     Route::post('update', [UserController::class,'modifier'])->name('cabinet.update');
 });
 
+// Service routes
+Route::prefix('service')->group(function () {
+    Route::get('/', [ServiceController::class,'index'])->name('service');
+     //Json http
+     Route::get('/getJson', [ServiceController::class,'show']);
+     Route::post('/getJson', [ServiceController::class,'search']);
+     Route::post('/sendJson', [ServiceController::class,'store']);
+     Route::post('/updateJson', [ServiceController::class,'update']);
+     Route::post('/delete', [ServiceController::class,'destroy']);
+});
+
 Auth::routes();
 
 });
@@ -176,5 +189,6 @@ Route::any('/register',function(){
 
 // Visiteur routes
 Route::get('/', [acceuilController::class,'index']);
-Route::get('/prend_rdv', [rdvController::class,'index']);
+Route::get('/', [acceuilController::class,'index'])->name('visiteur.home');
+Route::get('/prend_rdv', [rdvController::class,'index'])->name('rdv.form');
 Route::post('/insert',[rdvController::class,'insert'])->name('rdv.saisie');

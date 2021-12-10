@@ -35,6 +35,11 @@ Vue.component('medicament-list-component', require('./components/medicament/list
 
 // patient components
 Vue.component('patient-search-component', require('./components/patient/searchComponent.vue').default);
+
+
+// service components
+Vue.component('service-manage-component', require('./components/service/manageComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

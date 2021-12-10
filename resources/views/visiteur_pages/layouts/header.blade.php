@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="{{asset('vsheet/assets/css/style.css')}}">
 
 <link rel="stylesheet" href="{{asset('vsheet/assets/css/responsive.css')}}">
-<title>Grin - Dentist & Dental Clinic HTML Template</title>
+<title>{{$cabinet->nom_cabinet}}</title>
 <link rel="icon" type="image/png" href="{{asset('vsheet/assets/images/favicon.png')}}">
 </head>
 <body>
@@ -66,13 +66,12 @@
                         </a>
                     </li>
                     <li class="languages-list">
-                        <select>
-                            <option value="1">English</option>
-                            <option value="2">العربيّة</option>
-                            <option value="3">Deutsch</option>
-                            <option value="3">Português</option>
-                            <option value="3">简体中文</option>
-                        </select>
+                        <a href="https://www.instagram.com/" target="_blank">
+                            Fançais
+                        </a> |
+                        <a href="https://www.instagram.com/" target="_blank">
+                            عربي
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -110,7 +109,7 @@
             <div class="main-responsive-menu">
                 <div class="logo">
                     <a href="index.html">
-                    <img src="{{asset('vasheet/assets/images/logo.png')}}" alt="logo">
+                    <img src="{{asset('cabenit/'.$cabinet->logo)}}" width="90" height="90" alt="logo">
                     </a>
                 </div>
             </div>
@@ -120,40 +119,27 @@
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link active"> Acceuil </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Dentist</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Pages</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="contact-us.html" class="nav-link">Contact Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="about-us.html" class="nav-link">About Us</a>
-                    </li>
-                </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="{{route('visiteur.home')}}" class="nav-link active"> Acceuil </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('visiteur.home')}}#services" class="nav-link">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('rdv.form')}}" class="nav-link">Rendez-vous</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contact-us.html" class="nav-link">Contact Nous</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="about-us.html" class="nav-link">Qui sommes-nous ?</a>
+                        </li>
+                    </ul>
                     <div class="others-options d-flex align-items-center">
                         <div class="option-item">
-                            <div class="search-btn">
-                                <a class="#" href="#searchmodal" data-bs-toggle="modal" data-bs-target="#searchmodal">
-                                <i class="flaticon-search"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="option-item">
                             <div class="navbar-btn">
-                                <a href="appointment.html" class="default-btn">Book Appointment</a>
+                                <a href="{{route('rdv.form')}}" class="default-btn">Prend Rendez-vous</a>
                             </div>
                         </div>
                     </div>
