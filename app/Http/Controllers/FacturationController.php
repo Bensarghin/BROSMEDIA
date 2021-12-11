@@ -21,6 +21,24 @@ class FacturationController extends Controller
      */
     public function index()
     {
+        $facturation = Facturation::all();
+        $fact_count = Facturation::where('avance','!=',null)->get();
+        $fact_jour = Facturation::whereDate('created_at', date('Y-m-d'));
+        $fact_jour_count = Facturation::whereDate('created_at', date('Y-m-d'))
+        ->where('avance','!=',null)->get();
+        $from = date('Y').'-'.(date('m') - 2).'-'.(date('d')-1);
+        $b = date('Y').'-'.(date('m') - 1).'-'.(date('d')-1);
+        $to =  date('Y').'-'.date('m').'-'.(date('d')+1);
+        $fact_mois = Facturation::whereBetween('created_at',[$b,$to])->get();
+        $fact_dmois = Facturation::whereBetween('created_at',[$from,$b])->get();
+        return view('admin_pages.facturation.details',[
+            'facturation'   => $facturation,
+            'fact_count'    => $fact_count,
+            'fact_jour'     => $fact_jour,
+            'fact_mois'     => $fact_mois,
+            'fact_dmois'     => $fact_dmois,
+            'fact_jour_count' => $fact_jour_count
+        ]);
     }
 
     /**

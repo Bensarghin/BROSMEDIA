@@ -38,13 +38,13 @@
                 </label>
                 {{-- Duree --}}
                 <label class="pure-material-textfield-outlined">
-                    <input type="text" placeholder="" name="montant" required value="{{$data->montant}}" >
-                    <span>Montant : </span>
+                    <input type="text" placeholder="" name="montant"value="{{$data->montant}}" >
+                    <span>Montant :</span>
                 </label>
                 {{-- Status --}}
                 <label class="pure-material-textfield-outlined">
-                    <input type="text" placeholder="" name="avance" required value="{{$data->avance}}" >
-                    <span>Avance : </span>
+                    <input type="text" placeholder="" name="avance" value="{{$data->avance}}" >
+                    <span>Avance (optionnel) : </span>
                 </label>
             </center>
             <button type="submit" class="btn btn-primary">Enregistrer</button>

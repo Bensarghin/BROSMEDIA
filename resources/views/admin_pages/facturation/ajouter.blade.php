@@ -43,8 +43,8 @@
                 </label>
                 {{-- Status --}}
                 <label class="pure-material-textfield-outlined">
-                    <input type="text" placeholder="" name="avance" required value="" >
-                    <span>Avance : </span>
+                    <input type="text" placeholder="" name="avance">
+                    <span>Avance (optionnel): </span>
                 </label>
             </center>
             <button type="submit" class="btn btn-primary">Enregistrer</button>

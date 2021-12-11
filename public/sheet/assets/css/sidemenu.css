@@ -362,7 +362,7 @@
 .side-menu__item.active {
     text-decoration: none;
     color: #06a3da;
-    padding: 0.87em;
+    padding: 0.9em;
 }
 
 .side-menu__item.active .side-menu__icon,

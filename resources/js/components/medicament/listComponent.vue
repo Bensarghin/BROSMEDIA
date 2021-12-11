@@ -91,7 +91,7 @@ export default {
             //call this method when page is loaded
             fetchData(){
                 axios
-                    .get('/medicament/getJson')
+                    .get('/admin/medicament/getJson')
                     .then(response => (this.medicaments = response.data))
             },
             refresh (response){
@@ -112,7 +112,7 @@ export default {
                     if (result.isConfirmed) {
 
                         axios
-                        .post('/medicament/delete',{
+                        .post('/admin/medicament/delete',{
                                 id:Medid
                         })
                         .then(response => (this.medicaments = response.data))
@@ -150,7 +150,7 @@ export default {
             enregistrer(){
                 // insert request
                 if(!this.edit){
-                axios.post('/medicament/sendJson',
+                axios.post('/admin/medicament/sendJson',
                 {
                     nomMedic : this.nomMedic,
                     utilisation : this.utilisation,
@@ -170,7 +170,7 @@ export default {
                 }
                 // update request
                 else{
-                axios.post('/medicament/updateJson',
+                axios.post('/admin/medicament/updateJson',
                 {
                     nomMedic : this.nomMedic,
                     utilisation : this.utilisation,

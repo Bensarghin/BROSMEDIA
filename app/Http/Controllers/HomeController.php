@@ -37,11 +37,13 @@ class HomeController extends Controller
         ->count();
         $rdvs = Etat_rdv::whereDate('date_consu', date('Y-m-d'));
         $fact = Facturation::whereDate('created_at', date('Y-m-d'));
+        $total_fact = Facturation::all();
         return view('home',['data'=>$data,
-                            'total_trait'=>$total_trait,
-                            'rdvs'=>$rdvs,
-                            'total_pat'=>$total_pat,
-                            'fact'=>$fact
+                            'total_trait'   =>  $total_trait,
+                            'rdvs'  =>  $rdvs,
+                            'total_pat' =>  $total_pat,
+                            'fact'  =>  $fact,
+                            'total_fact' => $total_fact
                         ]);
     }
 

@@ -67,9 +67,9 @@
             <div class="card bg-gradient-info overflow-hidden text-white" style="height: 179px;">
                 {{-- Gains --}}
                 <div class="card-body pb-0">
-                    <p class=" mb-1 ">Total Gains </p>
+                    <a href="{{route('fact.detail')}}" class="mb-1 text-light border-bottom">Caisse <i class="fas fa-chart-line"></i></a>
                     <h2 class="mb-1 font-weight-bold fs-30">
-                        {{$fact->sum('montant'). ' DH'}}
+                    <span class="mt-2">{{$fact->sum('montant'). ' DH'}}</span><br>
                     </h2>
                 </div>
                 <div class="chart-wrapper overflow-hidden">

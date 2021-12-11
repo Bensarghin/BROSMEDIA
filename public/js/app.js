@@ -2232,7 +2232,7 @@ __webpack_require__.r(__webpack_exports__);
     filtrer: function filtrer() {
       var _this = this;
 
-      axios.post('/home/getJson', {
+      axios.post('/admin/home/getJson', {
         status: this.status
       }).then(function (response) {
         return _this.$emit('table-filtrer', response);
@@ -2243,7 +2243,7 @@ __webpack_require__.r(__webpack_exports__);
     search: function search() {
       var _this2 = this;
 
-      axios.post('/home/getJson', {
+      axios.post('/admin/home/getJson', {
         nomPrenom: this.nomPrenom
       }).then(function (response) {
         return _this2.$emit('table-filtrer', response);
@@ -2352,7 +2352,7 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      axios.get('/home/JsonData').then(function (response) {
+      axios.get('/admin/home/JsonData').then(function (response) {
         return _this.data = response.data;
       });
     },
@@ -2371,7 +2371,7 @@ __webpack_require__.r(__webpack_exports__);
         this.passe = 'Passé';
       }
 
-      axios.post('/home/status', {
+      axios.post('/admin/home/status', {
         status: this.passe,
         etat_id: jointure.etat_rdvs_id
       }).then(function (response) {
@@ -2503,7 +2503,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchData: function fetchData() {
       var _this = this;
 
-      axios.get('/acte/getJson').then(function (response) {
+      axios.get('/admin/acte/getJson').then(function (response) {
         return _this.actes = response.data;
       });
     },
@@ -2525,7 +2525,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios.post('/acte/delete', {
+          axios.post('/admin/acte/delete', {
             id: Acteid
           }).then(function (response) {
             return _this2.actes = response.data;
@@ -2558,7 +2558,7 @@ __webpack_require__.r(__webpack_exports__);
 
       // insert request
       if (!this.edit) {
-        axios.post('/acte/sendJson', {
+        axios.post('/admin/acte/sendJson', {
           nomActe: this.nomActe,
           prix: this.prix,
           description: this.description
@@ -2581,7 +2581,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } // update request
       else {
-        axios.post('/acte/updateJson', {
+        axios.post('/admin/acte/updateJson', {
           nomActe: this.nomActe,
           prix: this.prix,
           description: this.description,
@@ -2641,7 +2641,7 @@ __webpack_require__.r(__webpack_exports__);
     search: function search() {
       var _this = this;
 
-      axios.post('/acte/getJson', {
+      axios.post('/admin/acte/getJson', {
         nomActe: this.nomActe
       }).then(function (response) {
         return _this.$emit('table-filtrer', response);
@@ -2755,7 +2755,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchData: function fetchData() {
       var _this = this;
 
-      axios.get('/medicament/getJson').then(function (response) {
+      axios.get('/admin/medicament/getJson').then(function (response) {
         return _this.medicaments = response.data;
       });
     },
@@ -2776,7 +2776,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios.post('/medicament/delete', {
+          axios.post('/admin/medicament/delete', {
             id: Medid
           }).then(function (response) {
             return _this2.medicaments = response.data;
@@ -2809,7 +2809,7 @@ __webpack_require__.r(__webpack_exports__);
 
       // insert request
       if (!this.edit) {
-        axios.post('/medicament/sendJson', {
+        axios.post('/admin/medicament/sendJson', {
           nomMedic: this.nomMedic,
           utilisation: this.utilisation
         }).then(function (response) {
@@ -2831,7 +2831,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } // update request
       else {
-        axios.post('/medicament/updateJson', {
+        axios.post('/admin/medicament/updateJson', {
           nomMedic: this.nomMedic,
           utilisation: this.utilisation,
           id: this.medic_id
@@ -2890,7 +2890,7 @@ __webpack_require__.r(__webpack_exports__);
     search: function search() {
       var _this = this;
 
-      axios.post('/medicament/getJson', {
+      axios.post('/admin/medicament/getJson', {
         nomMedic: this.nomMedic
       }).then(function (response) {
         return _this.$emit('table-filtrer', response);
@@ -3044,6 +3044,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3064,7 +3068,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchData: function fetchData() {
       var _this = this;
 
-      axios.get('/service/getJson').then(function (response) {
+      axios.get('/admin/service/getJson').then(function (response) {
         return _this.services = response.data;
       });
     },
@@ -3086,7 +3090,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios.post('/service/delete', {
+          axios.post('/admin/service/delete', {
             id: serviceid
           }).then(function (response) {
             return _this2.services = response.data;
@@ -3119,7 +3123,7 @@ __webpack_require__.r(__webpack_exports__);
 
       // insert request
       if (!this.edit) {
-        axios.post('/service/sendJson', {
+        axios.post('/admin/service/sendJson', {
           nomservice: this.nomservice,
           prix: this.prix,
           description: this.description
@@ -3142,7 +3146,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } // update request
       else {
-        axios.post('/service/updateJson', {
+        axios.post('/admin/service/updateJson', {
           nomservice: this.nomservice,
           prix: this.prix,
           description: this.description,
@@ -40962,48 +40966,31 @@ var render = function() {
             _c("div", { staticClass: "modal-body" }, [
               _c(
                 "form",
-                { staticClass: "dropzone" },
                 [
                   _c("center", [
-                    _c(
-                      "div",
-                      { staticClass: "dropzone-container svelte-12uhhij" },
-                      [
+                    _c("div", { staticClass: "input-group mb-3" }, [
+                      _c("div", { staticClass: "input-group-prepend" }, [
+                        _c("span", { staticClass: "input-group-text" }, [
+                          _vm._v("Upload")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "custom-file" }, [
+                        _c("input", {
+                          staticClass: "custom-file-input",
+                          attrs: { type: "file", id: "inputGroupFile01" }
+                        }),
+                        _vm._v(" "),
                         _c(
-                          "div",
+                          "label",
                           {
-                            staticClass: "dropzone svelte-12uhhij dz-clickable"
+                            staticClass: "custom-file-label",
+                            attrs: { for: "inputGroupFile01" }
                           },
-                          [
-                            _c(
-                              "div",
-                              { staticClass: "dz-message svelte-12uhhij" },
-                              [
-                                _c("h1", { staticClass: "svelte-12uhhij" }, [
-                                  _vm._v("Try it out!")
-                                ]),
-                                _vm._v(" "),
-                                _c("p", [_vm._v("Drag and drop files here")]),
-                                _vm._v(" "),
-                                _c(
-                                  "p",
-                                  { staticClass: "comment svelte-12uhhij" },
-                                  [
-                                    _vm._v(
-                                      "This is just a demo Dropzone.\r\n          "
-                                    ),
-                                    _c("br"),
-                                    _vm._v("\r\n          Dropped files are "),
-                                    _c("strong", [_vm._v("not")]),
-                                    _vm._v(" actually uploaded.")
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
+                          [_vm._v("Choose file")]
                         )
-                      ]
-                    ),
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "label",
@@ -41097,7 +41084,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-danger",
+                  staticClass: "btn btn-secondary",
                   attrs: {
                     type: "button",
                     id: "Annuler",
@@ -41162,34 +41149,29 @@ var render = function() {
                 { staticClass: "card-body" },
                 [
                   _c("div", { staticClass: "col-12  text-truncate" }, [
-                    _c("label", { staticClass: "la", attrs: { for: "" } }, [
-                      _vm._v("Nom")
-                    ]),
+                    _c("label", { staticClass: "la" }, [_vm._v("Nom")]),
                     _vm._v(
-                      "\r\n                    " +
+                      "\r\n                        " +
                         _vm._s(service.nom_service) +
-                        "\r\n                "
+                        "\r\n                    "
                     )
                   ]),
                   _vm._v(" "),
                   _c("h6", { staticClass: "col-12 mb-2 text-muted" }, [
-                    _c("label", { staticClass: "la", attrs: { for: "" } }, [
-                      _vm._v("Prix")
-                    ]),
+                    _c("label", { staticClass: "la" }, [_vm._v("Image")]),
                     _vm._v(
                       "\r\n                        " +
-                        _vm._s(service.prix) +
-                        ",00 DH"
+                        _vm._s(service.image) +
+                        "\r\n                    "
                     )
                   ]),
                   _vm._v(" "),
                   _c("p", { staticClass: "col-12 text-truncate" }, [
-                    _c("label", { staticClass: "la", attrs: { for: "" } }, [
-                      _vm._v("Description")
-                    ]),
+                    _c("label", { staticClass: "la" }, [_vm._v("Description")]),
                     _vm._v(
                       "\r\n\r\n                        " +
-                        _vm._s(service.description)
+                        _vm._s(service.description) +
+                        "\r\n                    "
                     )
                   ]),
                   _vm._v(" "),

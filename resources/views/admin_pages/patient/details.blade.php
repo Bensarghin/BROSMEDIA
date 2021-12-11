@@ -58,8 +58,8 @@
           <a class="text-info" href="{{route('rdv.insert',['id'=>$patient->id])}}">ajouter rendez-vous</a>
         </div>
         @else
-          <h4 class="mt-4 ml-4"> Liste de rendez-vous</h4>
-          <table class="table table-bordered">
+            <h4 class="mt-4 ml-4"> Liste de rendez-vous | <a class="text-info mt-4 ml-4" href="{{route('rdv.insert',['id'=>$patient->id])}}">ajouter rendez-vous</a></h4>
+           <table class="table table-bordered">
             <tr>
               <td>Date prend RDV</td>
               <td>Nom acte</td>

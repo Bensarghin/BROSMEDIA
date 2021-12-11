@@ -42,7 +42,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Durée : </span>
                     </div>
-                    <input type="number" name="duree" class="form-control" value="{{$data->duree}}" style="height: 45px;">
+                    <input type="time" name="duree" class="form-control" value="{{$data->duree}}" style="height: 45px;">
                     <div class="input-group-append">
                         <span class="input-group-text">Heures</span>
                     </div>

@@ -9,18 +9,20 @@
             <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
-            <form class="dropzone">
+            <form>
                 <center>
-
+                
                     <!-- File Attachment Input -->
-                    <div class="dropzone-container svelte-12uhhij"><div class="dropzone svelte-12uhhij dz-clickable"><div class="dz-message svelte-12uhhij"><h1 class="svelte-12uhhij">Try it out!</h1> <p>Drag and drop files here</p> <p class="comment svelte-12uhhij">This is just a demo Dropzone.
-          <br>
-          Dropped files are <strong>not</strong> actually uploaded.</p></div></div></div>
-                    <!-- End File Attachment Input -->
-
-
-
-
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Upload</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01">
+                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        </div>
+                    </div>
+                     <!-- End File Attachment Input -->
 
                 <label class="pure-material-textfield-outlined">
                     <input type="text" v-model="nomservice" placeholder=" " name="nom_service" required value="">
@@ -37,7 +39,7 @@
         <div class="modal-footer">
                         <button type="button" @click="enregistrer()"  class="btn btn-primary" >Enregistrer</button>
 
-            <button type="button" class="btn btn-danger" id="Annuler" data-bs-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-secondary" id="Annuler" data-bs-dismiss="modal">Annuler</button>
         </div>
         </div>
     </div>
@@ -55,23 +57,25 @@
         <div class="col-sm-3" v-for="service in services" :key="service.id" @table-filtrer="refresh">
             <div class="card text-dark bg-light mb-3">
                 <div class="card-body">
-                      <div class="col-12  text-truncate">
-                    <label for="" class="la">Nom</label>
-                    {{service.nom_service}}
-                </div>             
+                    <div class="col-12  text-truncate">
+                        <label class="la">Nom</label>
+                        {{service.nom_service}}
+                    </div>             
 
                     <h6 class="col-12 mb-2 text-muted">
-                        <label for="" class="la">Prix</label>
-                        {{service.prix}},00 DH</h6>
+                        <label class="la">Image</label>
+                        {{service.image}}
+                    </h6>
 
                     <p class="col-12 text-truncate">
-                                                <label for="" class="la">Description</label>
+                    <label class="la">Description</label>
 
-                        {{service.description}}</p>
-                        <center>
-                    <a href="" class="card-link" @click="getservice(service)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit" style="color: rgb(87 122 168);    font-size: 18px;"></i> </a>
-                    <a href="#" class="card-link" @click="deleteservice(service.id)"><i class="fas fa-trash" style="color: #522525;    font-size: 18px;"></i> </a>
-             </center>
+                        {{service.description}}
+                    </p>
+                    <center>
+                        <a href="" class="card-link" @click="getservice(service)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit" style="color: rgb(87 122 168);    font-size: 18px;"></i> </a>
+                        <a href="#" class="card-link" @click="deleteservice(service.id)"><i class="fas fa-trash" style="color: #522525;    font-size: 18px;"></i> </a>
+                    </center>
                 </div>
             </div>
         </div>
@@ -108,7 +112,7 @@ export default {
             //call this method when page is loaded
             fetchData(){
                 axios
-                    .get('/service/getJson')
+                    .get('/admin/service/getJson')
                     .then(response => (this.services = response.data))
             },
             refresh (response){
@@ -131,7 +135,7 @@ export default {
                 if (result.isConfirmed) {
 
                 axios
-                .post('/service/delete',{
+                .post('/admin/service/delete',{
                         id:serviceid
                 })
                 .then(response => (this.services = response.data))
@@ -171,7 +175,7 @@ export default {
                 // insert request
                 if(!this.edit){
 
-                axios.post('/service/sendJson',
+                axios.post('/admin/service/sendJson',
                 {
                     nomservice : this.nomservice,
                     prix : this.prix,
@@ -193,7 +197,7 @@ export default {
                 }
                 // update request
                 else{
-                axios.post('/service/updateJson',
+                axios.post('/admin/service/updateJson',
                 {
                     nomservice : this.nomservice,
                     prix : this.prix,

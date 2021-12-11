@@ -101,7 +101,7 @@ export default {
             //call this method when page is loaded
             fetchData(){
                 axios
-                    .get('/acte/getJson')
+                    .get('/admin/acte/getJson')
                     .then(response => (this.actes = response.data))
             },
             refresh (response){
@@ -124,7 +124,7 @@ export default {
                 if (result.isConfirmed) {
 
                 axios
-                .post('/acte/delete',{
+                .post('/admin/acte/delete',{
                         id:Acteid
                 })
                 .then(response => (this.actes = response.data))
@@ -164,7 +164,7 @@ export default {
                 // insert request
                 if(!this.edit){
 
-                axios.post('/acte/sendJson',
+                axios.post('/admin/acte/sendJson',
                 {
                     nomActe : this.nomActe,
                     prix : this.prix,
@@ -186,7 +186,7 @@ export default {
                 }
                 // update request
                 else{
-                axios.post('/acte/updateJson',
+                axios.post('/admin/acte/updateJson',
                 {
                     nomActe : this.nomActe,
                     prix : this.prix,
@@ -207,9 +207,8 @@ export default {
 
                 })
                 .catch(error => console.log(error))
-                }
-        },
-            
-        }
+            }
+        },      
+    }
 }
 </script>

@@ -61,7 +61,7 @@ Route::prefix('patient')->group(function () {
 // facturations routes
 Route::prefix('facturation')->group(function () {
     Route::get('manage', [FacturationController::class,"index"])->name('fact.manage');
-    Route::get('details/{id}', [FacturationController::class,"detail"])->name('fact.detail');
+    Route::get('details', [FacturationController::class,"index"])->name('fact.detail');
     Route::post('insert', [FacturationController::class,"store"])->name('fact.insert');
     Route::get('ajouter/{id}', [FacturationController::class,"create"])->name('fact.ajouter');
     Route::get('modifier/{id}', [FacturationController::class,"edit"])->name('fact.modifier');

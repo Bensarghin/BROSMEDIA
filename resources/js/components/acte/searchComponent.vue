@@ -18,7 +18,7 @@ export default {
     methods:{
       search(){
         axios
-        .post('/acte/getJson',
+        .post('/admin/acte/getJson',
         {
           nomActe:this.nomActe
         })

@@ -11,7 +11,7 @@
                     Ajouter un Rendez-vous
                 </div>
                 <div class="card-subtitle mt-2 text-muted">   
-                    {{$patients->nom}} {{$patients->prenom}}
+                    Patient : {{$patients->nom}} {{$patients->prenom}}
                 </div>
             </div>
             <div class="card-body">
@@ -37,11 +37,6 @@
                             @endforeach
                         </select>
                     </label>
-
-                    <div class="text-center border-bottom mb-5">
-                        <h5>Etat Rendez-vous</h5>
-                    </div>
-                    <input type="hidden" name="etat_id" value="">
                     {{-- nom medecin --}}
                     <label class="pure-material-textfield-outlined">
                         <span>Nom medecin :</span>
@@ -52,6 +47,8 @@
                             @endforeach
                         </select>
                     </label>
+                    <input type="hidden" name="etat_id" value="">
+
                     {{-- date consultation --}}
                     <label class="pure-material-textfield-outlined">
                         <input type="date" placeholder=" " name="date_consu" required value="" >

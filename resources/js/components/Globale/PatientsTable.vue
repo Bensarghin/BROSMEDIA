@@ -80,7 +80,7 @@
         methods:{
             getData(){
                 axios
-                .get('/home/JsonData')
+                .get('/admin/home/JsonData')
                 .then(response => (this.data = response.data))
             },
             refresh (response){
@@ -102,7 +102,7 @@
                     this.passe='Passé'
                 }
                 axios
-                .post('/home/status',{
+                .post('/admin/home/status',{
                     status:this.passe,
                     etat_id:jointure.etat_rdvs_id
                 })

@@ -35,7 +35,7 @@ export default {
   methods: {
       filtrer(){
         axios
-        .post('/home/getJson',
+        .post('/admin/home/getJson',
         {
           status:this.status,
         })
@@ -44,7 +44,7 @@ export default {
       },
       search(){
         axios
-        .post('/home/getJson',
+        .post('/admin/home/getJson',
         {
           nomPrenom:this.nomPrenom
         })

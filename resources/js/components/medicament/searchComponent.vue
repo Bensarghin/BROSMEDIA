@@ -18,7 +18,7 @@ export default {
     methods:{
       search(){
         axios
-        .post('/medicament/getJson',
+        .post('/admin/medicament/getJson',
         {
           nomMedic:this.nomMedic
         })
