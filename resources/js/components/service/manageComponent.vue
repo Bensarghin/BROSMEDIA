@@ -54,28 +54,14 @@
         </a>
     </div>
     <div class="row">
-        <div class="col-sm-3" v-for="service in services" :key="service.id" @table-filtrer="refresh">
-            <div class="card text-dark bg-light mb-3">
+        <div class="col-sm-4" v-for="service in services" :key="service.id" @table-filtrer="refresh">
+            <div class="card">
+                <img class="card-img-top" :src="'/cabenit/arton23179_1638112683.jpg'" alt="Card image" style="width:100%">
                 <div class="card-body">
-                    <div class="col-12  text-truncate">
-                        <label class="la">Nom</label>
-                        {{service.nom_service}}
-                    </div>             
-
-                    <h6 class="col-12 mb-2 text-muted">
-                        <label class="la">Image</label>
-                        {{service.image}}
-                    </h6>
-
-                    <p class="col-12 text-truncate">
-                    <label class="la">Description</label>
-
-                        {{service.description}}
-                    </p>
-                    <center>
-                        <a href="" class="card-link" @click="getservice(service)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit" style="color: rgb(87 122 168);    font-size: 18px;"></i> </a>
-                        <a href="#" class="card-link" @click="deleteservice(service.id)"><i class="fas fa-trash" style="color: #522525;    font-size: 18px;"></i> </a>
-                    </center>
+                    <h4 class="card-title">{{service.nom_service}}</h4>
+                    <p class="card-text">{{service.description}} {{service.description}} {{service.description}} {{service.description}}</p>
+                    <a href="" class="card-link" @click="getservice(service)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit" style="color: rgb(87 122 168);    font-size: 18px;"></i> </a>
+                    <a href="#" class="card-link" @click="deleteservice(service.id)"><i class="fas fa-trash" style="color: #522525;    font-size: 18px;"></i> </a>
                 </div>
             </div>
         </div>
@@ -93,6 +79,7 @@ export default {
     
         data () {
             return {
+
                 services: {},
                 service_id:'',
                 prix:'',

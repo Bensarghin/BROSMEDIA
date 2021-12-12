@@ -12,6 +12,7 @@ use App\Http\Controllers\OrdonnanceController;
 use App\Http\Controllers\MedecinController;
 use App\Http\Controllers\ActeController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\CaisseController;
 
 // viteur controllers
 use App\Http\Controllers\visiteur\acceuilController;
@@ -176,6 +177,16 @@ Route::prefix('service')->group(function () {
      Route::post('/sendJson', [ServiceController::class,'store']);
      Route::post('/updateJson', [ServiceController::class,'update']);
      Route::post('/delete', [ServiceController::class,'destroy']);
+});
+
+// Caisse routes
+Route::prefix('caisse')->group(function () {
+
+    Route::get('/', [CaisseController::class,'index'])->name('caisse');
+    Route::get('delete/{id}', [CaisseController::class,'destroy'])->name('caisse.delete');
+    Route::post('store', [CaisseController::class,'store'])->name('caisse.store');
+    Route::get('modifier', [CaisseController::class,'create'])->name('caisse.edit');
+    Route::post('update', [CaisseController::class,'modifier'])->name('caisse.update');
 });
 
 Auth::routes();

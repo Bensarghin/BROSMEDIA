@@ -12,6 +12,11 @@ class acceuilController extends Controller
     public function index()
     {
         $cabinet = Cabinet::first();
+        if(!$cabinet){
+            $cabinet = [
+                'nom_cabinet' => 'cabinet medical'
+            ];
+        }
         $actes = Acte::paginate(6);
         return view('visiteur_pages.pages.home',[
             'cabinet' => $cabinet,

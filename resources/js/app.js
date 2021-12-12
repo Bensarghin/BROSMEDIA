@@ -39,6 +39,8 @@ Vue.component('patient-search-component', require('./components/patient/searchCo
 
 // service components
 Vue.component('service-manage-component', require('./components/service/manageComponent.vue').default);
+// caisse components
+Vue.component('caisse-manage-component', require('./components/caisse/manageComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
