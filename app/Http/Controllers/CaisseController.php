@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Caisse;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CaisseController extends Controller
 {
@@ -13,12 +14,19 @@ class CaisseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $caisse = Caisse::all();
-        return view('admin_pages.caisse.manage',[
-            'caisse'   => $caisse
-        ]);
+    public function index(Request $request)
+    {   
+        $caisse = Caisse::whereYear('date_fact', 2021)
+        ->groupBy(DB::raw('MONTH(date_fact)'))
+        ->select(
+            (DB::raw('MONTH(date_fact) month')),
+            (DB::raw('SUM(revenue) 	revenue')),
+            (DB::raw('SUM(depence) depence')),
+            (DB::raw('SUM(TTC) TTC'))
+            )
+        
+        ->get();
+        return response()->json($caisse);
     }
 
     /**
@@ -28,7 +36,12 @@ class CaisseController extends Controller
      */
     public function create()
     {
-        //
+        $years = Caisse::
+        groupBy(DB::raw('YEAR(date_fact)'))
+        ->select(DB::raw('YEAR(date_fact) year'))
+        ->get();
+
+        return response()->json($years);
     }
 
     /**
@@ -39,7 +52,9 @@ class CaisseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Caisse::create($request->all());
+        return response()->json(Caisse::all());
+
     }
 
     /**
@@ -48,9 +63,12 @@ class CaisseController extends Controller
      * @param  \App\Models\Caisse  $caisse
      * @return \Illuminate\Http\Response
      */
-    public function show(Caisse $caisse)
+    public function show(Request $request)
     {
-        //
+        $caisse = Caisse::whereMonth('date_fact',$request->month)
+        ->whereYear('date_fact',$request->year)
+        ->get();
+        return response()->json($caisse);
     }
 
     /**
@@ -59,9 +77,19 @@ class CaisseController extends Controller
      * @param  \App\Models\Caisse  $caisse
      * @return \Illuminate\Http\Response
      */
-    public function edit(Caisse $caisse)
+    public function filtrer(Request $request)
     {
-        //
+        $caisse = Caisse::whereYear('date_fact', $request->year)
+        ->groupBy(DB::raw('MONTH(date_fact)'))
+        ->select(
+            (DB::raw('MONTH(date_fact) month')),
+            (DB::raw('SUM(revenue) 	revenue')),
+            (DB::raw('SUM(depence) depence')),
+            (DB::raw('SUM(TTC) TTC'))
+            )
+        
+        ->get();
+        return response()->json($caisse);
     }
 
     /**

@@ -101,6 +101,14 @@
                                 <span class="ml-4 side-menu__label">Médicaments</span> 
                             </a>
                         </li>
+                        <li class="slide">
+                            <a class="side-menu__item" href="{{route('caisse')}}">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
+                                <i class="fas fa-wallet"></i>
+                                <span class="ml-4 side-menu__label">Déponse</span> 
+                            </a>
+                        </li>
                         <li class="dropdown">
                             <a class="side-menu__item dropdown-toggle text-light" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="shape1"></span>

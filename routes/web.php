@@ -182,11 +182,18 @@ Route::prefix('service')->group(function () {
 // Caisse routes
 Route::prefix('caisse')->group(function () {
 
-    Route::get('/', [CaisseController::class,'index'])->name('caisse');
-    Route::get('delete/{id}', [CaisseController::class,'destroy'])->name('caisse.delete');
-    Route::post('store', [CaisseController::class,'store'])->name('caisse.store');
-    Route::get('modifier', [CaisseController::class,'create'])->name('caisse.edit');
-    Route::post('update', [CaisseController::class,'modifier'])->name('caisse.update');
+    Route::get('/',function(){
+        return view('admin_pages.caisse.manage');
+    })->name('caisse');
+    Route::get('/home',function(){
+        return view('admin_pages.caisse.manage');
+    })->name('caisse');
+    Route::get('/getJson', [CaisseController::class,'index']);
+    Route::post('/getCaisses', [CaisseController::class,'show']);
+    Route::post('addCaisses', [CaisseController::class,'store']);
+    Route::get('years', [CaisseController::class,'create']);
+    Route::post('filtrer', [CaisseController::class,'filtrer']);
+
 });
 
 Auth::routes();

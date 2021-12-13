@@ -5,23 +5,35 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Banque détails</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered">
-                    <td>Jour</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <table class="table table-bordered table-sm">
+                    <tr>
+                        <td>Date</td>
+                        <td>Revenue</td>
+                        <td>Déponse</td>
+                        <td>TTC</td>
+                        <td>Source</td>
+                        <td></td>
+                    </tr>
+                    <tr v-for="detail in details" :key="detail.id">
+                        <td>{{detail.date_fact}}</td>
+                        <td>{{detail.revenue}} DH</td>
+                        <td>{{detail.depence}} DH</td>
+                        <td>{{detail.TTC}} DH</td>
+                        <td>{{detail.source}}</td>
+                        <td>
+                            <a href="" class="text-info"><i class="far fa-edit"></i></a> | 
+                            <a href="" class="text-danger"><i class="fas fa-times"></i></a>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Enregistrer</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
             </div>
             </div>
@@ -41,41 +53,41 @@
             <div class="modal-body">
 
                 <div class="form-group">
-                    <input type="text" onfocus="(this.type='date')" class="form-control" id="exampleInputPassword1" placeholder="Date Facturation :">
+                    <input type="text" v-model="date_fact" onfocus="(this.type='date')" class="form-control" required placeholder="Date Facturation :">
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Revenue">
+                    <input type="number" v-model="revenue" class="form-control" required placeholder="Revenue">
                     <div class="input-group-append">
-                        <span class="input-group-text">.00DH</span>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    </div>
-                    <input type="text" class="form-control" placeholder="Dépense">
-                    <div class="input-group-append">
-                        <span class="input-group-text">.00DH</span>
+                        <span class="input-group-text">DH</span>
                     </div>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     </div>
-                    <input type="text" class="form-control"  placeholder="TTC">
+                    <input type="number"  v-model="depence" class="form-control" required placeholder="Dépense">
                     <div class="input-group-append">
-                        <span class="input-group-text">.00DH</span>
+                        <span class="input-group-text">DH</span>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="number"  v-model="ttc" class="form-control"  required placeholder="TTC :">
+                    <div class="input-group-append">
+                        <span class="input-group-text">DH</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Source :">
+                    <input type="text" v-model="source" class="form-control" id="exampleInputPassword1" required placeholder="Source :">
                 </div>
                  <div class="form-group">
-                    <textarea name="" placeholder="description" class="form-control" cols="30" rows="5"></textarea>
+                    <textarea name=""  v-model="description" required placeholder="description" class="form-control" cols="30" rows="5"></textarea>
                 </div>
 
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Enregistrer</button>
+                <button type="button" class="btn btn-primary" @click="addDepense()">Enregistrer</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
 
             </div>
@@ -92,10 +104,9 @@
             </div>
         </div>
         <div class="card-body">
-            <select name="" class="form-control mb-4" style="width:200px">
+            <select name="" @change="filterByYear()" v-model="year" class="form-control mb-4" style="width:200px">
                 <option disabled selected>Année</option>
-                <option value="">2010</option>
-                <option value="">2009</option>
+                <option :value="year.year" v-for="year in years" :key="year.year">{{year.year}}</option>
             </select>
             <table class="table table-striped table-bordered">
                 <tr>
@@ -103,15 +114,17 @@
                     <td>Revenue</td>
                     <td>Dépense</td>
                     <td>Marge bénéf.</td>
-                    <td>Action</td>
+                    <td>Détails</td>
                 </tr>
-                <tr>
-                    <td>12 déc 2021</td>
-                    <td>1200 ,00DH</td>
-                    <td>1200 ,00DH</td>
-                    <td><i class="fas fa-chart-line text-success"></i> 12 ,00DH </td>
+                <tr v-for="caisse in caisses" :key="caisse.id">
+                    <td>{{caisse.month}}</td>
+                    <td>{{caisse.revenue}} ,00DH</td>
+                    <td>{{caisse.depence}} ,00DH</td>
                     <td>
-                        <a href="" class="text-secondary" data-toggle="modal" data-target="#modal_detail"><i class="fas fa-info-circle"></i></a>
+                        <i class="fas fa-chart-line text-success"></i> 
+                        {{caisse.revenue - caisse.depence}},00DH</td>
+                    <td>
+                        <a href="" @click="getDetails(caisse.month)" class="text-primary" data-toggle="modal" data-target="#modal_detail"><i class="fas fa-info-circle fa-lg"></i></a>
                     </td>
                 </tr>
             </table>
@@ -119,3 +132,67 @@
     </div>
     </div>
 </template>
+<script>
+export default {
+    data() {
+        return  {
+            caisses:[],
+            details:[],
+            years:[],
+            year:2021,
+            date_fact:'',
+            revenue:null,
+            depence:null,
+            ttc:null,
+            source:'',
+            description:''
+        }
+    },
+    created(){
+        this.getData();
+        this.getYears()},
+    methods:{
+        getData(){
+            axios
+            .get('/admin/caisse/getJson',{
+                year:this.year
+            })
+            .then(response => (this.caisses = response.data))
+        },
+        getDetails(caisse_month){
+            axios
+            .post('/admin/caisse/getCaisses',{
+                month:caisse_month,
+                year:this.year
+
+            })
+            .then(response => (this.details = response.data))
+        },
+        getYears(){
+            axios
+            .get('/admin/caisse/years')
+            .then(response => (this.years = response.data))
+        },
+        filterByYear(){
+            axios
+            .post('/admin/caisse/filtrer',{
+                year:this.year
+            })
+            .then(response => (this.caisses = response.data))
+        },
+        addDepense(){
+            axios
+            .post('/admin/caisse/addCaisses',{
+                date_fact   : this.date_fact,
+                depence     : this.depence,
+                revenue     : this.revenue,
+                ttc         : this.ttc,
+                source      : this.source,
+                description : this.description
+
+            })
+            .then(response => (this.caisses = response.data))
+        }
+    }
+}
+</script>
