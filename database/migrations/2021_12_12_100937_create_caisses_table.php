@@ -16,11 +16,11 @@ class CreateCaissesTable extends Migration
         Schema::create('caisses', function (Blueprint $table) {
             $table->id();
             $table->date('date_fact');
-            $table->float('revenue');
-            $table->float('depence');
-            $table->float('TTC');
+            $table->float('revenue')->nullable();
+            $table->float('depence')->nullable();
+            $table->float('type');
             $table->string('source');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

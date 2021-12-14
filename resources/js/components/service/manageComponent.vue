@@ -2,47 +2,43 @@
 <div>
         <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel" v-text="msg">{{msg}}</h5>
-            <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-body">
-            <form>
-                <center>
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel" v-text="msg">{{msg}}</h5>
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="hna_khadamin">
                 
-                    <!-- File Attachment Input -->
+                <form @submit="enregistrer()" enctype="multipart/form-data" method="POST">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Upload</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01" name="logo" @change="selectFile">
                             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                         </div>
                     </div>
-                     <!-- End File Attachment Input -->
 
-                <label class="pure-material-textfield-outlined">
-                    <input type="text" v-model="nomservice" placeholder=" " name="nom_service" required value="">
-                    <span>Nom service :</span>
-                </label>
-                <label class="pure-material-textfield-outlined">
-                    <textarea placeholder=" " v-model="description" name="description" rows="5" required>
-                    </textarea>
-                    <span>Description :</span>
-                </label>
-            </center>
-            </form>
-        </div>
-        <div class="modal-footer">
-                        <button type="button" @click="enregistrer()"  class="btn btn-primary" >Enregistrer</button>
+                    <label class="pure-material-textfield-outlined">
+                        <input type="text" v-model="nomservice" placeholder=" " name="nom_service" required value="">
+                        <span>Nom service :</span>
+                    </label>
+                    <label class="pure-material-textfield-outlined">
+                        <textarea placeholder=" " v-model="description" name="description" rows="5" required>
+                        </textarea>
+                        <span>Description :</span>
+                    </label>
 
-            <button type="button" class="btn btn-secondary" id="Annuler" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" >Enregistrer</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="Annuler" data-bs-dismiss="modal">Annuler</button>
+            </div>
+            </div>
         </div>
-        </div>
-    </div>
     </div>
 
     <div class="card-header">
@@ -60,7 +56,9 @@
                 <div class="card-body">
                     <h4 class="card-title">{{service.nom_service}}</h4>
                     <p class="card-text">{{service.description}} {{service.description}} {{service.description}} {{service.description}}</p>
-                    <a href="" class="card-link" @click="getservice(service)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-edit" style="color: rgb(87 122 168);    font-size: 18px;"></i> </a>
+                    <a href="" class="card-link" @click="getservice(service)" 
+                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <i class="fas fa-edit" style="color: rgb(87 122 168);font-size: 18px;"></i> </a>
                     <a href="#" class="card-link" @click="deleteservice(service.id)"><i class="fas fa-trash" style="color: #522525;    font-size: 18px;"></i> </a>
                 </div>
             </div>
@@ -82,7 +80,7 @@ export default {
 
                 services: {},
                 service_id:'',
-                prix:'',
+                image:'',
                 nomservice:'',
                 description:'',
                 msg:'Ajouter un service',
@@ -104,6 +102,10 @@ export default {
             },
             refresh (response){
                 this.services = response.data
+            },
+            selectFile(event) {
+            // `files` is always an array because the file input may be in multiple mode
+                this.image = event.target.files[0];
             },
 
             // Query methods
@@ -157,15 +159,13 @@ export default {
                 this.msg='Ajouter un service'
                 this.edit=false
             },
-            
             enregistrer(){
                 // insert request
                 if(!this.edit){
-
                 axios.post('/admin/service/sendJson',
                 {
                     nomservice : this.nomservice,
-                    prix : this.prix,
+                    image : this.image,
                     description : this.description,
                 })
                 .then(response =>(this.services = response.data))
@@ -187,7 +187,7 @@ export default {
                 axios.post('/admin/service/updateJson',
                 {
                     nomservice : this.nomservice,
-                    prix : this.prix,
+                    image : this.image,
                     description : this.description,
                     id:this.service_id
                 })

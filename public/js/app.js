@@ -2799,6 +2799,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2811,7 +2816,8 @@ __webpack_require__.r(__webpack_exports__);
       depence: null,
       ttc: null,
       source: '',
-      description: ''
+      description: '',
+      head: 'Neuveau dépense'
     };
   },
   created: function created() {
@@ -2854,19 +2860,35 @@ __webpack_require__.r(__webpack_exports__);
         return _this4.caisses = response.data;
       });
     },
-    addDepense: function addDepense() {
-      var _this5 = this;
-
-      axios.post('/admin/caisse/addCaisses', {
-        date_fact: this.date_fact,
-        depence: this.depence,
-        revenue: this.revenue,
-        ttc: this.ttc,
-        source: this.source,
-        description: this.description
-      }).then(function (response) {
-        return _this5.caisses = response.data;
-      });
+    Enregistrer: function Enregistrer() {
+      // insert new record
+      if (this.head == 'Neuveau dépense') {
+        axios.post('/admin/caisse/addCaisses', {
+          date_fact: this.date_fact,
+          depence: this.depence,
+          revenue: this.revenue,
+          ttc: this.ttc,
+          source: this.source,
+          description: this.description
+        }).then(this.getData());
+      } // update new record
+      else {
+        axios.post('/admin/caisse/updateCaisse', {
+          date_fact: this.date_fact,
+          depence: this.depence,
+          revenue: this.revenue,
+          ttc: this.ttc,
+          source: this.source,
+          description: this.description
+        }).then(this.getData());
+      }
+    },
+    edit: function edit(detail) {
+      this.head = 'Modifier dépense', this.date_fact = detail.date_fact, this.revenue = detail.revenue, this.depence = detail.depence, this.ttc = detail.TTC, this.source = detail.source, this.description = detail.description;
+    },
+    add: function add() {
+      this.head = 'Neuveau dépense', this.date_fact = '', this.revenue = '', this.depence = '', this.ttc = '';
+      this.source = '', this.description = '';
     }
   }
 });
@@ -3251,14 +3273,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       services: {},
       service_id: '',
-      prix: '',
+      image: '',
       nomservice: '',
       description: '',
       msg: 'Ajouter un service',
@@ -3279,6 +3299,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     refresh: function refresh(response) {
       this.services = response.data;
+    },
+    selectFile: function selectFile(event) {
+      // `files` is always an array because the file input may be in multiple mode
+      this.image = event.target.files[0];
     },
     // Query methods
     // delete
@@ -3330,7 +3354,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.edit) {
         axios.post('/admin/service/sendJson', {
           nomservice: this.nomservice,
-          prix: this.prix,
+          image: this.image,
           description: this.description
         }).then(function (response) {
           return _this3.services = response.data;
@@ -3353,7 +3377,7 @@ __webpack_require__.r(__webpack_exports__);
       else {
         axios.post('/admin/service/updateJson', {
           nomservice: this.nomservice,
-          prix: this.prix,
+          image: this.image,
           description: this.description,
           id: this.service_id
         }).then(function (response) {
@@ -40779,7 +40803,26 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(detail.source))]),
                         _vm._v(" "),
-                        _vm._m(2, true)
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "text-info",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#caisse_modal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.edit(detail)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "far fa-edit" })]
+                          ),
+                          _vm._v(" | \n                        "),
+                          _vm._m(2, true)
+                        ])
                       ])
                     })
                   ],
@@ -40812,7 +40855,18 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(4),
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    staticClass: "modal-title",
+                    attrs: { id: "exampleModalLabel" }
+                  },
+                  [_vm._v(_vm._s(_vm.head))]
+                ),
+                _vm._v(" "),
+                _vm._m(4)
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "form-group" }, [
@@ -41006,7 +41060,7 @@ var render = function() {
                     attrs: { type: "button" },
                     on: {
                       click: function($event) {
-                        return _vm.addDepense()
+                        return _vm.Enregistrer()
                       }
                     }
                   },
@@ -41029,7 +41083,30 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "card" }, [
-      _vm._m(8),
+      _c("div", { staticClass: "card-header" }, [
+        _c("div", { staticClass: "row" }, [
+          _vm._m(8),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-outline-success",
+                attrs: {
+                  href: "",
+                  "data-toggle": "modal",
+                  "data-target": "#caisse_modal"
+                },
+                on: { click: _vm.add }
+              },
+              [
+                _vm._v("\n                    Ajouter dépense "),
+                _c("i", { staticClass: "fas fa-plus" })
+              ]
+            )
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c(
@@ -41143,7 +41220,7 @@ var staticRenderFns = [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Banque détails")]
+        [_vm._v("Mois détails")]
       ),
       _vm._v(" "),
       _c(
@@ -41182,14 +41259,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { staticClass: "text-info", attrs: { href: "" } }, [
-        _c("i", { staticClass: "far fa-edit" })
-      ]),
-      _vm._v(" | \n                        "),
-      _c("a", { staticClass: "text-danger", attrs: { href: "" } }, [
-        _c("i", { staticClass: "fas fa-times" })
-      ])
+    return _c("a", { staticClass: "text-danger", attrs: { href: "" } }, [
+      _c("i", { staticClass: "fas fa-times" })
     ])
   },
   function() {
@@ -41211,26 +41282,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Neuveau dépense")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function() {
     var _vm = this
@@ -41260,30 +41323,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("h4", { staticClass: "text-muted mt-2" }, [_vm._v("Caisse")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-outline-success",
-              attrs: {
-                href: "",
-                "data-toggle": "modal",
-                "data-target": "#caisse_modal"
-              }
-            },
-            [
-              _vm._v("Ajouter dépense "),
-              _c("i", { staticClass: "fas fa-plus" })
-            ]
-          )
-        ])
-      ])
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("h4", { staticClass: "text-muted mt-2" }, [_vm._v("Caisse")])
     ])
   },
   function() {
@@ -41828,22 +41869,33 @@ var render = function() {
               _vm._m(0)
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _c(
-                "form",
-                [
-                  _c("center", [
+            _c(
+              "div",
+              { staticClass: "modal-body", attrs: { id: "hna_khadamin" } },
+              [
+                _c(
+                  "form",
+                  {
+                    attrs: { enctype: "multipart/form-data", method: "POST" },
+                    on: {
+                      submit: function($event) {
+                        return _vm.enregistrer()
+                      }
+                    }
+                  },
+                  [
                     _c("div", { staticClass: "input-group mb-3" }, [
-                      _c("div", { staticClass: "input-group-prepend" }, [
-                        _c("span", { staticClass: "input-group-text" }, [
-                          _vm._v("Upload")
-                        ])
-                      ]),
+                      _vm._m(1),
                       _vm._v(" "),
                       _c("div", { staticClass: "custom-file" }, [
                         _c("input", {
                           staticClass: "custom-file-input",
-                          attrs: { type: "file", id: "inputGroupFile01" }
+                          attrs: {
+                            type: "file",
+                            id: "inputGroupFile01",
+                            name: "logo"
+                          },
+                          on: { change: _vm.selectFile }
                         }),
                         _vm._v(" "),
                         _c(
@@ -41924,41 +41976,22 @@ var render = function() {
                         _vm._v(" "),
                         _c("span", [_vm._v("Description :")])
                       ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" }
+                      },
+                      [_vm._v("Enregistrer")]
                     )
-                  ])
-                ],
-                1
-              )
-            ]),
+                  ]
+                )
+              ]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      return _vm.enregistrer()
-                    }
-                  }
-                },
-                [_vm._v("Enregistrer")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-secondary",
-                  attrs: {
-                    type: "button",
-                    id: "Annuler",
-                    "data-bs-dismiss": "modal"
-                  }
-                },
-                [_vm._v("Annuler")]
-              )
-            ])
+            _vm._m(2)
           ])
         ])
       ]
@@ -42105,6 +42138,29 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "fas fa-times" })]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Upload")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", id: "Annuler", "data-bs-dismiss": "modal" }
+        },
+        [_vm._v("Annuler")]
+      )
+    ])
   }
 ]
 render._withStripped = true

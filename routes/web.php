@@ -173,7 +173,6 @@ Route::prefix('service')->group(function () {
     Route::get('/', [ServiceController::class,'index'])->name('service');
      //Json http
      Route::get('/getJson', [ServiceController::class,'show']);
-     Route::post('/getJson', [ServiceController::class,'search']);
      Route::post('/sendJson', [ServiceController::class,'store']);
      Route::post('/updateJson', [ServiceController::class,'update']);
      Route::post('/delete', [ServiceController::class,'destroy']);
@@ -193,6 +192,7 @@ Route::prefix('caisse')->group(function () {
     Route::post('addCaisses', [CaisseController::class,'store']);
     Route::get('years', [CaisseController::class,'create']);
     Route::post('filtrer', [CaisseController::class,'filtrer']);
+    Route::post('updateCaisse', [CaisseController::class,'update']);
 
 });
 

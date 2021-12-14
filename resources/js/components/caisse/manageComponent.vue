@@ -5,7 +5,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Banque détails</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Mois détails</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -27,7 +27,7 @@
                         <td>{{detail.TTC}} DH</td>
                         <td>{{detail.source}}</td>
                         <td>
-                            <a href="" class="text-info"><i class="far fa-edit"></i></a> | 
+                            <a @click="edit(detail)" data-toggle="modal" data-target="#caisse_modal" class="text-info"><i class="far fa-edit"></i></a> | 
                             <a href="" class="text-danger"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
@@ -45,7 +45,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Neuveau dépense</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{head}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -87,20 +87,25 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @click="addDepense()">Enregistrer</button>
+                <button type="button" class="btn btn-primary" @click="Enregistrer()">Enregistrer</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-
             </div>
             </div>
         </div>
         </div>
-         <!-- jhgjhg -->
+         <!-- banque manage -->
 
         <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-6"> <h4 class="text-muted mt-2">Caisse</h4> </div>
-                <div class="col-md-6"> <a href="" class="btn btn-outline-success"  data-toggle="modal" data-target="#caisse_modal">Ajouter dépense <i class="fas fa-plus"></i></a> </div>
+                <div class="col-md-6"> 
+                    <h4 class="text-muted mt-2">Caisse</h4> 
+                </div>
+                <div class="col-md-6"> 
+                    <a href="" class="btn btn-outline-success" @click="add"  data-toggle="modal" data-target="#caisse_modal">
+                        Ajouter dépense <i class="fas fa-plus"></i>
+                    </a> 
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -145,7 +150,8 @@ export default {
             depence:null,
             ttc:null,
             source:'',
-            description:''
+            description:'',
+            head:'Neuveau dépense',
         }
     },
     created(){
@@ -180,7 +186,9 @@ export default {
             })
             .then(response => (this.caisses = response.data))
         },
-        addDepense(){
+        Enregistrer(){
+            // insert new record
+            if(this.head=='Neuveau dépense'){
             axios
             .post('/admin/caisse/addCaisses',{
                 date_fact   : this.date_fact,
@@ -191,8 +199,42 @@ export default {
                 description : this.description
 
             })
-            .then(response => (this.caisses = response.data))
-        }
+            .then(this.getData())
+            }
+            // update new record
+            else{
+            axios
+            .post('/admin/caisse/updateCaisse',{
+                date_fact   : this.date_fact,
+                depence     : this.depence,
+                revenue     : this.revenue,
+                ttc         : this.ttc,
+                source      : this.source,
+                description : this.description
+
+            })
+            .then(this.getData())
+            }
+        },
+        edit(detail) {
+            this.head='Modifier dépense',
+            this.date_fact=detail.date_fact,
+            this.revenue=detail.revenue,
+            this.depence=detail.depence,
+            this.ttc=detail.TTC,
+            this.source=detail.source,
+            this.description=detail.description
+       },
+       add(){
+           
+            this.head='Neuveau dépense',
+            this.date_fact='',
+            this.revenue='',
+            this.depence='',
+            this.ttc=''
+            this.source='',
+            this.description=''
+       }
     }
 }
 </script>

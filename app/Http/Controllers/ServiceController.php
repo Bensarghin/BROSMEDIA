@@ -43,15 +43,16 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $filenameWithExt = $request->file('logo')->getClientOriginalName();
+        $image = $request->image;
+        $filenameWithExt = $image->getClientOriginalName();
         //Get just filename
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
         // Get just ext
-        $extension = $request->file('logo')->getClientOriginalExtension();
+        $extension = $image->getClientOriginalExtension();
         // Filename to store
         $fileNameToStore = $filename.'_'.time().'.'.$extension;
         // Upload Image
-        $request->logo->move(public_path('sevice'), $fileNameToStore);
+        $request->image->move(public_path('sevice'), $fileNameToStore);
         $nom_service = $request->nom_service;
         $description = $request->description;
 
@@ -100,15 +101,16 @@ class ServiceController extends Controller
      */
     public function update(Request $request)
     {
-        $filenameWithExt = $request->file('logo')->getClientOriginalName();
+        $image = $request->image;
+        $filenameWithExt = $image->getClientOriginalName();
         //Get just filename
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
         // Get just ext
-        $extension = $request->file('logo')->getClientOriginalExtension();
+        $extension = $image->getClientOriginalExtension();
         // Filename to store
         $fileNameToStore = $filename.'_'.time().'.'.$extension;
         // Upload Image
-        $request->logo->move(public_path('sevice'), $fileNameToStore);
+        $request->image->move(public_path('sevice'), $fileNameToStore);
         DB::table('services')
               ->where('id', $request->id)
               ->update(['nom_service' => $request->nom_service,

@@ -101,7 +101,7 @@ class CaisseController extends Controller
      */
     public function update(Request $request, Caisse $caisse)
     {
-        //
+        Caisse::create([]);
     }
 
     /**
