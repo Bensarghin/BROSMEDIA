@@ -3273,6 +3273,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3281,6 +3288,7 @@ __webpack_require__.r(__webpack_exports__);
       image: '',
       nomservice: '',
       description: '',
+      csrf: document.head.querySelector('meta[name="csrf-token"]') ? document.head.querySelector('meta[name="csrf-token"]').content : '',
       msg: 'Ajouter un service',
       edit: false
     };
@@ -3350,13 +3358,13 @@ __webpack_require__.r(__webpack_exports__);
     enregistrer: function enregistrer() {
       var _this3 = this;
 
-      // insert request
+      var formData = new FormData();
+      formData.append('image', this.image);
+      formData.append('nomservice', this.nomservice);
+      formData.append('description', this.description); // insert request
+
       if (!this.edit) {
-        axios.post('/admin/service/sendJson', {
-          nomservice: this.nomservice,
-          image: this.image,
-          description: this.description
-        }).then(function (response) {
+        axios.post('/admin/service/sendJson', formData).then(function (response) {
           return _this3.services = response.data;
         }).then(function (data) {
           Swal.fire({
@@ -41876,14 +41884,19 @@ var render = function() {
                 _c(
                   "form",
                   {
-                    attrs: { enctype: "multipart/form-data", method: "POST" },
-                    on: {
-                      submit: function($event) {
-                        return _vm.enregistrer()
-                      }
-                    }
+                    attrs: {
+                      action: "/admin/service/sendJson",
+                      enctype: "multipart/form-data",
+                      method: "POST"
+                    },
+                    on: { submit: _vm.enregistrer }
                   },
                   [
+                    _c("input", {
+                      attrs: { type: "hidden", name: "_token" },
+                      domProps: { value: _vm.csrf }
+                    }),
+                    _vm._v(" "),
                     _c("div", { staticClass: "input-group mb-3" }, [
                       _vm._m(1),
                       _vm._v(" "),
@@ -41982,7 +41995,7 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-primary",
-                        attrs: { type: "button" }
+                        attrs: { type: "submit" }
                       },
                       [_vm._v("Enregistrer")]
                     )
@@ -41999,18 +42012,9 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "card-header" }, [
       _c(
-        "div",
-        {
-          staticClass: "card-title",
-          staticStyle: { "font-family": "Titillium Web", "font-size": "20px" }
-        },
-        [_vm._v("\r\n            Liste des services\r\n        ")]
-      ),
-      _vm._v(" "),
-      _c(
         "a",
         {
-          staticClass: "btn btn-info",
+          staticClass: "btn btn-primary",
           attrs: {
             type: "button",
             "data-bs-toggle": "modal",
@@ -42030,6 +42034,19 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c(
+      "h5",
+      {
+        staticClass: "m-5",
+        staticStyle: {
+          "font-family": "Titillium Web",
+          "font-size": "20px",
+          display: "flex"
+        }
+      },
+      [_vm._v("\r\n        Liste des services\r\n    ")]
+    ),
+    _vm._v(" "),
+    _c(
       "div",
       { staticClass: "row" },
       _vm._l(_vm.services, function(service) {
@@ -42037,83 +42054,82 @@ var render = function() {
           "div",
           {
             key: service.id,
-            staticClass: "col-sm-4",
+            staticClass: "col-md-3",
             on: { "table-filtrer": _vm.refresh }
           },
           [
-            _c("div", { staticClass: "card" }, [
-              _c("img", {
-                staticClass: "card-img-top",
-                staticStyle: { width: "100%" },
-                attrs: {
-                  src: "/cabenit/arton23179_1638112683.jpg",
-                  alt: "Card image"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("h4", { staticClass: "card-title" }, [
-                  _vm._v(_vm._s(service.nom_service))
+            _c(
+              "div",
+              {
+                staticClass: "card",
+                staticStyle: { height: "350px", overflow: "hidden" }
+              },
+              [
+                _c("img", {
+                  staticClass: "card-img-top",
+                  staticStyle: { height: "150px" },
+                  attrs: { src: "/sevice/" + service.image, alt: "Card image" }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("h4", { staticClass: "card-title" }, [
+                    _vm._v(_vm._s(service.nom_service))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(
+                      _vm._s(service.description.substring(0, 80)) +
+                        " \r\n                    "
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _vm._v(
-                    _vm._s(service.description) +
-                      " " +
-                      _vm._s(service.description) +
-                      " " +
-                      _vm._s(service.description) +
-                      " " +
-                      _vm._s(service.description)
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "card-link",
-                    attrs: {
-                      href: "",
-                      "data-bs-toggle": "modal",
-                      "data-bs-target": "#staticBackdrop"
+                _c("div", { staticClass: "card-footer" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "card-link",
+                      attrs: {
+                        "data-bs-toggle": "modal",
+                        "data-bs-target": "#staticBackdrop"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.getservice(service)
+                        }
+                      }
                     },
-                    on: {
-                      click: function($event) {
-                        return _vm.getservice(service)
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-edit",
+                        staticStyle: {
+                          color: "rgb(87 122 168)",
+                          "font-size": "18px"
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "card-link",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteservice(service.id)
+                        }
                       }
-                    }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "fas fa-edit",
-                      staticStyle: {
-                        color: "rgb(87 122 168)",
-                        "font-size": "18px"
-                      }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "card-link",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteservice(service.id)
-                      }
-                    }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "fas fa-trash",
-                      staticStyle: { color: "#522525", "font-size": "18px" }
-                    })
-                  ]
-                )
-              ])
-            ])
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-trash",
+                        staticStyle: { color: "#522525", "font-size": "18px" }
+                      })
+                    ]
+                  )
+                ])
+              ]
+            )
           ]
         )
       }),

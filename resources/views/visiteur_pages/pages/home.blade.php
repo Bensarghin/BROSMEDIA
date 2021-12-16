@@ -68,6 +68,7 @@
             </div>
         </div>
         <div class="row">
+            @if($actes)
             @foreach ($actes as $acte)
             <div class="col-lg-4 col-md-6">
                 <div class="single-services-item">
@@ -85,6 +86,7 @@
                 </div>
             </div>
             @endforeach
+            @endif
         </div>
         {{$actes->links()}}
     </div>

@@ -43,7 +43,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $image = $request->image;
+        $image = $request->file('logo');
         $filenameWithExt = $image->getClientOriginalName();
         //Get just filename
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -52,7 +52,7 @@ class ServiceController extends Controller
         // Filename to store
         $fileNameToStore = $filename.'_'.time().'.'.$extension;
         // Upload Image
-        $request->image->move(public_path('sevice'), $fileNameToStore);
+        $image->move(public_path('sevice'), $fileNameToStore);
         $nom_service = $request->nom_service;
         $description = $request->description;
 
@@ -61,10 +61,7 @@ class ServiceController extends Controller
             'image' => $fileNameToStore,
             'description' => $description
         ]);
-        $services = DB::table('services')
-        ->orderBy('id', 'desc')
-        ->get();
-        return response()->json($services);
+        return redirect()->route('service');
     }
 
     /**
@@ -128,8 +125,7 @@ class ServiceController extends Controller
     {
         $id=$request->id;
         $qr=DB::table('services')->where('id', '=', $id)->delete();
-        $data=DB::table('services')
-        ->orderBy('id', 'desc')
+        $data=Service::orderBy('id', 'desc')
         ->get();
         if($qr){
             return response()->json($data);

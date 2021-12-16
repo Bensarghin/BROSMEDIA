@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="{{asset('vsheet/assets/css/style.css')}}">
 
 <link rel="stylesheet" href="{{asset('vsheet/assets/css/responsive.css')}}">
-<title>{{$cabinet->nom_cabinet}}</title>
+<title>{{isset($cabinet->nom_cabinet)?$cabinet->nom_cabinet:'cabinet'}}</title>
 <link rel="icon" type="image/png" href="{{asset('vsheet/assets/images/favicon.png')}}">
 </head>
 <body>
@@ -109,7 +109,9 @@
             <div class="main-responsive-menu">
                 <div class="logo">
                     <a href="index.html">
+                    @if ($cabinet)    
                     <img src="{{asset('cabenit/'.$cabinet->logo)}}" width="90" height="90" alt="logo">
+                    @endif
                     </a>
                 </div>
             </div>

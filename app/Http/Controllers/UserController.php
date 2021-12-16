@@ -50,6 +50,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'logo'=>'required|mimes:png,jpg,jpeg',
+            'nom'=>'required',
+            'description'=>'required',
+            'tele'=>'required',
+            'adresse'=>'required',
+            'ville'=>'required',
+            'service_titre'=>'required',
+            'heure_ouver'=>'required',
+            'heure_ferme'=>'required',
+        ]);
+
         $filenameWithExt = $request->file('logo')->getClientOriginalName();
         //Get just filename
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);

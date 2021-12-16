@@ -30,6 +30,13 @@
                     </div>
                   </div>
                 @else
+                  @if($errors->any())
+                      <div class="alert alert-danger">
+                        @foreach($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                      </div>
+                  @endif
                 <h5 class="card-title">Ajouter cabinet informations</h5>
                 <form action="{{route('cabinet.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -43,27 +50,42 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">nom :</label>
-                        <input type="text" class="form-control" name="nom" value="">
+                        <label for="exampleInputEmail1">nom cabinet:</label>
+                        <input type="text" class="form-control" name="nom" value="{{old('nom')}}">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">descritpion :</label>
-                        <input type="text" name="description" class="form-control" value="" >
+                        <label for="exampleInputPassword1">descritpion (optionnel):</label>
+                        <input type="text" name="description" class="form-control" value="{{old('description')}}" >
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">tele :</label>
-                        <input type="text" name="tele" class="form-control" value="" >
+                        <input type="tel" name="tele" class="form-control" value="{{old('tele')}}" >
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">adresse :</label>
-                        <input type="adresse" name="adresse" class="form-control" value="" >
+                        <input type="text" name="adresse" class="form-control" value="{{old('adresse')}}" >
                     </div>
                     
                     <div class="form-group">
                       <label for="exampleInputPassword1">ville :</label>
-                      <input type="adresse" name="ville" class="form-control" value="" >
+                      <input type="text" name="ville" class="form-control" value="{{old('ville')}}" >
                     </div>
 
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Services titre :</label>
+                      <input type="text" name="service_titre" class="form-control" value="{{old('service_titre')}}" >
+                    </div>
+
+                    <div class="row mb-4">
+                      <div class="col">
+                        <label for="exampleInputPassword1">ouvrir à :</label>
+                        <input type="time" class="form-control" name="heure_ouver" value="{{old('heure_ouver')}}">
+                      </div>
+                      <div class="col">
+                        <label for="exampleInputPassword1">fermé à :</label>
+                        <input type="time" class="form-control" name="heure_ferme"  value="{{old('heure_ferme')}}">
+                      </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                 </form> 
                 @endif
