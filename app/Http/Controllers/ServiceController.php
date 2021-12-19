@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ServiceController extends Controller
 {
@@ -52,7 +53,7 @@ class ServiceController extends Controller
         // Filename to store
         $fileNameToStore = $filename.'_'.time().'.'.$extension;
         // Upload Image
-        $image->move(public_path('sevice'), $fileNameToStore);
+        $image->move(public_path('service'), $fileNameToStore);
         $nom_service = $request->nom_service;
         $description = $request->description;
 
@@ -98,21 +99,27 @@ class ServiceController extends Controller
      */
     public function update(Request $request)
     {
-        $image = $request->image;
-        $filenameWithExt = $image->getClientOriginalName();
-        //Get just filename
-        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        // Get just ext
-        $extension = $image->getClientOriginalExtension();
-        // Filename to store
-        $fileNameToStore = $filename.'_'.time().'.'.$extension;
-        // Upload Image
-        $request->image->move(public_path('sevice'), $fileNameToStore);
+        
+        $fileNameToStore = Service::find($request->id)->image;
+        if($request->file('logo')!=null){
+            File::delete(public_path('service/'.$fileNameToStore));
+            $image = $request->file('logo');
+            $filenameWithExt = $image->getClientOriginalName();
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $image->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $image->move(public_path('service'), $fileNameToStore);
+        }
         DB::table('services')
               ->where('id', $request->id)
               ->update(['nom_service' => $request->nom_service,
                         'image' => $fileNameToStore,
                         'description' => $request->description]);
+        return redirect()->route('service');
     }
 
     /**
@@ -124,6 +131,8 @@ class ServiceController extends Controller
     public function destroy(Request $request)
     {
         $id=$request->id;
+        $fileNameToStore = Service::find($id);
+        File::delete(public_path('service/'.$fileNameToStore->image));
         $qr=DB::table('services')->where('id', '=', $id)->delete();
         $data=Service::orderBy('id', 'desc')
         ->get();

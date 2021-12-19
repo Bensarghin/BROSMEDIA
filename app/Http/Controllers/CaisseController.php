@@ -16,17 +16,23 @@ class CaisseController extends Controller
      */
     public function index(Request $request)
     {   
-        $caisse = Caisse::whereYear('date_fact', 2021)
-        ->groupBy(DB::raw('MONTH(date_fact)'))
-        ->select(
-            (DB::raw('MONTH(date_fact) month')),
-            (DB::raw('SUM(revenue) 	revenue')),
-            (DB::raw('SUM(depence) depence')),
-            (DB::raw('SUM(TTC) TTC'))
-            )
-        
-        ->get();
-        return response()->json($caisse);
+        $caisseR = Caisse::whereYear('date_fact', 2021)
+            ->groupBy(DB::raw('MONTH(date_fact)'))
+            ->select(
+                (DB::raw('MONTH(date_fact) month')),
+                (DB::raw('SUM(taux) taux_revenue'))
+                )
+            ->where('type','revenue');
+        $caisseD = Caisse::whereYear('date_fact', 2021)
+            ->groupBy(DB::raw('MONTH(date_fact)'))
+            ->select(
+                (DB::raw('MONTH(date_fact) month')),
+                (DB::raw('SUM(taux) taux_depense'))
+                )
+                ->where('type','depense')
+                ->union($caisseR)
+                ->get();
+        return response()->json($caisseD);
     }
 
     /**

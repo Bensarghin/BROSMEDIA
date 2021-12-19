@@ -10,8 +10,9 @@
             </div>
             <div class="modal-body" id="hna_khadamin">
                 
-                <form action="/admin/service/sendJson" @submit="enregistrer" enctype="multipart/form-data" method="POST">
+                <form :action="action" @submit="enregistrer" enctype="multipart/form-data" method="POST">
                     <input type="hidden" name="_token" :value="csrf">
+                    <input type="hidden" name="id" v-model="service_id">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Upload</span>
@@ -53,7 +54,7 @@
     <div class="row">
         <div class="col-md-3" v-for="service in services" :key="service.id" @table-filtrer="refresh">
             <div class="card" style="height:350px;overflow:hidden">
-                <img class="card-img-top" :src="'/sevice/'+service.image" alt="Card image" style="height:150px">
+                <img class="card-img-top" :src="'/service/'+service.image" alt="Card image" style="height:150px">
                 <div class="card-body">
                     <h4 class="card-title">{{service.nom_service}}</h4>
                     <p class="card-text">{{service.description.substring(0,80)}} 
@@ -89,9 +90,10 @@ export default {
                 image:'',
                 nomservice:'',
                 description:'',
-                 csrf: document.head.querySelector('meta[name="csrf-token"]') ? document.head.querySelector('meta[name="csrf-token"]').content : '',
+                csrf: document.head.querySelector('meta[name="csrf-token"]') ? document.head.querySelector('meta[name="csrf-token"]').content : '',
                 msg:'Ajouter un service',
-                edit:false
+                edit:false,
+                action:'/admin/service/sendJson'
 
             }
         },
@@ -152,19 +154,20 @@ export default {
 
             //edit method to fetch data to modal before updated
             getservice(service){
-                this.prix=service.prix,
                 this.description=service.description,
                 this.nomservice=service.nom_service,
                 this.service_id=service.id,
                 this.msg='Modifier un service',
-                this.edit=true
+                this.edit=true,
+                this.action = '/admin/service/updateJson'
             },
             addService(){
                 this.prix='',
                 this.description='',
                 this.nomservice='',
                 this.msg='Ajouter un service'
-                this.edit=false
+                this.edit=false,
+                this.action = '/admin/service/sendJson'
             },
             enregistrer(){
                 
@@ -191,13 +194,7 @@ export default {
                 }
                 // update request
                 else{
-                axios.post('/admin/service/updateJson',
-                {
-                    nomservice : this.nomservice,
-                    image : this.image,
-                    description : this.description,
-                    id:this.service_id
-                })
+                axios.post('/admin/service/updateJson',formData)
                 .then(response =>(this.services = response.data))
                 .then(data=>{
                      Swal.fire({
@@ -205,10 +202,9 @@ export default {
                         icon: 'success',
                         title: 'Your work has been saved',
                         showConfirmButton: false,
-                        timer: 1500
-})
+                        timer: 1500})
                     this.fetchData();
-                                        document.getElementById("Annuler").click();
+                    document.getElementById("Annuler").click();
 
                 })
                 .catch(error => console.log(error))

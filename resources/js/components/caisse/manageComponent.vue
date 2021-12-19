@@ -123,11 +123,12 @@
                 </tr>
                 <tr v-for="caisse in caisses" :key="caisse.id">
                     <td>{{caisse.month}}</td>
-                    <td>{{caisse.revenue}} ,00DH</td>
-                    <td>{{caisse.depence}} ,00DH</td>
+                    <td>{{caisse.taux_revenue}} ,00DH</td>
+                    <td>{{caisse.taux_depense}} ,00DH</td>
                     <td>
                         <i class="fas fa-chart-line text-success"></i> 
-                        {{caisse.revenue - caisse.depence}},00DH</td>
+                        {{caisse.taux_revenue - caisse.taux_depense}},00DH
+                    </td>
                     <td>
                         <a href="" @click="getDetails(caisse.month)" class="text-primary" data-toggle="modal" data-target="#modal_detail"><i class="fas fa-info-circle fa-lg"></i></a>
                     </td>
@@ -141,7 +142,7 @@
 export default {
     data() {
         return  {
-            caisses:[],
+            caisses:{},
             details:[],
             years:[],
             year:2021,

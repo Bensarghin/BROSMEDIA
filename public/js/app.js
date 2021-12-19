@@ -2804,10 +2804,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      caisses: [],
+      caisses: {},
       details: [],
       years: [],
       year: 2021,
@@ -3280,6 +3281,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3290,7 +3292,8 @@ __webpack_require__.r(__webpack_exports__);
       description: '',
       csrf: document.head.querySelector('meta[name="csrf-token"]') ? document.head.querySelector('meta[name="csrf-token"]').content : '',
       msg: 'Ajouter un service',
-      edit: false
+      edit: false,
+      action: '/admin/service/sendJson'
     };
   },
   created: function created() {
@@ -3349,11 +3352,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     //edit method to fetch data to modal before updated
     getservice: function getservice(service) {
-      this.prix = service.prix, this.description = service.description, this.nomservice = service.nom_service, this.service_id = service.id, this.msg = 'Modifier un service', this.edit = true;
+      this.description = service.description, this.nomservice = service.nom_service, this.service_id = service.id, this.msg = 'Modifier un service', this.edit = true, this.action = '/admin/service/updateJson';
     },
     addService: function addService() {
       this.prix = '', this.description = '', this.nomservice = '', this.msg = 'Ajouter un service';
-      this.edit = false;
+      this.edit = false, this.action = '/admin/service/sendJson';
     },
     enregistrer: function enregistrer() {
       var _this3 = this;
@@ -3383,12 +3386,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } // update request
       else {
-        axios.post('/admin/service/updateJson', {
-          nomservice: this.nomservice,
-          image: this.image,
-          description: this.description,
-          id: this.service_id
-        }).then(function (response) {
+        axios.post('/admin/service/updateJson', formData).then(function (response) {
           return _this3.services = response.data;
         }).then(function (data) {
           Swal.fire({
@@ -41178,16 +41176,16 @@ var render = function() {
               return _c("tr", { key: caisse.id }, [
                 _c("td", [_vm._v(_vm._s(caisse.month))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(caisse.revenue) + " ,00DH")]),
+                _c("td", [_vm._v(_vm._s(caisse.taux_revenue) + " ,00DH")]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(caisse.depence) + " ,00DH")]),
+                _c("td", [_vm._v(_vm._s(caisse.taux_depense) + " ,00DH")]),
                 _vm._v(" "),
                 _c("td", [
                   _c("i", { staticClass: "fas fa-chart-line text-success" }),
                   _vm._v(
                     " \n                    " +
-                      _vm._s(caisse.revenue - caisse.depence) +
-                      ",00DH"
+                      _vm._s(caisse.taux_revenue - caisse.taux_depense) +
+                      ",00DH\n                "
                   )
                 ]),
                 _vm._v(" "),
@@ -41885,7 +41883,7 @@ var render = function() {
                   "form",
                   {
                     attrs: {
-                      action: "/admin/service/sendJson",
+                      action: _vm.action,
                       enctype: "multipart/form-data",
                       method: "POST"
                     },
@@ -41895,6 +41893,27 @@ var render = function() {
                     _c("input", {
                       attrs: { type: "hidden", name: "_token" },
                       domProps: { value: _vm.csrf }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.service_id,
+                          expression: "service_id"
+                        }
+                      ],
+                      attrs: { type: "hidden", name: "id" },
+                      domProps: { value: _vm.service_id },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.service_id = $event.target.value
+                        }
+                      }
                     }),
                     _vm._v(" "),
                     _c("div", { staticClass: "input-group mb-3" }, [
@@ -42068,7 +42087,7 @@ var render = function() {
                 _c("img", {
                   staticClass: "card-img-top",
                   staticStyle: { height: "150px" },
-                  attrs: { src: "/sevice/" + service.image, alt: "Card image" }
+                  attrs: { src: "/service/" + service.image, alt: "Card image" }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [

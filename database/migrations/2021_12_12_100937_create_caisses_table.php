@@ -16,9 +16,8 @@ class CreateCaissesTable extends Migration
         Schema::create('caisses', function (Blueprint $table) {
             $table->id();
             $table->date('date_fact');
-            $table->float('revenue')->nullable();
-            $table->float('depence')->nullable();
-            $table->float('type');
+            $table->string('type')->default('depense');
+            $table->float('taux');
             $table->string('source');
             $table->text('description')->nullable();
             $table->timestamps();
