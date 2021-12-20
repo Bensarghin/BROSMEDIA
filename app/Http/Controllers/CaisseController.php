@@ -16,23 +16,16 @@ class CaisseController extends Controller
      */
     public function index(Request $request)
     {   
-        $caisseR = Caisse::whereYear('date_fact', 2021)
+        $caisse = DB::table('caisses')->select(
+            DB::raw("
+                MONTH(date_fact) month,
+                SUM(CASE WHEN type='depense' THEN taux END) taux_depense, 
+                SUM(CASE WHEN type='revenue' THEN taux END) taux_revenue")
+            )
             ->groupBy(DB::raw('MONTH(date_fact)'))
-            ->select(
-                (DB::raw('MONTH(date_fact) month')),
-                (DB::raw('SUM(taux) taux_revenue'))
-                )
-            ->where('type','revenue');
-        $caisseD = Caisse::whereYear('date_fact', 2021)
-            ->groupBy(DB::raw('MONTH(date_fact)'))
-            ->select(
-                (DB::raw('MONTH(date_fact) month')),
-                (DB::raw('SUM(taux) taux_depense'))
-                )
-                ->where('type','depense')
-                ->union($caisseR)
-                ->get();
-        return response()->json($caisseD);
+            ->whereYear('date_fact',  date('Y'))
+            ->get();
+        return response()->json($caisse);
     }
 
     /**
@@ -89,7 +82,7 @@ class CaisseController extends Controller
         ->groupBy(DB::raw('MONTH(date_fact)'))
         ->select(
             (DB::raw('MONTH(date_fact) month')),
-            (DB::raw('SUM(revenue) 	revenue')),
+            (DB::raw('SUM(revenue) revenue')),
             (DB::raw('SUM(depence) depence')),
             (DB::raw('SUM(TTC) TTC'))
             )

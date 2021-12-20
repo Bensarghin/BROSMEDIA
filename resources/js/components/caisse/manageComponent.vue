@@ -56,23 +56,9 @@
                     <input type="text" v-model="date_fact" onfocus="(this.type='date')" class="form-control" required placeholder="Date Facturation :">
                 </div>
                 <div class="input-group mb-3">
-                    <input type="number" v-model="revenue" class="form-control" required placeholder="Revenue">
-                    <div class="input-group-append">
-                        <span class="input-group-text">DH</span>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     </div>
-                    <input type="number"  v-model="depence" class="form-control" required placeholder="Dépense">
-                    <div class="input-group-append">
-                        <span class="input-group-text">DH</span>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    </div>
-                    <input type="number"  v-model="ttc" class="form-control"  required placeholder="TTC :">
+                    <input type="number"  v-model="ttc" class="form-control"  required placeholder="Taux :">
                     <div class="input-group-append">
                         <span class="input-group-text">DH</span>
                     </div>

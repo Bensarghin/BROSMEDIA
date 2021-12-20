@@ -2791,20 +2791,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -40905,68 +40891,6 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group mb-3" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.revenue,
-                        expression: "revenue"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      required: "",
-                      placeholder: "Revenue"
-                    },
-                    domProps: { value: _vm.revenue },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.revenue = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._m(5)
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group mb-3" }, [
-                  _c("div", { staticClass: "input-group-prepend" }),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.depence,
-                        expression: "depence"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      required: "",
-                      placeholder: "Dépense"
-                    },
-                    domProps: { value: _vm.depence },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.depence = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._m(6)
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group mb-3" }, [
                   _c("div", { staticClass: "input-group-prepend" }),
                   _vm._v(" "),
                   _c("input", {
@@ -40982,7 +40906,7 @@ var render = function() {
                     attrs: {
                       type: "number",
                       required: "",
-                      placeholder: "TTC :"
+                      placeholder: "Taux :"
                     },
                     domProps: { value: _vm.ttc },
                     on: {
@@ -40995,7 +40919,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(7)
+                  _vm._m(5)
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
@@ -41091,7 +41015,7 @@ var render = function() {
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-header" }, [
         _c("div", { staticClass: "row" }, [
-          _vm._m(8),
+          _vm._m(6),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
             _c(
@@ -41170,7 +41094,7 @@ var render = function() {
           "table",
           { staticClass: "table table-striped table-bordered" },
           [
-            _vm._m(9),
+            _vm._m(7),
             _vm._v(" "),
             _vm._l(_vm.caisses, function(caisse) {
               return _c("tr", { key: caisse.id }, [
@@ -41300,22 +41224,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
-      _c("span", { staticClass: "input-group-text" }, [_vm._v("DH")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
-      _c("span", { staticClass: "input-group-text" }, [_vm._v("DH")])
-    ])
   },
   function() {
     var _vm = this
