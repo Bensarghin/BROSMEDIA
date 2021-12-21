@@ -187,11 +187,11 @@ Route::prefix('caisse')->group(function () {
     Route::get('/home',function(){
         return view('admin_pages.caisse.manage');
     })->name('caisse');
-    Route::get('/getJson', [CaisseController::class,'index']);
+    Route::get('/getJson/{year}', [CaisseController::class,'index']);
     Route::post('/getCaisses', [CaisseController::class,'show']);
-    Route::post('addCaisses', [CaisseController::class,'store']);
+    Route::post('addCaisse', [CaisseController::class,'store']);
     Route::get('years', [CaisseController::class,'create']);
-    Route::post('filtrer', [CaisseController::class,'filtrer']);
+    Route::get('destroy/{id}', [CaisseController::class,'destroy']);
     Route::post('updateCaisse', [CaisseController::class,'update']);
 
 });

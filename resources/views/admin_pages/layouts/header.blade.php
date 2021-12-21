@@ -110,9 +110,7 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a class="side-menu__item dropdown-toggle text-light" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="shape1"></span>
-                                <span class="shape2"></span>
+                            <a class="side-menu-item dropdown-toggle text-light" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-cog"></i>
                                 <span class="ml-4 side-menu__label">Settings</span>
                             </a>

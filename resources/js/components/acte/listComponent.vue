@@ -76,7 +76,6 @@
 <style scoped>
  
 </style>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 export default {

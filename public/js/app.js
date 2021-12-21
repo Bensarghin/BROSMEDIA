@@ -2482,7 +2482,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2791,19 +2790,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       caisses: {},
       details: [],
+      caisse_id: '',
       years: [],
       year: 2021,
       date_fact: '',
-      revenue: null,
-      depence: null,
-      ttc: null,
+      taux: null,
       source: '',
       description: '',
+      edit: false,
+      type: 'revenue',
       head: 'Neuveau dépense'
     };
   },
@@ -2815,9 +2824,7 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      axios.get('/admin/caisse/getJson', {
-        year: this.year
-      }).then(function (response) {
+      axios.get('/admin/caisse/getJson/' + this.year).then(function (response) {
         return _this.caisses = response.data;
       });
     },
@@ -2841,41 +2848,69 @@ __webpack_require__.r(__webpack_exports__);
     filterByYear: function filterByYear() {
       var _this4 = this;
 
-      axios.post('/admin/caisse/filtrer', {
-        year: this.year
-      }).then(function (response) {
+      axios.get('/admin/caisse/getJson/' + this.year).then(function (response) {
         return _this4.caisses = response.data;
       });
     },
     Enregistrer: function Enregistrer() {
       // insert new record
-      if (this.head == 'Neuveau dépense') {
-        axios.post('/admin/caisse/addCaisses', {
+      if (this.edit == false) {
+        axios.post('/admin/caisse/addCaisse', {
           date_fact: this.date_fact,
-          depence: this.depence,
-          revenue: this.revenue,
-          ttc: this.ttc,
+          type: this.type,
+          taux: this.taux,
           source: this.source,
           description: this.description
-        }).then(this.getData());
+        }).then(this.getData(), this.getYears());
+        document.getElementById("annuler2").click();
       } // update new record
       else {
         axios.post('/admin/caisse/updateCaisse', {
+          caisse_id: this.caisse_id,
           date_fact: this.date_fact,
-          depence: this.depence,
-          revenue: this.revenue,
-          ttc: this.ttc,
+          taux: this.taux,
           source: this.source,
           description: this.description
         }).then(this.getData());
+        document.getElementById("annuler").click();
+        document.getElementById("annuler2").click();
       }
     },
-    edit: function edit(detail) {
-      this.head = 'Modifier dépense', this.date_fact = detail.date_fact, this.revenue = detail.revenue, this.depence = detail.depence, this.ttc = detail.TTC, this.source = detail.source, this.description = detail.description;
+    getcaisse: function getcaisse(detail) {
+      this.head = 'Modifier ' + detail.type, this.edit = true, this.date_fact = detail.date_fact, this.taux = detail.taux, this.source = detail.source, this.description = detail.description, this.caisse_id = detail.id;
     },
-    add: function add() {
-      this.head = 'Neuveau dépense', this.date_fact = '', this.revenue = '', this.depence = '', this.ttc = '';
+    add: function add(type) {
+      this.edit = false, this.type = type, this.head = 'Neuveau ' + type;
+      this.date_fact = '', this.taux = '';
       this.source = '', this.description = '';
+    },
+    deleteCaisse: function deleteCaisse(id) {
+      var _this5 = this;
+
+      document.getElementById('annuler').click();
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios.get('/admin/caisse/destroy/' + id).then(_this5.getData()).then(function (data) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Your work has been saved',
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+            _this5.getData();
+          });
+        }
+      });
     }
   }
 });
@@ -40785,36 +40820,119 @@ var render = function() {
                     _vm._v(" "),
                     _vm._l(_vm.details, function(detail) {
                       return _c("tr", { key: detail.id }, [
-                        _c("td", [_vm._v(_vm._s(detail.date_fact))]),
+                        detail.type == "revenue"
+                          ? _c("td", [_vm._v(_vm._s(detail.day))])
+                          : _vm._e(),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(detail.revenue) + " DH")]),
+                        detail.type == "revenue"
+                          ? _c("td", [_vm._v(_vm._s(detail.type))])
+                          : _vm._e(),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(detail.depence) + " DH")]),
+                        detail.type == "revenue"
+                          ? _c("td", [_vm._v(_vm._s(detail.taux) + " DH")])
+                          : _vm._e(),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(detail.TTC) + " DH")]),
+                        detail.type == "revenue"
+                          ? _c("td", [_vm._v(_vm._s(detail.source))])
+                          : _vm._e(),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(detail.source))]),
+                        detail.type == "depense"
+                          ? _c("td", { staticClass: "bg-secondary" }, [
+                              _vm._v(_vm._s(detail.day))
+                            ])
+                          : _vm._e(),
                         _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "text-info",
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#caisse_modal"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.edit(detail)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "far fa-edit" })]
-                          ),
-                          _vm._v(" | \n                        "),
-                          _vm._m(2, true)
-                        ])
+                        detail.type == "depense"
+                          ? _c("td", { staticClass: "bg-secondary" }, [
+                              _vm._v(_vm._s(detail.type))
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        detail.type == "depense"
+                          ? _c("td", { staticClass: "bg-secondary" }, [
+                              _vm._v(_vm._s(detail.taux) + " DH")
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        detail.type == "depense"
+                          ? _c("td", { staticClass: "bg-secondary" }, [
+                              _vm._v(_vm._s(detail.source))
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        detail.type == "revenue"
+                          ? _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#caisse_modal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getcaisse(detail)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "text-info fas fa-pen"
+                                  })
+                                ]
+                              ),
+                              _vm._v(" | \n                        "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteCaisse(detail.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        detail.type == "depense"
+                          ? _c("td", { staticClass: "bg-secondary" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#caisse_modal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getcaisse(detail)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "text-info fas fa-pen"
+                                  })
+                                ]
+                              ),
+                              _vm._v(" | \n                        "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteCaisse(detail.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-times" })]
+                              )
+                            ])
+                          : _vm._e()
                       ])
                     })
                   ],
@@ -40822,7 +40940,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(3)
+              _vm._m(2)
             ])
           ]
         )
@@ -40857,10 +40975,31 @@ var render = function() {
                   [_vm._v(_vm._s(_vm.head))]
                 ),
                 _vm._v(" "),
-                _vm._m(4)
+                _vm._m(3)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.caisse_id,
+                      expression: "caisse_id"
+                    }
+                  ],
+                  attrs: { type: "hidden" },
+                  domProps: { value: _vm.caisse_id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.caisse_id = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("input", {
                     directives: [
@@ -40898,8 +41037,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.ttc,
-                        expression: "ttc"
+                        value: _vm.taux,
+                        expression: "taux"
                       }
                     ],
                     staticClass: "form-control",
@@ -40908,18 +41047,18 @@ var render = function() {
                       required: "",
                       placeholder: "Taux :"
                     },
-                    domProps: { value: _vm.ttc },
+                    domProps: { value: _vm.taux },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.ttc = $event.target.value
+                        _vm.taux = $event.target.value
                       }
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _vm._m(4)
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
@@ -41001,7 +41140,11 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
+                    attrs: {
+                      type: "button",
+                      id: "annuler2",
+                      "data-dismiss": "modal"
+                    }
                   },
                   [_vm._v("Annuler")]
                 )
@@ -41015,9 +41158,30 @@ var render = function() {
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-header" }, [
         _c("div", { staticClass: "row" }, [
-          _vm._m(6),
+          _vm._m(5),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-outline-primary",
+                attrs: {
+                  href: "",
+                  "data-toggle": "modal",
+                  "data-target": "#caisse_modal"
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.add("revenue")
+                  }
+                }
+              },
+              [
+                _vm._v("\n                    Ajouter revenue "),
+                _c("i", { staticClass: "fas fa-plus" })
+              ]
+            ),
+            _vm._v(" "),
             _c(
               "a",
               {
@@ -41027,7 +41191,11 @@ var render = function() {
                   "data-toggle": "modal",
                   "data-target": "#caisse_modal"
                 },
-                on: { click: _vm.add }
+                on: {
+                  click: function($event) {
+                    return _vm.add("depense")
+                  }
+                }
               },
               [
                 _vm._v("\n                    Ajouter dépense "),
@@ -41094,7 +41262,7 @@ var render = function() {
           "table",
           { staticClass: "table table-striped table-bordered" },
           [
-            _vm._m(7),
+            _vm._m(6),
             _vm._v(" "),
             _vm._l(_vm.caisses, function(caisse) {
               return _c("tr", { key: caisse.id }, [
@@ -41172,25 +41340,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("td", [_vm._v("Date")]),
+      _c("td", [_vm._v("Jour")]),
       _vm._v(" "),
-      _c("td", [_vm._v("Revenue")]),
+      _c("td"),
       _vm._v(" "),
-      _c("td", [_vm._v("Déponse")]),
-      _vm._v(" "),
-      _c("td", [_vm._v("TTC")]),
+      _c("td", [_vm._v("Taux")]),
       _vm._v(" "),
       _c("td", [_vm._v("Source")]),
       _vm._v(" "),
       _c("td")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "text-danger", attrs: { href: "" } }, [
-      _c("i", { staticClass: "fas fa-times" })
     ])
   },
   function() {
@@ -41202,7 +41360,7 @@ var staticRenderFns = [
         "button",
         {
           staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-dismiss": "modal" }
+          attrs: { type: "button", id: "annuler", "data-dismiss": "modal" }
         },
         [_vm._v("Annuler")]
       )

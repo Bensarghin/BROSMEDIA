@@ -13,28 +13,34 @@
             <div class="modal-body">
                 <table class="table table-bordered table-sm">
                     <tr>
-                        <td>Date</td>
-                        <td>Revenue</td>
-                        <td>Déponse</td>
-                        <td>TTC</td>
+                        <td>Jour</td>
+                        <td></td>
+                        <td>Taux</td>
                         <td>Source</td>
                         <td></td>
                     </tr>
                     <tr v-for="detail in details" :key="detail.id">
-                        <td>{{detail.date_fact}}</td>
-                        <td>{{detail.revenue}} DH</td>
-                        <td>{{detail.depence}} DH</td>
-                        <td>{{detail.TTC}} DH</td>
-                        <td>{{detail.source}}</td>
-                        <td>
-                            <a @click="edit(detail)" data-toggle="modal" data-target="#caisse_modal" class="text-info"><i class="far fa-edit"></i></a> | 
-                            <a href="" class="text-danger"><i class="fas fa-times"></i></a>
+                        <td v-if="detail.type=='revenue'">{{detail.day}}</td>
+                        <td v-if="detail.type=='revenue'">{{detail.type}}</td>
+                        <td v-if="detail.type=='revenue'">{{detail.taux}} DH</td>
+                        <td v-if="detail.type=='revenue'">{{detail.source}}</td>
+                        <td v-if="detail.type=='depense'" class="bg-secondary">{{detail.day}}</td>
+                        <td v-if="detail.type=='depense'" class="bg-secondary">{{detail.type}}</td>
+                        <td v-if="detail.type=='depense'" class="bg-secondary">{{detail.taux}} DH</td>
+                        <td v-if="detail.type=='depense'" class="bg-secondary">{{detail.source}}</td>
+                        <td v-if="detail.type=='revenue'">
+                            <a @click="getcaisse(detail)" data-toggle="modal" data-target="#caisse_modal"><i class="text-info fas fa-pen"></i></a> | 
+                            <a @click="deleteCaisse(detail.id)" class="text-danger"><i class="fas fa-times"></i></a>
+                        </td>
+                        <td v-if="detail.type=='depense'" class="bg-secondary">
+                            <a @click="getcaisse(detail)" data-toggle="modal" data-target="#caisse_modal"><i class="text-info fas fa-pen"></i></a> | 
+                            <a @click="deleteCaisse(detail.id)" class="text-danger"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" id="annuler" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
             </div>
             </div>
         </div>
@@ -51,14 +57,14 @@
                 </button>
             </div>
             <div class="modal-body">
-
+                <input type="hidden" v-model="caisse_id">
                 <div class="form-group">
                     <input type="text" v-model="date_fact" onfocus="(this.type='date')" class="form-control" required placeholder="Date Facturation :">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     </div>
-                    <input type="number"  v-model="ttc" class="form-control"  required placeholder="Taux :">
+                    <input type="number"  v-model="taux" class="form-control"  required placeholder="Taux :">
                     <div class="input-group-append">
                         <span class="input-group-text">DH</span>
                     </div>
@@ -74,7 +80,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" @click="Enregistrer()">Enregistrer</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" id="annuler2" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
             </div>
             </div>
         </div>
@@ -88,7 +94,10 @@
                     <h4 class="text-muted mt-2">Caisse</h4> 
                 </div>
                 <div class="col-md-6"> 
-                    <a href="" class="btn btn-outline-success" @click="add"  data-toggle="modal" data-target="#caisse_modal">
+                    <a href="" class="btn btn-outline-primary" @click="add('revenue')"  data-toggle="modal" data-target="#caisse_modal">
+                        Ajouter revenue <i class="fas fa-plus"></i>
+                    </a>
+                    <a href="" class="btn btn-outline-success" @click="add('depense')"  data-toggle="modal" data-target="#caisse_modal">
                         Ajouter dépense <i class="fas fa-plus"></i>
                     </a> 
                 </div>
@@ -130,14 +139,15 @@ export default {
         return  {
             caisses:{},
             details:[],
+            caisse_id:'',
             years:[],
             year:2021,
             date_fact:'',
-            revenue:null,
-            depence:null,
-            ttc:null,
+            taux:null,
             source:'',
             description:'',
+            edit:false,
+            type:'revenue',
             head:'Neuveau dépense',
         }
     },
@@ -147,9 +157,7 @@ export default {
     methods:{
         getData(){
             axios
-            .get('/admin/caisse/getJson',{
-                year:this.year
-            })
+            .get('/admin/caisse/getJson/'+this.year)
             .then(response => (this.caisses = response.data))
         },
         getDetails(caisse_month){
@@ -168,60 +176,97 @@ export default {
         },
         filterByYear(){
             axios
-            .post('/admin/caisse/filtrer',{
-                year:this.year
-            })
+            .get('/admin/caisse/getJson/'+this.year)
             .then(response => (this.caisses = response.data))
         },
         Enregistrer(){
             // insert new record
-            if(this.head=='Neuveau dépense'){
+            if(this.edit == false){
             axios
-            .post('/admin/caisse/addCaisses',{
+            .post('/admin/caisse/addCaisse',{
                 date_fact   : this.date_fact,
-                depence     : this.depence,
-                revenue     : this.revenue,
-                ttc         : this.ttc,
+                type     : this.type,
+                taux         : this.taux,
                 source      : this.source,
                 description : this.description
 
             })
-            .then(this.getData())
+            .then(this.getData(),
+                this.getYears());
+            document.getElementById("annuler2").click();
             }
             // update new record
             else{
             axios
             .post('/admin/caisse/updateCaisse',{
+                caisse_id   : this.caisse_id,
                 date_fact   : this.date_fact,
-                depence     : this.depence,
-                revenue     : this.revenue,
-                ttc         : this.ttc,
+                taux        : this.taux,
                 source      : this.source,
                 description : this.description
 
             })
-            .then(this.getData())
+            .then(this.getData());
+            document.getElementById("annuler").click();
+            document.getElementById("annuler2").click();
             }
         },
-        edit(detail) {
-            this.head='Modifier dépense',
+        getcaisse(detail) {
+            this.head='Modifier '+detail.type,
+            this.edit = true,
             this.date_fact=detail.date_fact,
-            this.revenue=detail.revenue,
-            this.depence=detail.depence,
-            this.ttc=detail.TTC,
+            this.taux=detail.taux,
             this.source=detail.source,
-            this.description=detail.description
+            this.description=detail.description,
+            this.caisse_id = detail.id
        },
-       add(){
-           
-            this.head='Neuveau dépense',
+       add(type){
+            this.edit = false,
+            this.type = type,
+            this.head='Neuveau '+type;
             this.date_fact='',
-            this.revenue='',
-            this.depence='',
-            this.ttc=''
+            this.taux=''
             this.source='',
             this.description=''
-       }
+       },
+       deleteCaisse(id){
+                document.getElementById('annuler').click();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            axios
+                            .get('/admin/caisse/destroy/'+id)
+                    .then(this.getData())
+                    .then(data=>{
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500})
+                                this.getData();
+                            })
+                        }
+                    })
+            },
+
+
+
+
+
+
+
+
+
+
     }
 }
 </script>
