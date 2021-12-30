@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Patient;
+use App\Models\Rdv;
+use App\Models\Etat_rdv;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -19,35 +20,31 @@ class RendeyVousController extends Controller
         // convert get result to array
         $arrayData = array_map(function($item) {
             return (array)$item; 
-        }, DB::table('Etat_rdvs')
-        ->select('rdv_id')
+        }, DB::table('rdvs')
+        ->select('id')
         ->get()->toArray());
 
-            // $patients = DB::table('patients')
-            // ->join('rdvs','rdvs.pat_id','=','patients.id')
-            // ->select('patients.id','patients.nom','patients.prenom','rdvs.*')
-            // ->whereNotIn('rdvs.id', $arrayData)
-            // ->orderBy('patients.id','DESC')
-            $patients = Patient::orderByDesc('id')
-            ->paginate(6);
+        $etat_rdv = Rdv::orderByDesc('id')
+        ->whereNotIn('rdv_id',$arrayData);
+        $patients = $etat_rdv->paginate(6);
             return view('admin_pages.rendey-vous.manage',[
                 'data'=>$patients]);
     }
 
-    public function filtrer($id)
+    public function filtrer()
     {
-        $rdvs='';
-        if(isset($id) && $id==1) {
-            $rdvs = DB::table('rdvs')
-            ->join('patients', 'patients.id', '=', 'rdvs.pat_id')
-            ->join('etat_rdvs', 'rdvs.id', '=', 'etat_rdvs.rdv_id')
-            ->join('actes', 'actes.id', '=', 'rdvs.act_id')
-            ->select('rdvs.*', 'patients.nom', 'patients.prenom','actes.nom_acte','etat_rdvs.*')
-            ->orderBy('rdvs.id','DESC')
-            ->paginate(6);
-        }
+        // convert get result to array
+        $arrayData = array_map(function($item) {
+            return (array)$item; 
+        }, DB::table('Etat_rdvs')
+        ->select('rdv_id')
+        ->get()->toArray());
+
+        $etat_rdv = Rdv::orderByDesc('id')
+        ->whereIn('id',$arrayData);
+        $patients = $etat_rdv->paginate(6);
         return view('admin_pages.rendey-vous.manage',[
-            'data'=>$rdvs]);
+            'data'=>$patients]);
     }
 
     public function update(Request $request, $id)

@@ -15,7 +15,7 @@
                 List des patients sans RDV </h1>
             </a>
             
-            <a class="border-bottom" href="{{route('rdv.filter',['id'=> 1])}}">
+            <a class="border-bottom" href="{{route('rdv.filter')}}">
                 List des patients avec RDV 
             </a>
             <span class="badge bg-dark text-white"><i class="fas fa-layer-group"></i> {{$data->count()}}</span>
@@ -43,18 +43,18 @@
                 </tr>
                 @foreach ($data as $rdv)
                 <tr>
-                    <td>{{$rdv->nom}} {{$rdv->prenom}} </td>
-                    <td>{{isset($rdv->rdv()->date_prend_rdv)?$rdv->rdv()->date_prend_rdv:'aucun rdv'}}</td>
-                    <td>{{isset($rdv->rdv()->etat_rdv->date_consu)?$rdv->rdv()->etat_rdv->date_consu:'aucun rdv'}}</td>
-                    <td>{{isset($rdv->heure_rdv)?$rdv->heure_rdv:'aucun rdv'}}</td>
-                    <td>{{isset($rdv->status)?$rdv->status:'aucun rdv'}}</td>
-                    <td>{{isset($rdv->nom_acte)?$rdv->nom_acte:'aucun rdv'}}</td>
+                    <td>{{$rdv->rdv->patient->nom}} {{$rdv->rdv->patient->prenom}} </td>
+                    <td>{{$rdv->rdv->date_prend_rdv}}</td>
+                    <td>{{$rdv->date_consu}}</td>
+                    <td>{{$rdv->heure_rdv}}</td>
+                    <td>{{$rdv->status}}</td>
+                    <td>{{$rdv->rdv->acte->nom_acte}}</td>
                     <td>
                         @if (!isset($rdv->date_prend_rdv))
-                            <a href="{{route('rdv.insert', $rdv->id)}}" class="text-success" data-bs-toggle="tooltip" data-bs-placement="top" title="ajouter Rdv"><i class="far fa-calendar-plus"></i> </a> 
+                            <a href="{{route('rdv.insert', $rdv->rdv->id)}}" class="text-success" data-bs-toggle="tooltip" data-bs-placement="top" title="ajouter Rdv"><i class="far fa-calendar-plus"></i> </a> 
                         @else
-                            <a href="{{route('rdv.update',['id'=>$rdv->rdv_id])}}" class="text-info" data-bs-toggle="tooltip" data-bs-placement="top" title="modifier rdv"><i class="fas fa-edit"></i></a>  |
-                            <a onclick="return confirm('Vous étes vraiment à supprimer ce enregistrement')" class="text-danger" href="{{route('rdv.delete',['id'=>$rdv->rdv_id])}}" data-bs-toggle="tooltip" data-bs-placement="top" title="supprimer rdv"><i class="fas fa-trash"></i></a>
+                            <a href="{{route('rdv.update',['id'=>$rdv->rdv->id])}}" class="text-info" data-bs-toggle="tooltip" data-bs-placement="top" title="modifier rdv"><i class="fas fa-edit"></i></a>  |
+                            <a onclick="return confirm('Vous étes vraiment à supprimer ce enregistrement')" class="text-danger" href="{{route('rdv.delete',['id'=>$rdv->id])}}" data-bs-toggle="tooltip" data-bs-placement="top" title="supprimer rdv"><i class="fas fa-trash"></i></a>
                         @endif
                     </td>
                     

@@ -73,7 +73,7 @@ Route::prefix('facturation')->group(function () {
 // Rendey-vous routes
 Route::prefix('rendy-vous')->group(function () {
     Route::get('manage', [RendeyVousController::class,"index"])->name('rdv.manage');
-    Route::get('filter/{id}', [RendeyVousController::class,"filtrer"])->name('rdv.filter');
+    Route::get('filter', [RendeyVousController::class,"filtrer"])->name('rdv.filter');
     Route::post('search', [RendeyVousController::class,"search"])->name('rdv.search');
     Route::get('update/{id}', [RendeyVousController::class,"update"])->name('rdv.update');
     Route::post('update/{id}', [RendeyVousController::class,"update"])->name('rdv.update');
