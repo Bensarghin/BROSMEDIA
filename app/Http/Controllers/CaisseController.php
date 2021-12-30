@@ -65,7 +65,7 @@ class CaisseController extends Controller
     public function show(Request $request)
     {   
         $caisse = DB::table('caisses')->select(
-        DB::raw("DAY(date_fact) day, caisses.*")
+        DB::raw("caisses.*")
         )
         ->whereMonth('date_fact',$request->month)
         ->whereYear('date_fact',  $request->year)

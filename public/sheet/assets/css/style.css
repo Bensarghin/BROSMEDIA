@@ -37069,3 +37069,6 @@ width: 200px;
 .card .card-title{
     margin-top: 0;
 }
+.rdv:focus{
+    color: #00388c;
+}

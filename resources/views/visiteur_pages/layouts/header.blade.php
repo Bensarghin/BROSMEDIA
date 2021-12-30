@@ -90,11 +90,12 @@
             <div class="col-lg-8 col-md-12">
                 <ul class="middle-header-content">
                     <li>
-                        <i class="flaticon-emergency-call"></i>Call Today<span>
+                        <i class="flaticon-emergency-call"></i>Télé :<span>
                         <a href="tel:088123654987">{{isset($cabinet->tele)?$cabinet->tele:''}}</a></span>
                     </li>
                     <li>
-                        <i class="flaticon-wall-clock"></i>Open Hour<span>09:00 AM to 18:00 PM</span>
+                        <i class="flaticon-wall-clock"></i>Temps d'ouvrir :<span>
+                            {{$cabinet->heure_ouver}} à {{$cabinet->heure_ferme}}</span>
                     </li>
                 </ul>
             </div>
@@ -132,7 +133,7 @@
                             <a href="{{route('rdv.form')}}" class="nav-link">Rendez-vous</a>
                         </li>
                         <li class="nav-item">
-                            <a href="contact-us.html" class="nav-link">Contact Nous</a>
+                            <a href="{{route('contact')}}" class="nav-link">Contact Nous</a>
                         </li>
                         <li class="nav-item">
                             <a href="about-us.html" class="nav-link">Qui sommes-nous ?</a>

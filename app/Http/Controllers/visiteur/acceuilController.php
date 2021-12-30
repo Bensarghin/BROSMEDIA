@@ -6,16 +6,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cabinet;
 use App\Models\Acte;
+use App\Models\Service;
 
 class acceuilController extends Controller
 {
-    public function index()
+    public function __construct()
     {
         $cabinet = Cabinet::first();
-        $actes = Acte::paginate(6);
-        return view('visiteur_pages.pages.home',[
-            'cabinet' => $cabinet ,
-            'actes'   => $actes
+        $services = Service::paginate(6);
+        \view()->share([
+            'cabinet'    => $cabinet,
+            'services'   => $services
         ]);
+    }
+    public function index()
+    {
+        return view('visiteur_pages.pages.home');
+    }
+
+    public function contact(){
+        return view('visiteur_pages.pages.contact');
     }
 }

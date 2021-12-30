@@ -11,6 +11,6 @@ class Etat_rdv extends Model
 
     public function rdv()
     {
-        return $this->belongsTo('App\Models\Rdv');
+        return $this->hasOne('App\Models\Rdv','rdv_id');
     }
 }

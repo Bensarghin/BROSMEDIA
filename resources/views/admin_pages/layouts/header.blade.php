@@ -33,7 +33,7 @@
 
 
 <body class="app sidebar-mini" oncontextmenu="false">
-    <div class="page">
+    <div id="app">
         <div class="page-main is-expanded">
             <!--aside open-->
             <div class="app-sidebar__overlay active" data-toggle="sidebar"></div>
@@ -106,7 +106,7 @@
                                 <span class="shape1"></span>
                                 <span class="shape2"></span>
                                 <i class="fas fa-wallet"></i>
-                                <span class="ml-4 side-menu__label">Déponse</span> 
+                                <span class="ml-4 side-menu__label">Désponse</span> 
                             </a>
                         </li>
                         <li class="dropdown">

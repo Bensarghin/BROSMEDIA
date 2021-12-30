@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -18,14 +19,16 @@ class RendeyVousController extends Controller
         // convert get result to array
         $arrayData = array_map(function($item) {
             return (array)$item; 
-        }, DB::table('rdvs')
-        ->select('rdvs.pat_id')
+        }, DB::table('Etat_rdvs')
+        ->select('rdv_id')
         ->get()->toArray());
 
-            $patients = DB::table('patients')
-            ->select('patients.id','patients.nom','patients.prenom')
-            ->whereNotIn('id', $arrayData)
-            ->orderBy('id','DESC')
+            // $patients = DB::table('patients')
+            // ->join('rdvs','rdvs.pat_id','=','patients.id')
+            // ->select('patients.id','patients.nom','patients.prenom','rdvs.*')
+            // ->whereNotIn('rdvs.id', $arrayData)
+            // ->orderBy('patients.id','DESC')
+            $patients = Patient::orderByDesc('id')
             ->paginate(6);
             return view('admin_pages.rendey-vous.manage',[
                 'data'=>$patients]);

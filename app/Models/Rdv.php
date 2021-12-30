@@ -20,7 +20,7 @@ class Rdv extends Model
 
     public function etat_rdv()
     {
-        return $this->hasOne('App\Models\Etat_rdv');
+        return $this->belongsTo('App\Models\Etat_rdv','rdv_id');
     }
 
     public function patient()

@@ -210,3 +210,4 @@ Route::get('/', [acceuilController::class,'index']);
 Route::get('/', [acceuilController::class,'index'])->name('visiteur.home');
 Route::get('/prend_rdv', [rdvController::class,'index'])->name('rdv.form');
 Route::post('/insert',[rdvController::class,'insert'])->name('rdv.saisie');
+Route::get('/contact',[acceuilController::class,'contact'])->name('contact');

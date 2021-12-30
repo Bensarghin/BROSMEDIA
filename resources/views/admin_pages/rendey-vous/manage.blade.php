@@ -44,8 +44,8 @@
                 @foreach ($data as $rdv)
                 <tr>
                     <td>{{$rdv->nom}} {{$rdv->prenom}} </td>
-                    <td>{{isset($rdv->date_prend_rdv)?$rdv->date_prend_rdv:'aucun rdv'}}</td>
-                    <td>{{isset($rdv->date_consu)?$rdv->date_consu:'aucun rdv'}}</td>
+                    <td>{{isset($rdv->rdv()->date_prend_rdv)?$rdv->rdv()->date_prend_rdv:'aucun rdv'}}</td>
+                    <td>{{isset($rdv->rdv()->etat_rdv->date_consu)?$rdv->rdv()->etat_rdv->date_consu:'aucun rdv'}}</td>
                     <td>{{isset($rdv->heure_rdv)?$rdv->heure_rdv:'aucun rdv'}}</td>
                     <td>{{isset($rdv->status)?$rdv->status:'aucun rdv'}}</td>
                     <td>{{isset($rdv->nom_acte)?$rdv->nom_acte:'aucun rdv'}}</td>
@@ -67,5 +67,11 @@
             document.querySelector(".first").addEventListener('click', function(){
                 Swal.fire("Our First Alert");
                 });
+            $(document).ready(function(){
+                var loc = window.location.pathname;
+                $('.rdv-patient').find('.border-bottom').each(function() {
+                    $(this).toggleClass('rdv', $(this).attr('href') == loc);
+                });
+            });
         </script>
 @endsection

@@ -2,7 +2,7 @@
     <div>
         <!-- detail modal -->
         <div class="modal fade" id="modal_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog  modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Mois détails</h5>
@@ -11,29 +11,31 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered table-sm">
+                <table class="table table-bordered table-light">
                     <tr>
-                        <td>Jour</td>
-                        <td></td>
+                        <td>Date</td>
                         <td>Taux</td>
                         <td>Source</td>
-                        <td></td>
+                        <td>Description</td>
+                        <td>Action</td>
                     </tr>
                     <tr v-for="detail in details" :key="detail.id">
-                        <td v-if="detail.type=='revenue'">{{detail.day}}</td>
-                        <td v-if="detail.type=='revenue'">{{detail.type}}</td>
+                        <td v-if="detail.type=='revenue'">{{detail.date_fact}}</td>
                         <td v-if="detail.type=='revenue'">{{detail.taux}} DH</td>
                         <td v-if="detail.type=='revenue'">{{detail.source}}</td>
-                        <td v-if="detail.type=='depense'" class="bg-secondary">{{detail.day}}</td>
-                        <td v-if="detail.type=='depense'" class="bg-secondary">{{detail.type}}</td>
-                        <td v-if="detail.type=='depense'" class="bg-secondary">{{detail.taux}} DH</td>
-                        <td v-if="detail.type=='depense'" class="bg-secondary">{{detail.source}}</td>
+                        <td v-if="detail.type=='revenue'">{{detail.description}}</td>
+
+                        <td v-if="detail.type=='depense'" style="background:rgb(106 4 15 / 19%)">{{detail.date_fact}}</td>
+                        <td v-if="detail.type=='depense'" style="background:rgb(106 4 15 / 19%)">{{detail.taux}} DH</td>
+                        <td v-if="detail.type=='depense'" style="background:rgb(106 4 15 / 19%)">{{detail.source}}</td>
+                        <td v-if="detail.type=='depense'" style="background:rgb(106 4 15 / 19%)">{{detail.description}}</td>
+
                         <td v-if="detail.type=='revenue'">
-                            <a @click="getcaisse(detail)" data-toggle="modal" data-target="#caisse_modal"><i class="text-info fas fa-pen"></i></a> | 
+                            <a @click="getcaisse(detail)" data-toggle="modal" class="text-secondary" data-target="#caisse_modal"><i class="text-info fas fa-pen-square"></i></a> | 
                             <a @click="deleteCaisse(detail.id)" class="text-danger"><i class="fas fa-times"></i></a>
                         </td>
-                        <td v-if="detail.type=='depense'" class="bg-secondary">
-                            <a @click="getcaisse(detail)" data-toggle="modal" data-target="#caisse_modal"><i class="text-info fas fa-pen"></i></a> | 
+                        <td v-if="detail.type=='depense'" style="background:rgb(106 4 15 / 19%)">
+                            <a @click="getcaisse(detail)" data-toggle="modal" class="text-secondary" data-target="#caisse_modal"><i class="text-info fas fa-pen-square"></i></a> | 
                             <a @click="deleteCaisse(detail.id)" class="text-danger"><i class="fas fa-times"></i></a>
                         </td>
                     </tr>
@@ -117,7 +119,7 @@
                     <td>Détails</td>
                 </tr>
                 <tr v-for="caisse in caisses" :key="caisse.id">
-                    <td>{{caisse.month}}</td>
+                    <td>{{ caisse.month | getMonthName}}</td>
                     <td>{{caisse.taux_revenue}} ,00DH</td>
                     <td>{{caisse.taux_depense}} ,00DH</td>
                     <td>
@@ -134,6 +136,7 @@
     </div>
 </template>
 <script>
+import moment from 'moment';
 export default {
     data() {
         return  {
@@ -155,6 +158,9 @@ export default {
         this.getData();
         this.getYears()},
     methods:{
+        isMonth(value) {
+            return moment(value).format("MMMM")
+        },
         getData(){
             axios
             .get('/admin/caisse/getJson/'+this.year)

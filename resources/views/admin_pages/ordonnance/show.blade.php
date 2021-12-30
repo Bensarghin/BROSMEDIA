@@ -47,7 +47,7 @@ img {
                         @if(isset($cabinet))
                         <img src="{{asset('cabenit/'.$cabinet->logo)}}" alt="" width="80" height="80">
                         @else
-                            <a class="text-danger" href="{{route('user.cabenit')}}">Ajouter information de  votre cabinet ...</a>
+                            <a class="text-danger" href="{{route('cabinet')}}">Ajouter information de  votre cabinet ...</a>
                         @endif
                     </div>
                     <div class="colum p-4">

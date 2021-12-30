@@ -80,6 +80,10 @@ class UserController extends Controller
             'tele' => $request->tele,
             'adresse' => $request->adresse,
             'ville' => $request->ville,
+            'services_titre' => $request->service_titre,
+            'heure_ouver' => $request->heure_ouver,
+            'heure_ferme' => $request->heure_ferme,
+
         ]);
 
         return redirect()->back();
