@@ -23,6 +23,6 @@ class Patient extends Model
     
     public function rdv()
     {
-        return $this->hasMany('App\Models\Rdv', 'pat_id');
+        return $this->hasMany(Rdv::class, 'pat_id');
     }
 }

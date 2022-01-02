@@ -14,18 +14,17 @@ class CaisseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($year)
     {   
-        $caisse = Caisse::whereYear('date_fact', 2021)
-        ->groupBy(DB::raw('MONTH(date_fact)'))
-        ->select(
-            (DB::raw('MONTH(date_fact) month')),
-            (DB::raw('SUM(revenue) 	revenue')),
-            (DB::raw('SUM(depence) depence')),
-            (DB::raw('SUM(TTC) TTC'))
+        $caisse = DB::table('caisses')->select(
+            DB::raw("
+                MONTH(date_fact) month,
+                SUM(CASE WHEN type='depense' THEN taux END) taux_depense, 
+                SUM(CASE WHEN type='revenue' THEN taux END) taux_revenue")
             )
-        
-        ->get();
+            ->groupBy(DB::raw('MONTH(date_fact)'))
+            ->whereYear('date_fact',  $year)
+            ->get();
         return response()->json($caisse);
     }
 
@@ -52,7 +51,7 @@ class CaisseController extends Controller
      */
     public function store(Request $request)
     {
-        Caisse::create($request->all());
+        Caisse::insert($request->all());
         return response()->json(Caisse::all());
 
     }
@@ -64,9 +63,12 @@ class CaisseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
-    {
-        $caisse = Caisse::whereMonth('date_fact',$request->month)
-        ->whereYear('date_fact',$request->year)
+    {   
+        $caisse = DB::table('caisses')->select(
+        DB::raw("caisses.*")
+        )
+        ->whereMonth('date_fact',$request->month)
+        ->whereYear('date_fact',  $request->year)
         ->get();
         return response()->json($caisse);
     }
@@ -83,7 +85,7 @@ class CaisseController extends Controller
         ->groupBy(DB::raw('MONTH(date_fact)'))
         ->select(
             (DB::raw('MONTH(date_fact) month')),
-            (DB::raw('SUM(revenue) 	revenue')),
+            (DB::raw('SUM(revenue) revenue')),
             (DB::raw('SUM(depence) depence')),
             (DB::raw('SUM(TTC) TTC'))
             )
@@ -99,9 +101,16 @@ class CaisseController extends Controller
      * @param  \App\Models\Caisse  $caisse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Caisse $caisse)
+    public function update(Request $request)
     {
-        Caisse::create([]);
+        $id = $request->caisse_id;
+        Caisse::where('id',$id)
+        ->update([
+            'taux' => $request->taux,
+            'source' => $request->source,
+            'date_fact' => $request->date_fact,
+            'description' => $request->description
+        ]);
     }
 
     /**
@@ -110,8 +119,8 @@ class CaisseController extends Controller
      * @param  \App\Models\Caisse  $caisse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Caisse $caisse)
+    public function destroy($id)
     {
-        //
+        Caisse::find($id)->delete();
     }
 }

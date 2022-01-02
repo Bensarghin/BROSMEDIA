@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -50,6 +50,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'logo'=>'required|mimes:png,jpg,jpeg',
+            'nom'=>'required',
+            'description'=>'required',
+            'tele'=>'required',
+            'adresse'=>'required',
+            'ville'=>'required',
+            'service_titre'=>'required',
+            'heure_ouver'=>'required',
+            'heure_ferme'=>'required',
+        ]);
+
         $filenameWithExt = $request->file('logo')->getClientOriginalName();
         //Get just filename
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -68,6 +80,10 @@ class UserController extends Controller
             'tele' => $request->tele,
             'adresse' => $request->adresse,
             'ville' => $request->ville,
+            'services_titre' => $request->service_titre,
+            'heure_ouver' => $request->heure_ouver,
+            'heure_ferme' => $request->heure_ferme,
+
         ]);
 
         return redirect()->back();

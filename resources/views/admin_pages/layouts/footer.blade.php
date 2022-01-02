@@ -93,7 +93,6 @@
         
 
         {{-- laravel js --}}
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
 
         <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
@@ -101,6 +100,7 @@
             const { Dropzone } = require("dropzone");
             const dropzone = new Dropzone("div#myId", { url: "/file/post" });
         </script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

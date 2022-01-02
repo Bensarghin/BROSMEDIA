@@ -340,7 +340,8 @@
     margin-top: 40px;
 }
 
-.side-menu__item {
+.side-menu__item,
+.side-menu-item{
     position: relative;
     display: -webkit-box;
     display: -ms-flexbox;

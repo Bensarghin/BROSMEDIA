@@ -73,7 +73,7 @@ Route::prefix('facturation')->group(function () {
 // Rendey-vous routes
 Route::prefix('rendy-vous')->group(function () {
     Route::get('manage', [RendeyVousController::class,"index"])->name('rdv.manage');
-    Route::get('filter/{id}', [RendeyVousController::class,"filtrer"])->name('rdv.filter');
+    Route::get('filter', [RendeyVousController::class,"filtrer"])->name('rdv.filter');
     Route::post('search', [RendeyVousController::class,"search"])->name('rdv.search');
     Route::get('update/{id}', [RendeyVousController::class,"update"])->name('rdv.update');
     Route::post('update/{id}', [RendeyVousController::class,"update"])->name('rdv.update');
@@ -187,11 +187,11 @@ Route::prefix('caisse')->group(function () {
     Route::get('/home',function(){
         return view('admin_pages.caisse.manage');
     })->name('caisse');
-    Route::get('/getJson', [CaisseController::class,'index']);
+    Route::get('/getJson/{year}', [CaisseController::class,'index']);
     Route::post('/getCaisses', [CaisseController::class,'show']);
-    Route::post('addCaisses', [CaisseController::class,'store']);
+    Route::post('addCaisse', [CaisseController::class,'store']);
     Route::get('years', [CaisseController::class,'create']);
-    Route::post('filtrer', [CaisseController::class,'filtrer']);
+    Route::get('destroy/{id}', [CaisseController::class,'destroy']);
     Route::post('updateCaisse', [CaisseController::class,'update']);
 
 });
@@ -210,3 +210,4 @@ Route::get('/', [acceuilController::class,'index']);
 Route::get('/', [acceuilController::class,'index'])->name('visiteur.home');
 Route::get('/prend_rdv', [rdvController::class,'index'])->name('rdv.form');
 Route::post('/insert',[rdvController::class,'insert'])->name('rdv.saisie');
+Route::get('/contact',[acceuilController::class,'contact'])->name('contact');

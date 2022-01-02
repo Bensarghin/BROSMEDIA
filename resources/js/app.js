@@ -6,6 +6,12 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
+var moment = require('moment');
+Vue.filter('getMonthName', function(value) {
+    if (value) {
+        return moment(String(value)).format('MMMM')
+    }
+});
 
 /**
  * The following block of code may be used to automatically register your

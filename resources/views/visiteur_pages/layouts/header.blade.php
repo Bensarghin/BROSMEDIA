@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="{{asset('vsheet/assets/css/style.css')}}">
 
 <link rel="stylesheet" href="{{asset('vsheet/assets/css/responsive.css')}}">
-<title>{{$cabinet->nom_cabinet}}</title>
+<title>{{isset($cabinet->nom_cabinet)?$cabinet->nom_cabinet:'cabinet'}}</title>
 <link rel="icon" type="image/png" href="{{asset('vsheet/assets/images/favicon.png')}}">
 </head>
 <body>
@@ -90,11 +90,12 @@
             <div class="col-lg-8 col-md-12">
                 <ul class="middle-header-content">
                     <li>
-                        <i class="flaticon-emergency-call"></i>Call Today<span>
+                        <i class="flaticon-emergency-call"></i>Télé :<span>
                         <a href="tel:088123654987">{{isset($cabinet->tele)?$cabinet->tele:''}}</a></span>
                     </li>
                     <li>
-                        <i class="flaticon-wall-clock"></i>Open Hour<span>09:00 AM to 18:00 PM</span>
+                        <i class="flaticon-wall-clock"></i>Temps d'ouvrir :<span>
+                            {{isset($cabinet->heure_ouver)?$cabinet->heure_ouver:'00:00'}} à {{isset($cabinet->heure_ferme)?$cabinet->heure_ferme:'00:00'}}</span>
                     </li>
                 </ul>
             </div>
@@ -109,7 +110,9 @@
             <div class="main-responsive-menu">
                 <div class="logo">
                     <a href="index.html">
+                    @if ($cabinet)    
                     <img src="{{asset('cabenit/'.$cabinet->logo)}}" width="90" height="90" alt="logo">
+                    @endif
                     </a>
                 </div>
             </div>
@@ -130,7 +133,7 @@
                             <a href="{{route('rdv.form')}}" class="nav-link">Rendez-vous</a>
                         </li>
                         <li class="nav-item">
-                            <a href="contact-us.html" class="nav-link">Contact Nous</a>
+                            <a href="{{route('contact')}}" class="nav-link">Contact Nous</a>
                         </li>
                         <li class="nav-item">
                             <a href="about-us.html" class="nav-link">Qui sommes-nous ?</a>

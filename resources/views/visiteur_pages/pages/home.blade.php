@@ -33,7 +33,6 @@
                     <p class="wow fadeInLeft" data-wow-delay="1s">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     <div class="banner-btn wow fadeInUp" data-wow-delay="1s">
                         <a href="appointment.html" class="default-btn">Book Appointment</a>
-                        <a href="dentist.html" class="optional-btn">Consult A Dentist</a>
                     </div>
                 </div>
             </div>
@@ -58,7 +57,7 @@
                     <i class="flaticon-hashtag-symbol"></i>
                         Notre meilleur Services
                     </span>
-                    <h2>Enjoy Specialized Care Through Precision, Artistry, and Experience</h2>
+                    <h2>{{isset($cabinet->services_titre)?$cabinet->services_titre:'Services titre'}}</h2>
                 </div>
             </div>
             <div class="col-lg-5">
@@ -68,25 +67,27 @@
             </div>
         </div>
         <div class="row">
-            @foreach ($actes as $acte)
+            @if($services)
+            @foreach ($services as $service)
             <div class="col-lg-4 col-md-6">
                 <div class="single-services-item">
                     <div class="services-image">
-                        <a href="services-details.html"><img src="{{asset('vsheet/assets/images/services/services-6.jpg')}}" alt="image"></a>
+                        <a href="services-details.html"><img src="{{asset('/service/'.$service->image)}}" alt="image"></a>
                         <div class="icon">
                             <a href="services-details.html"><i class="flaticon-tooth-2"></i></a>
                         </div>
                     </div>
                     <div class="services-content">
-                        <h3><a href="services-details.html">{{Str::limit($acte->nom_acte,20)}}</a></h3>
-                        <p>{{Str::limit($acte->description, 150)}}</p>
+                        <h3><a href="services-details.html">{{Str::limit($service->nom_service,20)}}</a></h3>
+                        <p>{{Str::limit($service->description, 150)}}</p>
                         <a href="services-details.html" class="default-btn">Read More</a>
                     </div>
                 </div>
             </div>
             @endforeach
+            @endif
         </div>
-        {{$actes->links()}}
+        {{$services->links()}}
     </div>
 </section>
 @endsection

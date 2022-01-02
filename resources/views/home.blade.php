@@ -38,7 +38,7 @@
             {{-- Patients --}}
             <div class="card bg-gradient-danger overflow-hidden text-white" style="height: 179px;">
                 <div class="card-body pb-0">
-                    <p class=" mb-1 ">Total Patients</p>
+                    <a href="{{route('rdv.manage')}}"  class="mb-1 text-light border-bottom">Total Patients  <i class="fas fa-calendar-plus"></i></a>
                     <h2 class="mb-1 font-weight-bold fs-30">
                         {{$total_pat}}
                     </h2>

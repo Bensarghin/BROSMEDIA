@@ -9,8 +9,15 @@
                 <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body" id="hna_khadamin">
+<<<<<<< HEAD
                 <form @submit="enregistrer()" enctype="multipart/form-data" method="POST">
                 @csrf
+=======
+                
+                <form :action="action" @submit="enregistrer" enctype="multipart/form-data" method="POST">
+                    <input type="hidden" name="_token" :value="csrf">
+                    <input type="hidden" name="id" v-model="service_id">
+>>>>>>> f9b2cb3de9d38ff438125dafac08e8baf2407702
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Upload</span>
@@ -31,7 +38,7 @@
                         <span>Description :</span>
                     </label>
 
-                    <button type="button" class="btn btn-primary" >Enregistrer</button>
+                    <button type="submit" class="btn btn-primary" >Enregistrer</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -42,24 +49,30 @@
     </div>
 
     <div class="card-header">
-        <div class="card-title" style="font-family:Titillium Web;font-size:20px">
-            Liste des services
-        </div> 
-        <a type="button" @click="addService()" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <a type="button" @click="addService()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             AJOUTER UN SERVICE <i class="fas fa-folder-plus"></i> 
         </a>
     </div>
+    <h5 class="m-5" style="font-family:Titillium Web;font-size:20px;display:flex">
+        Liste des services
+    </h5> 
     <div class="row">
-        <div class="col-sm-4" v-for="service in services" :key="service.id" @table-filtrer="refresh">
-            <div class="card">
-                <img class="card-img-top" :src="'/cabenit/arton23179_1638112683.jpg'" alt="Card image" style="width:100%">
+        <div class="col-md-3" v-for="service in services" :key="service.id" @table-filtrer="refresh">
+            <div class="card" style="height:350px;overflow:hidden">
+                <img class="card-img-top" :src="'/service/'+service.image" alt="Card image" style="height:150px">
                 <div class="card-body">
                     <h4 class="card-title">{{service.nom_service}}</h4>
-                    <p class="card-text">{{service.description}} {{service.description}} {{service.description}} {{service.description}}</p>
-                    <a href="" class="card-link" @click="getservice(service)" 
+                    <p class="card-text">{{service.description.substring(0,80)}} 
+                    </p>
+                </div>
+                <div class="card-footer">
+                    
+                    <a class="card-link" @click="getservice(service)" 
                     data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     <i class="fas fa-edit" style="color: rgb(87 122 168);font-size: 18px;"></i> </a>
-                    <a href="#" class="card-link" @click="deleteservice(service.id)"><i class="fas fa-trash" style="color: #522525;    font-size: 18px;"></i> </a>
+                    <a class="card-link" @click="deleteservice(service.id)">
+                        <i class="fas fa-trash" style="color: #522525; font-size: 18px;"></i> 
+                    </a>
                 </div>
             </div>
         </div>
@@ -74,7 +87,6 @@
 
 <script>
 export default {
-    
         data () {
             return {
 
@@ -83,8 +95,10 @@ export default {
                 image:'',
                 nomservice:'',
                 description:'',
+                csrf: document.head.querySelector('meta[name="csrf-token"]') ? document.head.querySelector('meta[name="csrf-token"]').content : '',
                 msg:'Ajouter un service',
-                edit:false
+                edit:false,
+                action:'/admin/service/sendJson'
 
             }
         },
@@ -145,29 +159,30 @@ export default {
 
             //edit method to fetch data to modal before updated
             getservice(service){
-                this.prix=service.prix,
                 this.description=service.description,
                 this.nomservice=service.nom_service,
                 this.service_id=service.id,
                 this.msg='Modifier un service',
-                this.edit=true
+                this.edit=true,
+                this.action = '/admin/service/updateJson'
             },
             addService(){
                 this.prix='',
                 this.description='',
                 this.nomservice='',
                 this.msg='Ajouter un service'
-                this.edit=false
+                this.edit=false,
+                this.action = '/admin/service/sendJson'
             },
             enregistrer(){
+                
+                let formData = new FormData();
+                formData.append('image', this.image);
+                formData.append('nomservice', this.nomservice);
+                formData.append('description', this.description);
                 // insert request
                 if(!this.edit){
-                axios.post('/admin/service/sendJson',
-                {
-                    nomservice : this.nomservice,
-                    image : this.image,
-                    description : this.description,
-                })
+                axios.post('/admin/service/sendJson', formData)
                 .then(response =>(this.services = response.data))
                 .then(data=>{
                      Swal.fire({
@@ -184,13 +199,7 @@ export default {
                 }
                 // update request
                 else{
-                axios.post('/admin/service/updateJson',
-                {
-                    nomservice : this.nomservice,
-                    image : this.image,
-                    description : this.description,
-                    id:this.service_id
-                })
+                axios.post('/admin/service/updateJson',formData)
                 .then(response =>(this.services = response.data))
                 .then(data=>{
                      Swal.fire({
@@ -198,10 +207,9 @@ export default {
                         icon: 'success',
                         title: 'Your work has been saved',
                         showConfirmButton: false,
-                        timer: 1500
-})
+                        timer: 1500})
                     this.fetchData();
-                                        document.getElementById("Annuler").click();
+                    document.getElementById("Annuler").click();
 
                 })
                 .catch(error => console.log(error))

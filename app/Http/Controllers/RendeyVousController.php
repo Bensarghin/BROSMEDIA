@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rdv;
+use App\Models\Etat_rdv;
+use App\Models\Patient;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -10,41 +13,38 @@ class RendeyVousController extends Controller
 {   
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index()
-    {
-        // convert get result to array
-        $arrayData = array_map(function($item) {
+    {        
+        $pat_id = array_map(function($item) {
             return (array)$item; 
         }, DB::table('rdvs')
-        ->select('rdvs.pat_id')
+        ->select('pat_id')
         ->get()->toArray());
 
-            $patients = DB::table('patients')
-            ->select('patients.id','patients.nom','patients.prenom')
-            ->whereNotIn('id', $arrayData)
-            ->orderBy('id','DESC')
-            ->paginate(6);
+        $rdvs = Patient::whereNotIn('id',$pat_id)
+        ->orderByDesc('id');
+        $patients = $rdvs->paginate(6);
             return view('admin_pages.rendey-vous.manage',[
                 'data'=>$patients]);
     }
 
-    public function filtrer($id)
+    public function filtrer()
     {
-        $rdvs='';
-        if(isset($id) && $id==1) {
-            $rdvs = DB::table('rdvs')
-            ->join('patients', 'patients.id', '=', 'rdvs.pat_id')
-            ->join('etat_rdvs', 'rdvs.id', '=', 'etat_rdvs.rdv_id')
-            ->join('actes', 'actes.id', '=', 'rdvs.act_id')
-            ->select('rdvs.*', 'patients.nom', 'patients.prenom','actes.nom_acte','etat_rdvs.*')
-            ->orderBy('rdvs.id','DESC')
-            ->paginate(6);
-        }
-        return view('admin_pages.rendey-vous.manage',[
-            'data'=>$rdvs]);
+        $pat_id = array_map(function($item) {
+            return (array)$item; 
+        }, DB::table('rdvs')
+        ->select('pat_id')
+        ->get()->toArray());
+
+        $rdvs = Patient::whereIn('id',$pat_id)
+        ->orderByDesc('id');
+        $patients = $rdvs->paginate(6);
+            return view('admin_pages.rendey-vous.manage',[
+                'data'=>$patients]);
+
     }
 
     public function update(Request $request, $id)

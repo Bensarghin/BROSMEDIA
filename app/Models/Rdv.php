@@ -25,7 +25,7 @@ class Rdv extends Model
 
     public function patient()
     {
-        return $this->belongsTo('App\Models\Patient','pat_id');
+        return $this->belongsTo(Patient::class,'pat_id');
     }
 
     public function consultation()
