@@ -9,8 +9,8 @@
                 <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body" id="hna_khadamin">
-                
                 <form @submit="enregistrer()" enctype="multipart/form-data" method="POST">
+                @csrf
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Upload</span>
