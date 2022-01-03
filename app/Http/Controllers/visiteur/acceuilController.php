@@ -5,7 +5,7 @@ namespace App\Http\Controllers\visiteur;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cabinet;
-use App\Models\Acte;
+use App\Models\User;
 use App\Models\Service;
 
 class acceuilController extends Controller

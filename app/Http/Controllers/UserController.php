@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -99,18 +99,23 @@ class UserController extends Controller
     { 
         // delete old file
         $cabenit = Cabinet::first();
-        File::delete(public_path('cabenit/'.$cabenit->logo));
+        $logo =  $request->file('logo');
+        if($logo != null){
+            File::delete(public_path('cabenit/'.$cabenit->logo));
 
-        $filenameWithExt = $request->file('logo')->getClientOriginalName();
+        $filenameWithExt = $logo ->getClientOriginalName();
         //Get just filename
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
         // Get just ext
-        $extension = $request->file('logo')->getClientOriginalExtension();
+        $extension = $logo->getClientOriginalExtension();
         // Filename to store
         $fileNameToStore = $filename.'_'.time().'.'.$extension;
         // Upload Image
         $request->logo->move(public_path('cabenit'), $fileNameToStore);
-
+        }
+        else {
+            $fileNameToStore = $cabenit->logo;
+        }
         DB::table('cabinets')
         ->update([
             'nom_cabenit' => $request->nom,

@@ -33,6 +33,7 @@
 <title>{{isset($cabinet->nom_cabinet)?$cabinet->nom_cabinet:'cabinet'}}</title>
 <link rel="icon" type="image/png" href="{{asset('vsheet/assets/images/favicon.png')}}">
 </head>
+
 <body>
 
 {{-- <div class="preloader"><div class="loader"><div class="sbl-half-circle-spin"></div></div></div> --}}
@@ -52,25 +53,17 @@
             <div class="col-lg-6 col-md-12">
                 <ul class="top-header-optional">
                     <li>
-                        <a href="https://www.facebook.com/" target="_blank">
+                        <a href="#" target="_blank">
                         <i class='bx bxl-facebook'></i>
                         </a>
-                        <a href="https://twitter.com/?lang=en" target="_blank">
+                        <a href="#" target="_blank">
                         <i class='bx bxl-twitter'></i>
                         </a>
-                        <a href="https://www.linkedin.com/" target="_blank">
+                        <a href="#" target="_blank">
                         <i class='bx bxl-linkedin'></i>
                         </a>
-                        <a href="https://www.instagram.com/" target="_blank">
+                        <a href="#" target="_blank">
                         <i class='bx bxl-instagram'></i>
-                        </a>
-                    </li>
-                    <li class="languages-list">
-                        <a href="https://www.instagram.com/" target="_blank">
-                            Fançais
-                        </a> |
-                        <a href="https://www.instagram.com/" target="_blank">
-                            عربي
                         </a>
                     </li>
                 </ul>
@@ -84,7 +77,7 @@
         <div class="row align-items-center">
             <div class="col-lg-4 col-md-12">
                 <div class="middle-header">
-                    <h1><a href="index.html">{{isset($cabinet->nom_cabenit)?$cabinet->nom_cabenit:''}}</a></h1>
+                    <h1><a href="{{route('home')}}">{{isset($cabinet->nom_cabenit)?$cabinet->nom_cabenit:''}}</a></h1>
                 </div>
             </div>
             <div class="col-lg-8 col-md-12">
@@ -131,12 +124,6 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('rdv.form')}}" class="nav-link">Rendez-vous</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('contact')}}" class="nav-link">Contact Nous</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="about-us.html" class="nav-link">Qui sommes-nous ?</a>
                         </li>
                     </ul>
                     <div class="others-options d-flex align-items-center">

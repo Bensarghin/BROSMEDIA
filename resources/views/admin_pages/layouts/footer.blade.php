@@ -21,7 +21,8 @@
 
 
     <script src="//code.jquery.com/jquery-3.5.1.js"></script>
-
+    {{-- laravel  css --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
                                         <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
                                         <script src="//code.jquery.com/jquery-3.5.1.js"></script>
                                         <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
@@ -86,21 +87,10 @@
     <script src="{{asset('sheet/assets/js/index1.js')}}"></script>
     <script src="{{asset('sheet/assets/js/loader.js')}}"></script>
     <script src="{{asset('sheet/assets/js/custom.js')}}"></script>
-    <script src="{{asset('sheet/assets/switcher/js/switcher.js')}}"></script><svg id="SvgjsSvg1001" width="2" height="0"
-        xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-        xmlns:svgjs="http://svgjs.com/svgjs"
-        style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;">
-        
-
         {{-- laravel js --}}
-        <script src="{{ asset('js/app.js') }}" defer></script>
-
-        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-        <script>
-            const { Dropzone } = require("dropzone");
-            const dropzone = new Dropzone("div#myId", { url: "/file/post" });
-        </script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

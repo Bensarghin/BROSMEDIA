@@ -27,12 +27,12 @@
                 <div class="main-banner-content">
                     <span class="sub-title wow fadeInDown" data-wow-delay="1s">
                     <i class="flaticon-hashtag-symbol"></i>
-                    Keeping Teeth Clean
+                        Millieur Services à
                     </span>
-                    <h1 class="wow fadeInDown" data-wow-delay="1s">The World Best <span>Dental Specialist</span> Treatment</h1>
-                    <p class="wow fadeInLeft" data-wow-delay="1s">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <h1 class="wow fadeInDown" data-wow-delay="1s">Cabinet <span>{{isset($cabinet->nom_cabenit)?$cabinet->nom_cabenit:'Nom Cabinet'}}</span> Médical</h1>
+                    <p class="wow fadeInLeft" data-wow-delay="1s">{{isset($cabinet->description)?$cabinet->description:'Description Cabinet'}}</p>
                     <div class="banner-btn wow fadeInUp" data-wow-delay="1s">
-                        <a href="appointment.html" class="default-btn">Book Appointment</a>
+                        <a href="{{route('rdv.form')}}" class="default-btn">Prend Rendez-vous</a>
                     </div>
                 </div>
             </div>
@@ -60,11 +60,6 @@
                     <h2>{{isset($cabinet->services_titre)?$cabinet->services_titre:'Services titre'}}</h2>
                 </div>
             </div>
-            <div class="col-lg-5">
-                <div class="section-warp-btn">
-                    <a href="services.html" class="default-btn">View All</a>
-                </div>
-            </div>
         </div>
         <div class="row">
             @if($services)
@@ -80,7 +75,6 @@
                     <div class="services-content">
                         <h3><a href="services-details.html">{{Str::limit($service->nom_service,20)}}</a></h3>
                         <p>{{Str::limit($service->description, 150)}}</p>
-                        <a href="services-details.html" class="default-btn">Read More</a>
                     </div>
                 </div>
             </div>
