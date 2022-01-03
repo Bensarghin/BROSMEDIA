@@ -77,7 +77,7 @@
         <div class="row align-items-center">
             <div class="col-lg-4 col-md-12">
                 <div class="middle-header">
-                    <h1><a href="{{route('home')}}">{{isset($cabinet->nom_cabenit)?$cabinet->nom_cabenit:''}}</a></h1>
+                    <h1><a href="{{route('visiteur.home')}}">{{isset($cabinet->nom_cabenit)?$cabinet->nom_cabenit:''}}</a></h1>
                 </div>
             </div>
             <div class="col-lg-8 col-md-12">

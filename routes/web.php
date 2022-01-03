@@ -38,7 +38,7 @@ Route::prefix('admin')->group(function () {
 
 
 Route::get('/',[HomeController::class,'index'])->middleware('auth');
-Route::get('/home',[HomeController::class,'index'])->name('home');
+Route::get('/home',[HomeController::class,'index'])->name('admin.home');
 Route::get('home/JsonData',[HomeController::class,'getdata']);
 Route::get('/home/getJson',[HomeController::class,'filtrer']);
 Route::post('/home/getJson',[HomeController::class,'filtrer']);

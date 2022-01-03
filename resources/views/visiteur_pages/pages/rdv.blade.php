@@ -105,8 +105,9 @@
                 <div class="form-group">
                     <select name="acte" id="" class="form-control">
                         <option disabled selected>Choisie l'acte</option>
-                        @foreach ($actes as $acte)
+                        @foreach ($actes as $acte){
                             <option value="{{$acte->id}}">{{$acte->nom_acte}}</option>
+                        }
                         @endforeach
                     </select>
                     @error('acte')

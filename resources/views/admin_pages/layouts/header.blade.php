@@ -52,7 +52,7 @@
                     </div>
                     <ul class="side-menu">
                         <li class="slide">
-                            <a class="side-menu__item" href="{{route('home')}}">
+                            <a class="side-menu__item" href="{{route('admin.home')}}">
                                 <span class="shape1"></span>
                                 <span class="shape2"></span>
                                 <i class="fas fa-home"></i>
